@@ -8,6 +8,16 @@ body {
     margin-right: 31%;
 }
 
+.thumbnail a h5 {
+    display: inline;
+    margin-left: 20%;
+}
+
+.thumbnail a button {
+    width: 20%;
+    margin-left: 3%;
+}
+
 .carousel-control-next, .carousel-control-prev {
 
 }
@@ -23,6 +33,36 @@ body {
 
 .col-sm-12 {
     width: 100%;
+}
+
+#title {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.col-md-3 {
+    border: 3px solid gray;
+    width: 20%;
+    margin-left: 5%;
+
+}
+
+.row {
+    margin-top: 5%;
+}
+
+.thumbnail {
+    margin-top: 10%;
+    padding: 2%;
+}
+
+.thumbnail a img {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.caption p {
+    font-size: 16px;
 }
 
 div.well{
