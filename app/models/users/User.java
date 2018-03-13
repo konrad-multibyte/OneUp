@@ -1,27 +1,36 @@
 package models.users;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "privileges")
-public class User {
+public class User extends Model{
 
     @Id
     private String id;
     @Column(unique = true)
     private String email;
+    private String password;
     private String firstName;
     private String lastName;
     private String username;
     private Date joined;
 
+    private static Finder<String, User> finder = new Finder<>(User.class);
+
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String username, Date joined) {
+    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
+        this.id = id;
         this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -42,6 +51,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public String getFirstName() {
@@ -75,4 +92,19 @@ public class User {
     public void setJoined(Date joined) {
         this.joined = joined;
     }
+
+    public static Finder<String, User> getFinder() {
+        return finder;
+    }
+
+    @Override
+    public void save() {
+        password = BCrypt.hashpw(password, BCrypt.gensalt());
+        super.save();
+    }
+
+    public boolean checkPassword(String password) {
+        return BCrypt.checkpw(password, this.password);
+    }
+
 }
