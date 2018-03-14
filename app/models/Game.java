@@ -102,7 +102,7 @@ public class Game extends Model{
         return finder.ref(id);
     }
 
-    private enum GameTags {
+    enum GameTags {
         SinglePlayer(),
         MultiPlayer(),
         PartialControllerSupport(),
