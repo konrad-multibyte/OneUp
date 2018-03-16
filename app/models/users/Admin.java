@@ -6,9 +6,20 @@ import java.util.Date;
 
 @Entity
 @DiscriminatorValue("admin")
-public class Admin extends User{
+public class Admin extends User {
+
+
     /**
-     * Create a administrator.
+     * Create an anonymous administrator.
+     * @param id Unique Primary key id.
+     * @param email Unique email used for logging in.
+     * @param password Password used for logging in. Hashed
+     */
+    public Admin(String id, String email, String password) {
+        super(id, email, password);
+    }
+    /**
+     * Create a public administrator.
      * @param id Primary key.
      * @param email Unique. administrator will use email to login.
      * @param password Hashed. administrator will user password with email.

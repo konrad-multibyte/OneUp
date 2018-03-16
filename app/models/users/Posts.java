@@ -1,12 +1,13 @@
 package models.users;
 
+import io.ebean.Model;
 import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Posts {
+public class Posts extends Model {
 
     @Id
     private String id;

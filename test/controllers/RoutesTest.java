@@ -4,7 +4,6 @@ import org.junit.Test;
 import play.Application;
 import play.inject.guice.GuiceApplicationBuilder;
 import play.mvc.Http;
-import play.mvc.Result;
 import play.test.WithApplication;
 
 import static org.junit.Assert.assertEquals;
@@ -12,7 +11,7 @@ import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.route;
 
-public class HomeControllerTest extends WithApplication {
+public class RoutesTest extends WithApplication {
 
     @Override
     protected Application provideApplication() {
@@ -20,9 +19,16 @@ public class HomeControllerTest extends WithApplication {
     }
 
     @Test
-    public void testIndex() {
-        Http.RequestBuilder request = new Http.RequestBuilder().method(GET).uri("/");
-        Result result = route(app, request);
-        assertEquals(OK, result.status());
+    public void register() {
+        assertEquals(OK, route(app, get("/register")).status());
+    }
+
+    @Test
+    public void login() {
+        assertEquals(OK, route(app, get("/login")).status());
+    }
+
+    private Http.RequestBuilder get(String route) {
+        return new Http.RequestBuilder().method(GET).uri(route);
     }
 }

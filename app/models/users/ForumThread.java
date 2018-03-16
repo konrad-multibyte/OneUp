@@ -1,10 +1,11 @@
 package models.users;
 
+import io.ebean.Model;
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class ForumThread {
+public class ForumThread extends Model {
 
     @Id
     private String id;
