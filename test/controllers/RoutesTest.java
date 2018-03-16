@@ -11,7 +11,7 @@ import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.route;
 
-public class RoutesTest extends WithApplication {
+public class Routes extends WithApplication {
 
     @Override
     protected Application provideApplication() {
@@ -19,13 +19,13 @@ public class RoutesTest extends WithApplication {
     }
 
     @Test
-    public void register() {
-        assertEquals(OK, route(app, get("/register")).status());
+    public void login() {
+        assertEquals(OK, route(app, get("/login")).status());
     }
 
     @Test
-    public void login() {
-        assertEquals(OK, route(app, get("/login")).status());
+    public void register() {
+        assertEquals(OK, route(app, get("/register")).status());
     }
 
     private Http.RequestBuilder get(String route) {
