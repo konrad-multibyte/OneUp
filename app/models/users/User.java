@@ -14,6 +14,7 @@ public class User extends Model{
 
     @Id
     private String id;
+
     @Column(unique = true)
     private String email;
     private String password;
@@ -24,13 +25,14 @@ public class User extends Model{
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
-    public User() {
-    }
-
-    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
+    public User(String id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
+        this(id, email, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;

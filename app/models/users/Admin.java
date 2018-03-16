@@ -7,13 +7,6 @@ import java.util.Date;
 @Entity
 @DiscriminatorValue("admin")
 public class Admin extends User{
-
-    /**
-     * Default constructor.
-     */
-    public Admin() {
-    }
-
     /**
      * Create a administrator.
      * @param id Primary key.

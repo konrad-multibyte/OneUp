@@ -14,10 +14,9 @@ public class Customer extends User{
     @ManyToMany
     private List<Game> gamesList;
 
-    /**
-     * Default constructor
-     */
-    public Customer() {
+
+    public Customer(String id, String email, String password) {
+        super(id, email, password);
     }
 
     /**

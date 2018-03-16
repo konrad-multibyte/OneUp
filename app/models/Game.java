@@ -16,7 +16,7 @@ public class Game extends Model{
     private String id;
     private String title;
     private String description;
-    private List<GameTags> gameTags;
+    private List<String> gameTags;
     private double price;
     private double rating;
 
@@ -25,10 +25,7 @@ public class Game extends Model{
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game() {
-    }
-
-    public Game(String id, String title, String description, List<GameTags> gameTags, double price, double rating, ForumThread thread) {
+    public Game(String id, String title, String description, List<String> gameTags, double price, double rating, ForumThread thread) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -62,11 +59,11 @@ public class Game extends Model{
         this.description = description;
     }
 
-    public List<GameTags> getGameTags() {
+    public List<String> getGameTags() {
         return gameTags;
     }
 
-    public void setGameTags(List<GameTags> gameTags) {
+    public void setGameTags(List<String> gameTags) {
         this.gameTags = gameTags;
     }
 
@@ -100,22 +97,5 @@ public class Game extends Model{
 
     public static Game get(String id) {
         return finder.ref(id);
-    }
-
-    enum GameTags {
-        SinglePlayer(),
-        MultiPlayer(),
-        PartialControllerSupport(),
-        FullControllerSupport(),
-        VirtualReality(),
-        OnlineMultiPlayer(),
-        LocalMultiPlayer(),
-        CoOp(),
-        OnlineCoOp(),
-        LocalCoOp(),
-        SplitScreen(),
-        CrossPlatform(),
-        VirtualRealityOnly(),
-        VirtualRealitySupported(),
     }
 }
