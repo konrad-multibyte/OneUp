@@ -2,7 +2,6 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
-import models.users.ForumThread;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

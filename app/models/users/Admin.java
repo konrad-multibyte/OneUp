@@ -31,13 +31,4 @@ public class Admin extends User {
     public Admin(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
         super(id, email, password, firstName, lastName, username, joined);
     }
-
-    /**
-     * Get a unique administrator.
-     * @param id The id that the administrator holds.
-     * @return The administrator with that unique id.
-     */
-    public static Admin get(String id) {
-        return (Admin) getFinder().ref(id);
-    }
 }

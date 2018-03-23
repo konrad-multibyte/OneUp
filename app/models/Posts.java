@@ -1,6 +1,7 @@
-package models.users;
+package models;
 
 import io.ebean.Model;
+import models.users.User;
 import org.joda.time.DateTime;
 
 import javax.persistence.Entity;

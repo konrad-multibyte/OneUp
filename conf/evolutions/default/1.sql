@@ -29,11 +29,11 @@ create table posts (
 create table user (
   privileges                    varchar(31) not null,
   id                            varchar(255) not null,
-  email                         varchar(255),
-  password                      varchar(255),
+  email                         varchar(255) not null,
+  password                      varchar(255) not null,
   first_name                    varchar(255),
   last_name                     varchar(255),
-  username                      varchar(255),
+  username                      varchar(255) not null,
   joined                        timestamp,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id)

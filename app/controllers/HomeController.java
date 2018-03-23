@@ -1,5 +1,6 @@
 package controllers;
 
+import models.users.User;
 import play.mvc.*;
 
 /**
@@ -15,7 +16,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(views.html.index.render());
+        return ok(views.html.index.render(User.getWithEmail(session().get("email"))));
     }
 
 }

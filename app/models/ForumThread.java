@@ -1,6 +1,8 @@
-package models.users;
+package models;
 
 import io.ebean.Model;
+import models.Posts;
+
 import javax.persistence.*;
 import java.util.List;
 

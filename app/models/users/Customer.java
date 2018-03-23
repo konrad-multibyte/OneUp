@@ -1,6 +1,7 @@
 package models.users;
 
 import models.Game;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -41,14 +42,5 @@ public class Customer extends User {
      */
     public List<Game> getGamesList() {
         return gamesList;
-    }
-
-    /**
-     * Get a unique customer based on randomly generated UUID
-     * @param id The id th uniquely distinguish the customer
-     * @return The customer with the unique id.
-     */
-    public static Customer get(String id) {
-        return (Customer) getFinder().ref(id);
     }
 }

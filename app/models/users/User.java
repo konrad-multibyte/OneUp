@@ -2,6 +2,7 @@ package models.users;
 
 import io.ebean.Finder;
 import io.ebean.Model;
+import io.ebean.annotation.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -16,10 +17,15 @@ public class User extends Model{
     private String id;
 
     @Column(unique = true)
+    @NotNull
     private String email;
+
+    @NotNull
     private String password;
     private String firstName;
     private String lastName;
+
+    @NotNull
     private String username;
     private Date joined;
 
@@ -95,18 +101,32 @@ public class User extends Model{
         this.joined = joined;
     }
 
-    public static Finder<String, User> getFinder() {
-        return finder;
-    }
-
     @Override
     public void save() {
         password = BCrypt.hashpw(password, BCrypt.gensalt());
         super.save();
     }
 
-    public boolean checkPassword(String password) {
-        return BCrypt.checkpw(password, this.password);
+    public static User get(String id) {
+        return finder.ref(id);
     }
+
+    public static User getWithEmail(String email) {
+        return finder.query().where().eq("email", email).findUnique();
+    }
+
+    public static boolean exists(String email) {
+        return finder.query().where().eq("email", email).findCount() == 1;
+    }
+
+    private static boolean checkPassword(String plain, String hash) {
+        return BCrypt.checkpw(plain, hash);
+    }
+
+    public static boolean auth(String email, String password) {
+        return exists(email) && checkPassword(get(email).password, password);
+    }
+
+
 
 }
