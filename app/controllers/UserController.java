@@ -49,11 +49,9 @@ public class UserController extends Controller implements CRUD{
         if (user != null) {
             if (form.field("c").getValue().isPresent()) {
                 String confirmPassword = form.field("c").getValue().get();
-                if (user.getPassword().equals(confirmPassword)) {
-                    return ok("Correct confirmed password");
+                if (!user.getPassword().equals(confirmPassword)) {
+                    return ok("Bad confirmed password");
                 }
-            } else {
-                return ok("No confirm password");
             }
             if (user.getId().equals("")) {
                 user.setId(UUID.randomUUID().toString());

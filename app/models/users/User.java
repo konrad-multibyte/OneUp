@@ -31,6 +31,11 @@ public class User extends Model{
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String id, String email, String password) {
         this.id = id;
         this.email = email;
@@ -66,7 +71,7 @@ public class User extends Model{
     }
 
     public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -107,26 +112,25 @@ public class User extends Model{
         super.save();
     }
 
+    @Override
+    public void update() {
+        // TODO: Logic if the password is updated than re hash password.
+        super.update();
+    }
+
     public static User get(String id) {
         return finder.ref(id);
     }
 
     public static User getWithEmail(String email) {
-        return finder.query().where().eq("email", email).findUnique();
+        return finder.query().where().eq("email", email).findOne();
     }
 
     public static boolean exists(String email) {
-        return finder.query().where().eq("email", email).findCount() == 1;
-    }
-
-    private static boolean checkPassword(String plain, String hash) {
-        return BCrypt.checkpw(plain, hash);
+        return finder.query().where().eq("email", email).findUnique() != null;
     }
 
     public static boolean auth(String email, String password) {
-        return exists(email) && checkPassword(get(email).password, password);
+        return exists(email) && BCrypt.checkpw(password, getWithEmail(email).password);
     }
-
-
-
 }
