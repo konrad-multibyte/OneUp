@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.im4java:im4java:1.4.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.im4java/im4java/jars/im4java-1.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.im4java/im4java/srcs/im4java-1.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

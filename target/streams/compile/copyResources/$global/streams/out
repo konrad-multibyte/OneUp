@@ -1,0 +1,8 @@
+[debug] Copy resource mappings: 
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\application.conf,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\application.conf)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\evolutions,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\evolutions)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\logback.xml,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\logback.xml)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\routes,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\routes)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\evolutions\default,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\evolutions\default)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\evolutions\default\1.sql,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\evolutions\default\1.sql)
+[debug] 	(C:\Users\micha\Documents\GitHub\OneUp\conf\evolutions\default\2.sql,C:\Users\micha\Documents\GitHub\OneUp\target\scala-2.12\classes\evolutions\default\2.sql)
