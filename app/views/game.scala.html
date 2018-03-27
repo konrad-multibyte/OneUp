@@ -1,0 +1,9 @@
+@(user: models.users.User, game: models.Game)
+
+@main("OneUp: " + game.getTitle, user) {
+    <h1>@game.getTitle</h1>
+    <h4>@game.getDescription</h4>
+
+    <h6>@game.getPrice</h6>
+    <h6>@game.getRating</h6>
+}
