@@ -1,0 +1,8 @@
+.game img {
+    float: left;
+    margin-right: 1em;
+}
+
+.game button {
+    float: right;
+}

@@ -22,13 +22,19 @@ public class HomeController extends Controller {
 
     public Result game() {
         return ok(views.html.game.render(User.getWithEmail(session().get("email")),
-                new models.Game("5", "The Elder Scrolls VI: Skyrim 2", "literally the " +
+                new models.Game("5", "The Elder Scrolls V: Skyrim Special Origins Remastered Ultimate Edition", "literally the " +
                         "same as skyrim but we remastered it and made you pay for mods", null,
                         59.99, 89, null)));
     }
 
     public Result store() {
         ArrayList<models.Game> gameList = new ArrayList<>();
+        gameList.add(new models.Game("5", "The Elder Scrolls V: Skyrim Special Origins Remastered Ultimate Edition", "literally the " +
+                "same as skyrim but we remastered it and made you pay for mods", null,
+                59.99, 89, null));
+        gameList.add(new models.Game("6", "Rome: Total Bore", "A really boring strategy game (redundant)" +
+                "that'll leave you thinking 'good lord why do i play games'. At least it costs less", null,
+                29.99, 3, null));
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), gameList));
     }
 }
