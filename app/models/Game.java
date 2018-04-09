@@ -5,6 +5,7 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class Game extends Model{
     private String title;
     private String description;
     private List<String> gameTags;
+
+    @ManyToMany
+    private List<Media> media;
     private double price;
     private double rating;
 
@@ -96,5 +100,9 @@ public class Game extends Model{
 
     public static Game get(String id) {
         return finder.ref(id);
+    }
+
+    public static List<Game> all() {
+        return finder.all();
     }
 }

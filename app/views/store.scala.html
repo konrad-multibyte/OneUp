@@ -14,20 +14,22 @@
                 </div>
             </div>
             <div class="col-sm-10">
-                @for(game <- games) {
-                    <div class="panel panel-default game">
-                        <div class="panel-heading">
-                            <h3>@game.getTitle()</h3>
-                        </div>
-                        <div class="panel-body">
-                            <img src="http://placehold.it/100x100">
-                            <h3>@game.getDescription()</h3>
-                            <button type="button" class="btn btn-success btn-lg">
-                                <a href="@routes.HomeController.game()"><span style="color: white">View</span></a>
-                            </button>
-                        </div>
+            @for(game <- games) {
+                <div class="panel panel-default game">
+                    <div class="panel-heading">
+                        <h3>@game.getTitle()</h3>
                     </div>
-                }
+                    <div class="panel-body">
+                        <img src="http://placehold.it/100x100">
+                        <h3>@game.getDescription()</h3>
+                        <form action="@routes.HomeController.game(new Long(game.getId()))">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span style="color: white">View</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
             </div>
         </div>
     </div>
