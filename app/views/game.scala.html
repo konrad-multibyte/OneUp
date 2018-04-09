@@ -2,11 +2,11 @@
 
 @main("OneUp: " + game.getTitle, user) {
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="card">
+        <div class="card-header">
             <h1>@game.getTitle</h1>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
 
             @for(media <- game.getMedia) {
                 @if(media.getMime.contains("image")) {

@@ -35,7 +35,7 @@ public class HomeController extends Controller {
 
     public Result game(Long id) {
         Game game = Game.getFinder().byId(id.toString());
-        Logger.debug("Media link: " + game.getMedia().get(0).getLink());
+        //Logger.debug("Media link: " + game.getMedia().get(0).getLink());
 
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
     }
