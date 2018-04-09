@@ -17,7 +17,6 @@ public class Game extends Model{
     private String title;
     private String description;
     private List<String> gameTags;
-
     @ManyToMany
     private List<Media> media;
     private double price;
@@ -69,6 +68,10 @@ public class Game extends Model{
     public void setGameTags(List<String> gameTags) {
         this.gameTags = gameTags;
     }
+
+    public List<Media> getMedia() { return media; }
+
+    public void setMedia(List<Media> media) { this.media = media; }
 
     public double getPrice() {
         return price;

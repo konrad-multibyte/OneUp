@@ -29,6 +29,7 @@ create table media (
   id                            varchar(255) not null,
   mime                          varchar(255),
   link                          varchar(255),
+  absolute_link                 varchar(255),
   constraint pk_media primary key (id)
 );
 

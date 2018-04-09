@@ -14,6 +14,7 @@ public class Media {
     private String mime;
     private String link;
     private Media thumbnail;
+    private String absoluteLink;
 
     public Media() {
 
@@ -56,5 +57,13 @@ public class Media {
 
     public void setThumbnail(Media thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getAbsoluteLink() {
+        return absoluteLink;
+    }
+
+    public void setAbsoluteLink(String absoluteLink) {
+        this.absoluteLink = absoluteLink;
     }
 }

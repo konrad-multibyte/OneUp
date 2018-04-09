@@ -11,12 +11,9 @@
     <head>
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("bootstrap/css/bootstrap.css")"/>
 
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.css")">
-        <script src="@routes.Assets.versioned("javascripts/bootstrap.min.js")" crossorigin="anonymous"></script>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("static/favicon.png")">
     </head>
     <body>
         <nav class="nav"></nav>
@@ -25,6 +22,5 @@
             <a href="@routes.LoginController.logout()">Logout</a>
         }
         @content
-        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
     </body>
 </html>
