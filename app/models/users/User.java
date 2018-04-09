@@ -114,7 +114,9 @@ public class User extends Model{
 
     @Override
     public void update() {
-        // TODO: Logic if the password is updated than re hash password.
+        if (!BCrypt.checkpw(password, getWithEmail(email).password)) {
+            password = BCrypt.hashpw(password, BCrypt.gensalt());
+        }
         super.update();
     }
 

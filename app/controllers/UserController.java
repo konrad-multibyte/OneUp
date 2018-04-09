@@ -8,6 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import views.html.userForm;
+import views.html.profile;
 
 import javax.inject.Inject;
 import java.util.UUID;
@@ -19,6 +20,11 @@ public class UserController extends Controller implements CRUD{
     @Inject
     public UserController(FormFactory formFactory) {
         this.formFactory = formFactory;
+    }
+
+
+    public Result profile(String id) {
+        return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
     }
 
     @Override
