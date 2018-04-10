@@ -3,30 +3,37 @@
 @main("OneUp : Store", user) {
     <div class="container">
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="card">
                     <div class="card-header">
                         <h4>Filter</h4>
                     </div>
                     <div class="card-body">
-
+                        <form action="@routes.HomeController.search" method="get">
+                            <input type="text" name="query" placeholder="Search...">
+                            <button type="submit" class="btn btn-success btn-sm">Search</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-9">
             @for(game <- games) {
                 <div class="card game">
                     <div class="card-header">
                         <h3>@game.getTitle()</h3>
                     </div>
                     <div class="card-body">
-                        <img src="http://placehold.it/100x100">
-                        <h3>@game.getDescription()</h3>
-                        <form action="@routes.HomeController.game(new Long(game.getId()))">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <span style="color: white">View</span>
-                            </button>
-                        </form>
+                        <div class="left">
+                            <img src="http://placehold.it/100x100">
+                        </div>
+                        <div class="right">
+                            <h5>@game.getDescription()</h5>
+                            <form action="@routes.HomeController.game(new Long(game.getId()))">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <span style="color: white">View</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             }

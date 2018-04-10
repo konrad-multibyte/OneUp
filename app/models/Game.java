@@ -108,4 +108,11 @@ public class Game extends Model{
     public static List<Game> all() {
         return finder.all();
     }
+
+    public static List<Game> including(String query) {
+        return Game.finder.query().where()
+                .ilike("title", String.format("%%%s%%", query))
+                .orderBy("title asc")
+                .findList();
+    }
 }

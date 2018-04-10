@@ -3,6 +3,8 @@ package controllers;
 import models.*;
 import models.users.*;
 import play.api.Environment;
+import play.data.DynamicForm;
+import play.data.FormFactory;
 import play.mvc.*;
 import play.Logger;
 
@@ -23,10 +25,12 @@ public class HomeController extends Controller {
      */
 
     private Environment environment;
+    private FormFactory formFactory;
 
     @Inject
-    public HomeController(Environment environment) {
+    public HomeController(Environment environment, FormFactory formFactory) {
         this.environment = environment;
+        this.formFactory = formFactory;
     }
 
     public Result index() {
@@ -35,12 +39,16 @@ public class HomeController extends Controller {
 
     public Result game(Long id) {
         Game game = Game.getFinder().byId(id.toString());
-        //Logger.debug("Media link: " + game.getMedia().get(0).getLink());
-
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
     }
 
     public Result store() {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all()));
+    }
+
+    public Result search() {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String query = form.get("query");
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.including(query)));
     }
 }
