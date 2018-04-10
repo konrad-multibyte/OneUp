@@ -54,15 +54,32 @@
                             <div class="description">
                                 <h5>@game.getDescription()</h5>
                             </div>
-                            <div class="price">
+                            <div class="price card">
+                                <div class="card-header card-small centered">
                                 @if(game.getDiscount > 0.0) {
-                                    <h5><del>@game.getPrice()</del> - @{game.getDiscount * 100}%<br>
-                                    Price - @{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
-                                } else {
-                                    <h5>Price - @game.getPrice</h5>
-                                }
+                                    <h5>Price</h5>
+                                </div>
+                                <div class="card-body card-small centered">
+                                    <h5 class=""><del>@game.getPrice()</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
+                                    @{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
+                                </div>
+                                    } else {
+                                    <h5>Price</h5>
+                                    </div>
+                            <div class="card-body card-small centered">
+                                <h5>@game.getPrice</h5>
                             </div>
-                            <h5>Rating - @game.getRating()</h5>
+                                }
+
+                            </div>
+                            <div class="rating card">
+                                <div class="card-header card-small centered">
+                                    <h5>Rating</h5>
+                                </div>
+                                <div class="card-body card-small centered">
+                                    <h5>@game.getRating()</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-header">

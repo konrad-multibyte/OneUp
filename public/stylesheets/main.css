@@ -26,10 +26,11 @@
     overflow: hidden;
     position: relative;
     line-height: 1.2em;
-    max-height: 4.4em;
+    max-height: 4.6em;
     text-align: justify;
     margin-right: -1em;
     padding-right: 1em;
+    float: left;
 }
 
 .description:before {
@@ -37,6 +38,22 @@
     position: absolute;
     right: 0;
     bottom: 0;
+}
+
+.price {
+    float: right;
+}
+
+.rating {
+    float: left;
+}
+
+.card-small {
+    padding: 10%;
+}
+
+.centered {
+    text-align: center;
 }
 
 .description:after {
