@@ -10,3 +10,8 @@
 .right button {
     float: right;
 }
+
+.filter-content {
+    width: 100%;
+    margin-bottom: 1%;
+}

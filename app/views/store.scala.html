@@ -1,17 +1,17 @@
-@(user: models.users.User, games: List[models.Game])
+@(user: models.users.User, games: List[models.Game], e: play.api.Environment)
 
 @main("OneUp : Store", user) {
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <div class="card">
+                <div class="card filter">
                     <div class="card-header">
                         <h4>Filter</h4>
                     </div>
                     <div class="card-body">
                         <form action="@routes.HomeController.search" method="get">
-                            <input type="text" name="query" placeholder="Search...">
-                            <button type="submit" class="btn btn-success btn-sm">Search</button>
+                            <button type="submit" class="btn btn-success btn-sm filter-content">Search</button>
+                            <input type="text" name="query" placeholder="Search..." class="filter-content">
                         </form>
                     </div>
                 </div>
@@ -24,7 +24,13 @@
                     </div>
                     <div class="card-body">
                         <div class="left">
-                            <img src="http://placehold.it/100x100">
+                        @for(media <- game.getMedia()) {
+                            @if(media.getMime().contains("cover")) {
+                                @if(e.resource("public/" + media.getLink).isDefined) {
+                                    <img height=120 width=120 src="@routes.Assets.versioned(media.getLink())"/>
+                                }
+                            }
+                        }
                         </div>
                         <div class="right">
                             <h5>@game.getDescription()</h5>

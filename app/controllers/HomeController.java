@@ -43,12 +43,12 @@ public class HomeController extends Controller {
     }
 
     public Result store() {
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all()));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
     }
 
     public Result search() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String query = form.get("query");
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.including(query)));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.including(query), environment));
     }
 }
