@@ -26,7 +26,7 @@
                                     <h5>Rating Over</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input class="slider" type="range" name="rRange" min="0" max="100" value="120" onchange="ratingRange.value = value">
+                                    <input class="slider" type="range" name="rRange" min="0" max="100" value="0" onchange="ratingRange.value = value">
                                     <br><output id="ratingRange">0</output>
                                 </div>
                             </div>
@@ -51,9 +51,18 @@
                         }
                         </div>
                         <div class="right col-sm-9">
-                            <h5>@game.getDescription()</h5>
-                            <h5>@game.getPrice() - @game.getDiscount()</h5>
-                            <h5>@game.getRating()</h5>
+                            <div class="description">
+                                <h5>@game.getDescription()</h5>
+                            </div>
+                            <div class="price">
+                                @if(game.getDiscount > 0.0) {
+                                    <h5><del>@game.getPrice()</del> - @{game.getDiscount * 100}%<br>
+                                    Price - @{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
+                                } else {
+                                    <h5>Price - @game.getPrice</h5>
+                                }
+                            </div>
+                            <h5>Rating - @game.getRating()</h5>
                         </div>
                     </div>
                     <div class="card-header">
