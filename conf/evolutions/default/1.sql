@@ -14,6 +14,7 @@ create table game (
   description                   varchar(255),
   price                         double not null,
   rating                        double not null,
+  discount                      double not null,
   thread_id                     varchar(255),
   constraint uq_game_thread_id unique (thread_id),
   constraint pk_game primary key (id)

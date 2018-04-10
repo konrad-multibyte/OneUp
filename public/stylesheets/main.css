@@ -1,10 +1,12 @@
 .left {
     float: left;
     margin-right: 1em;
+    width: 100%;
 }
 
 .right {
     float: right;
+    width: 100%;
 }
 
 .right button {
@@ -14,4 +16,8 @@
 .filter-content {
     width: 100%;
     margin-bottom: 1%;
+}
+
+.slider {
+    width: 100%;
 }

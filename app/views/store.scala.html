@@ -12,6 +12,24 @@
                         <form action="@routes.HomeController.search" method="get">
                             <button type="submit" class="btn btn-success btn-sm filter-content">Search</button>
                             <input type="text" name="query" placeholder="Search..." class="filter-content">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Price Under</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input class="slider" type="range" name="pRange" min="1" max="120" value="120" onchange="priceRange.value = value">
+                                    <br>€<output id="priceRange">120</output>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Rating Over</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input class="slider" type="range" name="rRange" min="0" max="100" value="120" onchange="ratingRange.value = value">
+                                    <br><output id="ratingRange">0</output>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -23,7 +41,7 @@
                         <h3>@game.getTitle()</h3>
                     </div>
                     <div class="card-body">
-                        <div class="left">
+                        <div class="left col-sm-2">
                         @for(media <- game.getMedia()) {
                             @if(media.getMime().contains("cover")) {
                                 @if(e.resource("public/" + media.getLink).isDefined) {
@@ -32,14 +50,23 @@
                             }
                         }
                         </div>
-                        <div class="right">
+                        <div class="right col-sm-9">
                             <h5>@game.getDescription()</h5>
-                            <form action="@routes.HomeController.game(new Long(game.getId()))">
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <span style="color: white">View</span>
-                                </button>
-                            </form>
+                            <h5>@game.getPrice() - @game.getDiscount()</h5>
+                            <h5>@game.getRating()</h5>
                         </div>
+                    </div>
+                    <div class="card-header">
+                        <form action="" class="left col-sm-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span>Forum</span>
+                            </button>
+                        </form>
+                        <form action="@routes.HomeController.game(new Long(game.getId()))" class="right col-sm-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span>View</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             }

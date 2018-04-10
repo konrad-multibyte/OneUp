@@ -49,6 +49,8 @@ public class HomeController extends Controller {
     public Result search() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String query = form.get("query");
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.including(query), environment));
+        String price = form.get("pRange");
+        String rating = form.get("rRange");
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
     }
 }
