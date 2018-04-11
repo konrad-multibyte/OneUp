@@ -61,13 +61,13 @@
                                 </div>
                                 <div class="card-body card-small centered">
                                     <h5 class=""><del>@game.getPrice()</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
-                                    @{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
+                                    €@{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
                                 </div>
                                     } else {
                                     <h5>Price</h5>
                                     </div>
                             <div class="card-body card-small centered">
-                                <h5>@game.getPrice</h5>
+                                <h5>€@game.getPrice</h5>
                             </div>
                                 }
 
