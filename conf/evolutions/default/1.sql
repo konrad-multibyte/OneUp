@@ -1,6 +1,3 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
-
 # --- !Ups
 
 create table forum_thread (
@@ -11,9 +8,10 @@ create table forum_thread (
 create table game (
   id                            varchar(255) not null,
   title                         varchar(255),
-  description                   varchar(255),
+  description                   longvarchar(1024),
   price                         double not null,
   rating                        double not null,
+  discount                      double not null,
   thread_id                     varchar(255),
   constraint uq_game_thread_id unique (thread_id),
   constraint pk_game primary key (id)
