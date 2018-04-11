@@ -1,6 +1,6 @@
-@(userForm: play.data.Form[models.users.User], user: models.users.User)
+@(userForm: play.data.Form[models.users.User], user: models.users.User, message: java.lang.String)
 
-@main("Add/Create User", user) {
+@main("Add/Create User", user, message) {
     @helper.form(action = routes.UserController.form) {
         @helper.CSRF.formField
         @helper.inputText(userForm("email"), '_label -> null, 'placeholder -> "Email")
@@ -9,6 +9,7 @@
         @helper.inputText(userForm("lastName"), '_label -> null, 'placeholder -> "Last Name")
         @helper.inputPassword(userForm("password"), '_label -> null, 'placeholder -> "Password")
         <input type="password" name="c" placeholder="Confirm Password">
+        <div class="g-recaptcha" data-sitekey="6LdMWVIUAAAAAM62iDGK7nJkbTnW_cmnKtVMjnUD"></div>
         <input type="submit" value="Register">
         @helper.inputText(userForm("id"), '_label -> null, 'hidden -> "hidden")
     }

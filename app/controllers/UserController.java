@@ -6,10 +6,10 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-
+import play.mvc.*;
 import views.html.userForm;
 import views.html.profile;
-
+import views.html.login;
 import javax.inject.Inject;
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class UserController extends Controller implements CRUD{
         this.formFactory = formFactory;
     }
 
-
+    @Security.Authenticated(Secured.class)
     public Result profile(String id) {
         return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
     }
@@ -50,23 +50,23 @@ public class UserController extends Controller implements CRUD{
 
     @Override
     public Result form() {
-        Form<Customer> form = formFactory.form(Customer.class).bindFromRequest();
-        Customer user = form.get();
+        Form<User> form = formFactory.form(User.class).bindFromRequest();
+        User user = form.get();
         if (user != null) {
             if (form.field("c").getValue().isPresent()) {
                 String confirmPassword = form.field("c").getValue().get();
                 if (!user.getPassword().equals(confirmPassword)) {
-                    return ok("Bad confirmed password");
+                    return ok(userForm.render());
                 }
             }
             if (user.getId().equals("")) {
                 user.setId(UUID.randomUUID().toString());
                 user.save();
-                return ok("User created");
+                return ok(login.render(formFactory.form(User.class), "User created"));
             } else {
                 user.update();
             }
         }
-        return ok("User updated");
+        return redirect(routes.UserController.profile(user.getId));
     }
 }

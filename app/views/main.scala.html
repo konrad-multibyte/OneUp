@@ -1,25 +1,25 @@
-@*
- * This template is called from the `index` template. This template
- * handles the rendering of the page header and body tags. It takes
- * two arguments, a `String` for the title of the page and an `Html`
- * object to insert into the body of the page.
- *@
-@(title: String, user: models.users.User)(content: Html)
+@(title: String, user: models.users.User, message: java.lang.String)(content: Html)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @* Here's where we render the page title `String`. *@
         <title>@title</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/main.css")">
+    </head>
     <body>
         <nav class="nav"></nav>
         @if(user != null) {
             <a href="@routes.UserController.profile(user.getId)">User Profile</a>
-            <a href="@routes.LoginController.logout()">Logout</a>
+            <a href="@routes.LoginController.logout">Logout</a>
+        } else {
+            <a href="@routes.LoginController.login">Login</a>
+            <a href="@routes.UserController.register">Register</a>
+        }
+        @if(message != null) {
+            @message
         }
         @content
     </body>

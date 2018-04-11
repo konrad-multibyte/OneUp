@@ -20,10 +20,11 @@ public class LoginController extends Controller {
     }
 
     public Result login() {
-        return ok(login.render(formFactory.form(User.class)));
+        return ok(login.render(formFactory.form(User.class), null));
     }
 
     public Result form() {
+        String error = "Invalid email and/or password.";
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
         User user = userForm.get();
         if (user != null) {
@@ -31,13 +32,15 @@ public class LoginController extends Controller {
                 session().put("email", user.getEmail());
                 return redirect(routes.HomeController.index());
             }
-            return redirect(routes.LoginController.login());
         }
-        return redirect(routes.LoginController.login());
+        return ok(login.render(formFactory.form(User.class), error));
     }
 
     public Result logout() {
+        if (session().get("email") == null) {
+            return ok(login.render(formFactory.form(User.class), "Not signed in."));
+        }
         session().clear();
-        return redirect(routes.HomeController.index());
+        return ok(login.render(formFactory.form(User.class), "Logged out."));
     }
 }

@@ -1,12 +1,10 @@
-@(loginForm: play.data.Form[models.users.User])
+@(loginForm: play.data.Form[models.users.User], message: java.lang.String)
 
-@main("Login", null) {
+@main("Login", null, message) {
     @helper.form(action = routes.LoginController.form) {
         @helper.CSRF.formField
         @helper.inputText(loginForm("email"), '_label -> null, 'placeholder -> "Email")
         @helper.inputPassword(loginForm("password"), '_label -> null, 'placeholder -> "Password")
         <input type="submit" value="Login">
     }
-
-
 }
