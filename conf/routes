@@ -4,7 +4,7 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
-GET     /game/:id                   controllers.HomeController.game(id: Long)
+GET     /game/:id                   controllers.HomeController.game(id : Long)
 
 GET     /store                      controllers.HomeController.store
 GET     /search/                    controllers.HomeController.search

@@ -16,3 +16,5 @@ libraryDependencies ++= Seq(
   "org.mindrot" % "jbcrypt" % "0.4",
   "org.dbunit" % "dbunit" % "2.4.3"
 )
+
+
