@@ -3,6 +3,7 @@ package models.users;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
+import models.Cart;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class User extends Model{
     @NotNull
     private String username;
     private Date joined;
+
+    @OneToOne
+    private Cart cart;
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
@@ -106,6 +110,10 @@ public class User extends Model{
         this.joined = joined;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
     @Override
     public void save() {
         password = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -128,7 +136,7 @@ public class User extends Model{
         return finder.query().where().eq("email", email).findOne();
     }
 
-    public static boolean exists(String email) {
+    private static boolean exists(String email) {
         return finder.query().where().eq("email", email).findUnique() != null;
     }
 

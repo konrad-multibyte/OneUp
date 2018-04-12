@@ -45,7 +45,7 @@ public class UserController extends Controller implements CRUD{
     @Override
     public Result delete(String id) {
         User.get(id).delete();
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.store());
     }
 
     @Override

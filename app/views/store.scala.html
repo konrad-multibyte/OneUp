@@ -1,4 +1,4 @@
-@(user: models.users.User, games: List[models.Game], e: play.api.Environment)
+@(user: models.users.User, games: java.util.List[models.Game], e: play.api.Environment, cart: models.Cart)
 
 @main("OneUp : Store", user) {
     <div class="container">
@@ -38,21 +38,21 @@
             @for(game <- games) {
                 <div class="card game">
                     <div class="card-header">
-                        <h3>@game.getTitle()</h3>
+                        <h3>@game.getTitle</h3>
                     </div>
                     <div class="card-body">
                         <div class="left col-sm-2">
-                        @for(media <- game.getMedia()) {
-                            @if(media.getMime().contains("cover")) {
+                        @for(media <- game.getMedia) {
+                            @if(media.getMime.contains("cover")) {
                                 @if(e.resource("public/" + media.getLink).isDefined) {
-                                    <img height=120 width=120 src="@routes.Assets.versioned(media.getLink())"/>
+                                    <img height=120 width=120 src="@routes.Assets.versioned(media.getLink)"/>
                                 }
                             }
                         }
                         </div>
                         <div class="right col-sm-9">
                             <div class="description">
-                                <h5>@game.getDescription()</h5>
+                                <h5>@game.getDescription</h5>
                             </div>
                             <div class="price card">
                                 <div class="card-header card-small centered">
@@ -60,8 +60,8 @@
                                     <h5>Price</h5>
                                 </div>
                                 <div class="card-body card-small centered">
-                                    <h5 class=""><del>@game.getPrice()</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
-                                    €@{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
+                                    <h5 class=""><del>@game.getPrice</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
+                                    €@game.getDiscountedPrice</h5>
                                 </div>
                                     } else {
                                     <h5>Price</h5>
@@ -77,9 +77,16 @@
                                     <h5>Rating</h5>
                                 </div>
                                 <div class="card-body card-small centered">
-                                    <h5>@game.getRating()</h5>
+                                    <h5>@game.getRating</h5>
                                 </div>
                             </div>
+                        @if(user != null) {
+                            @if(!cart.getGames.contains(game)) {
+                                <a class="btn btn-success" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+                            } else {
+                                <a class="btn btn-success disabled" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+                            }
+                        }
                         </div>
                     </div>
                     <div class="card-header">
@@ -88,7 +95,7 @@
                                 <span>Forum</span>
                             </button>
                         </form>
-                        <form action="@routes.HomeController.game(new Long(game.getId()))" class="right col-sm-2">
+                        <form action="@routes.HomeController.game(new Long(game.getId))" class="right col-sm-2">
                             <button type="submit" class="btn btn-success btn-lg">
                                 <span>View</span>
                             </button>

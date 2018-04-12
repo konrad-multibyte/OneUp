@@ -29,7 +29,7 @@ public class LoginController extends Controller {
         if (user != null) {
             if (User.auth(user.getEmail(), user.getPassword())) {
                 session().put("email", user.getEmail());
-                return redirect(routes.HomeController.index());
+                return redirect(routes.HomeController.store());
             }
             return redirect(routes.LoginController.login());
         }
@@ -38,6 +38,6 @@ public class LoginController extends Controller {
 
     public Result logout() {
         session().clear();
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.store());
     }
 }

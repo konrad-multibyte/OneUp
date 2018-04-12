@@ -43,7 +43,29 @@ public class HomeController extends Controller {
     }
 
     public Result store() {
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment, User.getWithEmail(session().get("email")).getCart()));
+    }
+
+    public Result addToCart(String id) {
+        if (session().get("email") == null) {
+            return redirect(routes.LoginController.login());
+        }
+        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id));
+        return redirect(routes.HomeController.store());
+    }
+
+    public Result removeFromCart(String id) {
+        if (session().get("email") == null) {
+            return redirect(routes.LoginController.login());
+        }
+        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id));
+        return redirect(routes.HomeController.store());
+    }
+
+    public Result checkout() {
+        User.getWithEmail(session().get("email")).getCart().checkout();
+        // TODO: Credit card verification
+        return redirect("Credit card?");
     }
 
     public Result search() {
@@ -51,6 +73,6 @@ public class HomeController extends Controller {
         String query = form.get("query");
         String price = form.get("pRange");
         String rating = form.get("rRange");
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment, User.getWithEmail(session().get("email")).getCart()));
     }
 }
