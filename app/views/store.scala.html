@@ -30,6 +30,7 @@
                                     <br><output id="ratingRange">0</output>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                     <div class="card-header">
-                        <form action="" class="left col-sm-2">
+                        <form action="@routes.HomeController.forum(game.getId())" class="left col-sm-2">
                             <button type="submit" class="btn btn-success btn-lg">
                                 <span>Forum</span>
                             </button>

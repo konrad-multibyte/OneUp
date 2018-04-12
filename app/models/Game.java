@@ -24,18 +24,18 @@ public class Game extends Model {
     private double discount;
 
     @OneToOne
-    private ForumThread thread;
+    private Forum forum;
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(String id, String title, String description, List<String> gameTags, double price, double rating, ForumThread thread) {
+    public Game(String id, String title, String description, List<String> gameTags, double price, double rating, Forum thread) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.gameTags = gameTags;
         this.price = price;
         this.rating = rating;
-        this.thread = thread;
+        this.forum = forum;
     }
 
     public String getId() {
@@ -94,12 +94,12 @@ public class Game extends Model {
         this.rating = rating;
     }
 
-    public ForumThread getThread() {
-        return thread;
+    public Forum getForum() {
+        return forum;
     }
 
-    public void setThread(ForumThread thread) {
-        this.thread = thread;
+    public void setForum(Thread thread) {
+        this.forum = forum;
     }
 
     public double getDiscount() {
