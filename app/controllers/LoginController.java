@@ -1,6 +1,5 @@
 package controllers;
 
-import models.users.Login;
 import models.users.User;
 import play.data.Form;
 import play.data.FormFactory;
@@ -20,7 +19,7 @@ public class LoginController extends Controller {
     }
 
     public Result login() {
-        return ok(login.render(formFactory.form(User.class)));
+        return ok(login.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
     public Result form() {

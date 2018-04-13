@@ -1,10 +1,19 @@
-@(loginForm: play.data.Form[models.users.User])
+@(loginForm: play.data.Form[models.users.User], user: models.users.User)
 
-@main("Login", null) {
+@main("Login", user) {
+
     @helper.form(action = routes.LoginController.form) {
         @helper.CSRF.formField
-        @helper.inputText(loginForm("email"), '_label -> null, 'placeholder -> "Email")
-        @helper.inputPassword(loginForm("password"), '_label -> null, 'placeholder -> "Password")
+        @if(flash.containsKey("error")) {
+            <div class="alert alert-warning">
+                @flash.get("error")
+            </div>
+        }
+        @if(loginForm.hasGlobalErrors) {
+            @loginForm.getGlobalError
+        }
+        @helper.inputText(loginForm("email"), '_label -> null, 'placeholder -> "Email", 'required -> "required")
+        @helper.inputPassword(loginForm("password"), '_label -> null, 'placeholder -> "Password", 'required -> "required")
         <input type="submit" value="Login">
     }
 }

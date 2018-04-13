@@ -55,7 +55,7 @@ create table posts (
 
 create table user (
   privileges                    varchar(31) not null,
-  id                            varchar(255) not null,
+  id                            integer not null,
   email                         varchar(255) not null,
   password                      varchar(255) not null,
   first_name                    varchar(255),
@@ -67,9 +67,10 @@ create table user (
   constraint uq_user_cart_id unique (cart_id),
   constraint pk_user primary key (id)
 );
+create sequence user_seq start with 12432;
 
 create table user_game (
-  user_id                       varchar(255) not null,
+  user_id                       integer not null,
   game_id                       varchar(255) not null,
   constraint pk_user_game primary key (user_id,game_id)
 );
@@ -136,6 +137,7 @@ drop table if exists media;
 drop table if exists posts;
 
 drop table if exists user;
+drop sequence if exists user_seq;
 
 drop table if exists user_game;
 

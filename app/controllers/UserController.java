@@ -24,7 +24,7 @@ public class UserController extends Controller implements CRUD{
     }
 
 
-    public Result profile(String id) {
+    public Result profile(int id) {
         return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
     }
 
@@ -39,12 +39,12 @@ public class UserController extends Controller implements CRUD{
     }
 
     @Override
-    public Result update(String id) {
+    public Result update(int id) {
         return ok(userForm.render(formFactory.form(User.class).fill(User.get(id)), User.getWithEmail(session().get("email"))));
     }
 
     @Override
-    public Result delete(String id) {
+    public Result delete(int id) {
         User.get(id).delete();
         return redirect(routes.HomeController.store());
     }
@@ -54,19 +54,17 @@ public class UserController extends Controller implements CRUD{
         Form<Customer> form = formFactory.form(Customer.class).bindFromRequest();
         Customer user = form.get();
         if (user != null) {
+            System.out.println(user.getId());
             if (form.field("c").getValue().isPresent()) {
                 String confirmPassword = form.field("c").getValue().get();
                 if (!user.getPassword().equals(confirmPassword)) {
                     return ok("Bad confirmed password");
                 }
             }
-            if (user.getId().equals("")) {
-                user.setId(UUID.randomUUID().toString());
-                user.setCart(new Cart(UUID.randomUUID().toString(), user));
+            if (user.getId() == null) {
                 user.save();
                 return ok("User created");
             } else {
-
                 user.update();
             }
         }

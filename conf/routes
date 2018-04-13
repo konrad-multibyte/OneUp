@@ -12,9 +12,9 @@ POST    /loginSubmit                controllers.LoginController.form
 GET     /logout                     controllers.LoginController.logout
 
 GET     /register                   controllers.UserController.create
-GET     /user/:id                   controllers.UserController.profile(id: String)
-GET     /user/update/:id            controllers.UserController.update(id: String)
-GET     /user/delete/:id            controllers.UserController.delete(id: String)
+GET     /user/:id                   controllers.UserController.profile(id: Integer)
+GET     /user/update/:id            controllers.UserController.update(id: Integer)
+GET     /user/delete/:id            controllers.UserController.delete(id: Integer)
 POST    /user/submit                controllers.UserController.form
 
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)

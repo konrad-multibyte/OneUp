@@ -13,13 +13,6 @@ import java.util.List;
 @DiscriminatorValue("customer")
 public class Customer extends User {
 
-    @ManyToMany
-    private List<Game> gamesList;
-
-    public Customer(String id, String email, String password) {
-        super(id, email, password);
-    }
-
     /**
      * Create a customer
      * @param id Primary key.
@@ -31,16 +24,8 @@ public class Customer extends User {
      * @param joined The date when the account has been registered.
      * @param gamesList List of games that the customer owns.
      */
-    public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList, Cart cart) {
-        super(id, email, password, firstName, lastName, username, joined, cart);
-        this.gamesList = gamesList;
-    }
-
-    /**
-     * Get the game list owned by the customer.
-     * @return List of games
-     */
-    public List<Game> getGamesList() {
-        return gamesList;
+    public Customer(int id, String email, String password, String firstName, String lastName, String username,
+                    Date joined, Cart cart, List<Game> gamesList) {
+        super(id, email, password, firstName, lastName, username, joined, cart, gamesList);
     }
 }

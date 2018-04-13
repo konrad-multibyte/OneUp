@@ -5,12 +5,10 @@ import models.users.*;
 import play.api.Environment;
 import play.data.DynamicForm;
 import play.data.FormFactory;
-import play.mvc.*;
-import play.Logger;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -34,21 +32,13 @@ public class HomeController extends Controller {
         this.formFactory = formFactory;
     }
 
-    public Result index() {
-        return ok(views.html.index.render(User.getWithEmail(session().get("email"))));
-    }
-
     public Result game(Long id) {
         Game game = Game.getFinder().byId(id.toString());
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
     }
 
-    // TODO: Broken. Fixing it.
     public Result store() {
-        if (session().get("email") == null) {
-            return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment, null));
-        }
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment, User.getWithEmail(session().get("email")).getCart()));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
 
     }
 
@@ -79,6 +69,6 @@ public class HomeController extends Controller {
         String query = form.get("query");
         String price = form.get("pRange");
         String rating = form.get("rRange");
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment, User.getWithEmail(session().get("email")).getCart()));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
     }
 }

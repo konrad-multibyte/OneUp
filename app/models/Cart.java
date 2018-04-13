@@ -3,10 +3,7 @@ package models;
 import io.ebean.Finder;
 import models.users.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -22,12 +19,7 @@ public class Cart {
 
     private static Finder<String, Cart> finder = new Finder<>(Cart.class);
 
-    public Cart(String id) {
-        this.id = id;
-    }
-
-    public Cart(String id, List<Game> games) {
-        this(id);
+    public Cart(List<Game> games) {
         this.games = games;
     }
 
