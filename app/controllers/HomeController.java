@@ -43,8 +43,13 @@ public class HomeController extends Controller {
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
     }
 
+    // TODO: Broken. Fixing it.
     public Result store() {
+        if (session().get("email") == null) {
+            return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment, null));
+        }
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment, User.getWithEmail(session().get("email")).getCart()));
+
     }
 
     public Result addToCart(String id) {

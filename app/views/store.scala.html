@@ -80,13 +80,6 @@
                                     <h5>@game.getRating</h5>
                                 </div>
                             </div>
-                        @if(user != null) {
-                            @if(!cart.getGames.contains(game)) {
-                                <a class="btn btn-success" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
-                            } else {
-                                <a class="btn btn-success disabled" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
-                            }
-                        }
                         </div>
                     </div>
                     <div class="card-header">

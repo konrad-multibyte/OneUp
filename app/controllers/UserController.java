@@ -62,8 +62,11 @@ public class UserController extends Controller implements CRUD{
             }
             if (user.getId().equals("")) {
                 user.setId(UUID.randomUUID().toString());
+                user.setCart(new Cart(UUID.randomUUID().toString(), user));
+                user.save();
                 return ok("User created");
             } else {
+
                 user.update();
             }
         }

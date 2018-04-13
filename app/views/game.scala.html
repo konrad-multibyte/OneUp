@@ -23,4 +23,11 @@
 
     <h6>@game.getPrice</h6>
     <h6>@game.getRating</h6>
+    @if(user != null) {
+        @if(!user.getCart.getGames.contains(game)) {
+            <a class="btn btn-success" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+        } else {
+            <a class="btn btn-success disabled" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+        }
+    }
 }

@@ -15,9 +15,6 @@ public class Cart {
     @Id
     private String id;
 
-    @OneToOne(mappedBy = "cart")
-    private User user;
-
     @ManyToMany
     private List<Game> games;
 
@@ -25,13 +22,12 @@ public class Cart {
 
     private static Finder<String, Cart> finder = new Finder<>(Cart.class);
 
-    public Cart(String id, User user) {
+    public Cart(String id) {
         this.id = id;
-        this.user = user;
     }
 
-    public Cart(String id, User user, List<Game> games) {
-        this(id, user);
+    public Cart(String id, List<Game> games) {
+        this(id);
         this.games = games;
     }
 
@@ -41,14 +37,6 @@ public class Cart {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public List<Game> getGames() {
