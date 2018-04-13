@@ -56,6 +56,10 @@ public class HomeController extends Controller {
 
     public Result forum(String id) {
         Game game = Game.getFinder().byId(id);
+        Logger.debug(game.getTitle());
+        //Logger.debug(game.getForum().toString());
+        //Logger.debug(game.getForum().getThreads().get(0).toString());
+		//Logger.debug("Game selected: " + game.getTitle() + ", Forum of game: " + game.getForum() + ", threads: " + game.getForum().getThreads());
         return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
 

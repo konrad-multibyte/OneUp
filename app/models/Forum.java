@@ -3,6 +3,7 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +13,8 @@ public class Forum extends Model {
     @Id
     private String id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //@ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "forum")
     private List<Thread> threads;
 
     private static Finder<String, Forum> finder = new Finder<>(Forum.class);

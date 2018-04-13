@@ -1,3 +1,6 @@
+# --- Created by Ebean DDL
+# To stop Ebean DDL generation, remove this comment and start using Evolutions
+
 # --- !Ups
 
 create table forum (
@@ -8,7 +11,7 @@ create table forum (
 create table game (
   id                            varchar(255) not null,
   title                         varchar(255),
-  description                   longvarchar(1024),
+  description                   varchar(255),
   price                         double not null,
   rating                        double not null,
   discount                      double not null,
@@ -31,11 +34,11 @@ create table media (
   constraint pk_media primary key (id)
 );
 
-create table posts (
+create table post (
   id                            varchar(255) not null,
   text                          varchar(255),
-  date_time                     timestamp,
-  constraint pk_posts primary key (id)
+  time_posted                   timestamp,
+  constraint pk_post primary key (id)
 );
 
 create table thread (
@@ -43,6 +46,7 @@ create table thread (
   title                         varchar(255),
   replies                       integer not null,
   last_reply                    timestamp,
+  forum_id                      varchar(255),
   constraint pk_thread primary key (id)
 );
 
@@ -73,6 +77,9 @@ create index ix_game_media_game on game_media (game_id);
 alter table game_media add constraint fk_game_media_media foreign key (media_id) references media (id) on delete restrict on update restrict;
 create index ix_game_media_media on game_media (media_id);
 
+alter table thread add constraint fk_thread_forum_id foreign key (forum_id) references forum (id) on delete restrict on update restrict;
+create index ix_thread_forum_id on thread (forum_id);
+
 alter table user_game add constraint fk_user_game_user foreign key (user_id) references user (id) on delete restrict on update restrict;
 create index ix_user_game_user on user_game (user_id);
 
@@ -90,6 +97,9 @@ drop index if exists ix_game_media_game;
 alter table game_media drop constraint if exists fk_game_media_media;
 drop index if exists ix_game_media_media;
 
+alter table thread drop constraint if exists fk_thread_forum_id;
+drop index if exists ix_thread_forum_id;
+
 alter table user_game drop constraint if exists fk_user_game_user;
 drop index if exists ix_user_game_user;
 
@@ -104,7 +114,7 @@ drop table if exists game_media;
 
 drop table if exists media;
 
-drop table if exists posts;
+drop table if exists post;
 
 drop table if exists thread;
 

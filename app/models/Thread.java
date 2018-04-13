@@ -19,10 +19,12 @@ public class Thread extends Model {
     private int replies;
     private Timestamp lastReply;
 
-    @OneToMany(mappedBy = "threads")
+    //@OneToMany(mappedBy = "thread")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Forum forum;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "")
     private List<Post> posts;
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);
