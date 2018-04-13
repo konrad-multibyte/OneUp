@@ -1,0 +1,26 @@
+@(user: models.users.User, game: models.Game, e: play.api.Environment)
+
+@main("OneUp: " + game.getTitle, user) {
+
+    <div class="card">
+        <div class="card-header">
+            <h1>@game.getTitle</h1>
+        </div>
+        <div class="card-body">
+            @for(media <- game.getMedia) {
+                @if(media.getMime.contains("image")) {
+                    @if(e.resource("public/" + media.getLink).isDefined) {
+                        <img src="@routes.Assets.versioned(media.getLink())"/>
+                    }
+                }
+                @if(media.getMime.equals("video/youtube")) {
+                    <iframe width="560" height="315" src="@media.getLink" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+                }
+            }
+            <h4>@game.getDescription</h4>
+        </div>
+    </div>
+
+    <h6>@game.getPrice</h6>
+    <h6>@game.getRating</h6>
+}

@@ -1,0 +1,77 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String, user: models.users.User)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+
+        <title>@title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/main.css")">
+    
+    
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="@routes.HomeController.store">One Up</a>
+            </div>
+
+            <ul class="nav navbar-nav">
+
+                <li @if(title=="Store" ){class="active"}>
+                    <a href="#">Store</a>
+                </li>
+
+                <li>
+                    <a href="#">Register</a>
+                </li>
+
+                <li>
+                    <a href="#">Login</a>
+                
+                         @if(user != null) {
+                    <a href="@routes.UserController.profile(user.getId)">User Profile</a>
+                    <a href="@routes.LoginController.logout()">Logout</a>
+                }
+                @content
+
+            </li>
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <container>
+        <row>
+            <div class="col-md-12">
+                @content
+            </div>
+        </row>
+    </container>
+<br>
+    <container>
+        <footer>
+        <row>
+            <div class="col-md-12">
+                Copyright
+                <strong>One Up</strong>
+            </div>
+        </row>
+    </footer>
+    </container>
+    <script src="@routes.Assets.versioned("javascripts/main.js")"></script>
+</body>
+
+</html>
+       

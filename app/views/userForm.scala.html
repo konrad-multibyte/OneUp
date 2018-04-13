@@ -1,0 +1,15 @@
+@(userForm: play.data.Form[models.users.User], user: models.users.User)
+
+@main("Add/Create User", user) {
+    @helper.form(action = routes.UserController.form) {
+        @helper.CSRF.formField
+        @helper.inputText(userForm("email"), '_label -> null, 'placeholder -> "Email")
+        @helper.inputText(userForm("username"), '_label -> null, 'placeholder -> "Username")
+        @helper.inputText(userForm("firstName"), '_label -> null, 'placeholder -> "First Name")
+        @helper.inputText(userForm("lastName"), '_label -> null, 'placeholder -> "Last Name")
+        @helper.inputPassword(userForm("password"), '_label -> null, 'placeholder -> "Password")
+        <input type="password" name="c" placeholder="Confirm Password">
+        <input type="submit" value="Register">
+        @helper.inputText(userForm("id"), '_label -> null, 'hidden -> "hidden")
+    }
+}

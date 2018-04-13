@@ -1,0 +1,16 @@
+@(user:models.users.User, game:models.Game,environment:play.api.Environment)
+
+@main("payment",user){
+<form action="your-server-side-code" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_glrc8iwTlrSRG5tX3PAZ4KEh"
+      data-amount="999"
+      data-name="Demo Site"
+      data-description="Example charge"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto"
+      data-currency="eur">
+    </script>
+  </form>
+}

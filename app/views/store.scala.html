@@ -1,0 +1,102 @@
+@(user: models.users.User, games: List[models.Game], e: play.api.Environment)
+
+@main("OneUp : Store", user) {
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card filter">
+                    <div class="card-header">
+                        <h4>Filter</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="@routes.HomeController.search" method="get">
+                            <button type="submit" class="btn btn-success btn-sm filter-content">Search</button>
+                            <input type="text" name="query" placeholder="Search..." class="filter-content">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Price Under</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input class="slider" type="range" name="pRange" min="1" max="120" value="120" onchange="priceRange.value = value">
+                                    <br>€<output id="priceRange">120</output>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Rating Over</h5>
+                                </div>
+                                <div class="card-body">
+                                    <input class="slider" type="range" name="rRange" min="0" max="100" value="0" onchange="ratingRange.value = value">
+                                    <br><output id="ratingRange">0</output>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+            @for(game <- games) {
+                <div class="card game">
+                    <div class="card-header">
+                        <h3>@game.getTitle()</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="left col-sm-2">
+                        @for(media <- game.getMedia()) {
+                            @if(media.getMime().contains("cover")) {
+                                @if(e.resource("public/" + media.getLink).isDefined) {
+                                    <img height=120 width=120 src="@routes.Assets.versioned(media.getLink())"/>
+                                }
+                            }
+                        }
+                        </div>
+                        <div class="right col-sm-9">
+                            <div class="description">
+                                <h5>@game.getDescription()</h5>
+                            </div>
+                            <div class="price card">
+                                <div class="card-header card-small centered">
+                                @if(game.getDiscount > 0.0) {
+                                    <h5>Price</h5>
+                                </div>
+                                <div class="card-body card-small centered">
+                                    <h5 class=""><del>@game.getPrice()</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
+                                    €@{scala.math.BigDecimal(game.getPrice - (game.getPrice * game.getDiscount)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble}</h5>
+                                </div>
+                                    } else {
+                                    <h5>Price</h5>
+                                    </div>
+                            <div class="card-body card-small centered">
+                                <h5>€@game.getPrice</h5>
+                            </div>
+                                }
+
+                            </div>
+                            <div class="rating card">
+                                <div class="card-header card-small centered">
+                                    <h5>Rating</h5>
+                                </div>
+                                <div class="card-body card-small centered">
+                                    <h5>@game.getRating()</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <form action="" class="left col-sm-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span>Forum</span>
+                            </button>
+                        </form>
+                        <form action="@routes.HomeController.game(new Long(game.getId()))" class="right col-sm-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span>View</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+}
