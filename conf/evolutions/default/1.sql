@@ -23,7 +23,7 @@ create table forum_thread (
 create table game (
   id                            varchar(255) not null,
   title                         varchar(255),
-  description                   ,
+  description                   longvarchar,
   price                         double not null,
   rating                        double not null,
   discount                      double not null,

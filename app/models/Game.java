@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Column;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Game extends Model {
     @Id
     private String id;
     private String title;
+
+    @Column(columnDefinition = "LONGVARCHAR")
     private String description;
     private List<String> gameTags;
     @ManyToMany

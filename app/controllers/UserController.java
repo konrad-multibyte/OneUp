@@ -12,6 +12,7 @@ import views.html.profile;
 
 import javax.inject.Inject;
 import java.util.UUID;
+import models.Cart;
 
 public class UserController extends Controller implements CRUD{
 
@@ -61,7 +62,6 @@ public class UserController extends Controller implements CRUD{
             }
             if (user.getId().equals("")) {
                 user.setId(UUID.randomUUID().toString());
-                user.save();
                 return ok("User created");
             } else {
                 user.update();

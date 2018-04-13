@@ -1,5 +1,6 @@
 package models.users;
 
+import models.Game;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
@@ -8,6 +9,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -41,12 +44,11 @@ public class User extends Model{
     }
 
     public User(String id, String email, String password) {
+        this(email, password);
         this.id = id;
-        this.email = email;
-        this.password = password;
     }
 
-    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
+    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined, Cart cart) {
         this(id, email, password);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -112,6 +114,10 @@ public class User extends Model{
 
     public Cart getCart() {
         return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

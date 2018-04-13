@@ -5,6 +5,7 @@ import models.Game;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import models.Cart;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class Customer extends User {
 
     @ManyToMany
     private List<Game> gamesList;
-
 
     public Customer(String id, String email, String password) {
         super(id, email, password);
@@ -31,8 +31,8 @@ public class Customer extends User {
      * @param joined The date when the account has been registered.
      * @param gamesList List of games that the customer owns.
      */
-    public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList) {
-        super(id, email, password, firstName, lastName, username, joined);
+    public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList, Cart cart) {
+        super(id, email, password, firstName, lastName, username, joined, cart);
         this.gamesList = gamesList;
     }
 

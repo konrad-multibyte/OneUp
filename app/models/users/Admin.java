@@ -3,6 +3,7 @@ package models.users;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.Date;
+import models.Cart;
 
 @Entity
 @DiscriminatorValue("admin")
@@ -28,7 +29,7 @@ public class Admin extends User {
      * @param username The username that everyone will see.
      * @param joined The date when the account has been registered.
      */
-    public Admin(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
-        super(id, email, password, firstName, lastName, username, joined);
+    public Admin(String id, String email, String password, String firstName, String lastName, String username, Date joined, Cart cart) {
+        super(id, email, password, firstName, lastName, username, joined, cart);
     }
 }

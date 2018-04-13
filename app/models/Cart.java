@@ -25,9 +25,13 @@ public class Cart {
 
     private static Finder<String, Cart> finder = new Finder<>(Cart.class);
 
-    public Cart(String id, User user, List<Game> games) {
+    public Cart(String id, User user) {
         this.id = id;
         this.user = user;
+    }
+
+    public Cart(String id, User user, List<Game> games) {
+        this(id, user);
         this.games = games;
     }
 
