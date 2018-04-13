@@ -11,7 +11,7 @@ create table forum (
 create table game (
   id                            varchar(255) not null,
   title                         varchar(255),
-  description                   varchar(255),
+  description                   longvarchar,
   price                         double not null,
   rating                        double not null,
   discount                      double not null,
@@ -36,8 +36,9 @@ create table media (
 
 create table post (
   id                            varchar(255) not null,
-  text                          varchar(255),
+  text                          longvarchar,
   time_posted                   timestamp,
+  thread_id                     varchar(255),
   constraint pk_post primary key (id)
 );
 
@@ -77,6 +78,9 @@ create index ix_game_media_game on game_media (game_id);
 alter table game_media add constraint fk_game_media_media foreign key (media_id) references media (id) on delete restrict on update restrict;
 create index ix_game_media_media on game_media (media_id);
 
+alter table post add constraint fk_post_thread_id foreign key (thread_id) references thread (id) on delete restrict on update restrict;
+create index ix_post_thread_id on post (thread_id);
+
 alter table thread add constraint fk_thread_forum_id foreign key (forum_id) references forum (id) on delete restrict on update restrict;
 create index ix_thread_forum_id on thread (forum_id);
 
@@ -96,6 +100,9 @@ drop index if exists ix_game_media_game;
 
 alter table game_media drop constraint if exists fk_game_media_media;
 drop index if exists ix_game_media_media;
+
+alter table post drop constraint if exists fk_post_thread_id;
+drop index if exists ix_post_thread_id;
 
 alter table thread drop constraint if exists fk_thread_forum_id;
 drop index if exists ix_thread_forum_id;

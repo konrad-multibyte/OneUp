@@ -12,6 +12,7 @@ public class Game extends Model {
     @Id
     private String id;
     private String title;
+    @Column(columnDefinition = "LONGVARCHAR")
     private String description;
     private List<String> gameTags;
     @ManyToMany

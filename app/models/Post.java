@@ -4,8 +4,7 @@ import io.ebean.Model;
 import models.users.User;
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Post extends Model {
@@ -13,8 +12,12 @@ public class Post extends Model {
     @Id
     private String id;
     private User poster;
+    @Column(columnDefinition = "LONGVARCHAR")
     private String text;
     private Timestamp timePosted;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Thread thread;
 
     public Post(String id, User poster, String text, Timestamp timePosted) {
         this.id = id;

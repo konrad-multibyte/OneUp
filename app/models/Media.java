@@ -2,19 +2,23 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
+import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Media {
+public class Media extends Model {
 
     @Id
     private String id;
     private String mime;
+    @Constraints.Required
     private String link;
     private Media thumbnail;
     private String absoluteLink;
+
+    private static Finder<String, Media> finder = new Finder<>(Media.class);
 
     public Media() {
 
@@ -65,5 +69,13 @@ public class Media {
 
     public void setAbsoluteLink(String absoluteLink) {
         this.absoluteLink = absoluteLink;
+    }
+
+    public static Finder<String, Media> getFinder() {
+        return finder;
+    }
+
+    public static void setFinder(Finder<String, Media> finder) {
+        Media.finder = finder;
     }
 }

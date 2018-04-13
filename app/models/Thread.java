@@ -23,8 +23,7 @@ public class Thread extends Model {
     @ManyToOne(cascade = CascadeType.ALL)
     private Forum forum;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    //@OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "thread")
     private List<Post> posts;
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);
