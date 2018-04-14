@@ -9,7 +9,11 @@ import play.mvc.*;
 import play.Logger;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.ebean.*;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -64,4 +68,5 @@ public class HomeController extends Controller {
         Logger.debug(thread.getId());
         return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
     }
+
 }

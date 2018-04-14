@@ -16,7 +16,6 @@ public class Thread extends Model {
     private String id;
     private String title;
     private User poster;
-    private int replies;
     private Timestamp lastReply;
 
     //@OneToMany(mappedBy = "thread")
@@ -28,11 +27,10 @@ public class Thread extends Model {
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);
 
-    public Thread(String id, String title, User poster, int replies, Timestamp lastReply, List<Post> posts) {
+    public Thread(String id, String title, User poster, Timestamp lastReply, List<Post> posts) {
         this.id = id;
         this.title = title;
         this.poster = poster;
-        this.replies = replies;
         this.lastReply = lastReply;
         this.posts = posts;
     }
@@ -51,14 +49,6 @@ public class Thread extends Model {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public int getReplies() {
-        return replies;
-    }
-
-    public void setReplies(int replies) {
-        this.replies = replies;
     }
 
     public Timestamp getLastReply() {

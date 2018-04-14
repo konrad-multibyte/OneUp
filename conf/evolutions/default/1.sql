@@ -45,7 +45,6 @@ create table post (
 create table thread (
   id                            varchar(255) not null,
   title                         varchar(255),
-  replies                       integer not null,
   last_reply                    timestamp,
   forum_id                      varchar(255),
   constraint pk_thread primary key (id)

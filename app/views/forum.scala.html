@@ -1,28 +1,57 @@
 @(user: models.users.User, game: models.Game, e: play.api.Environment)
 
-@main("OneUp " + game.getTitle() + " Discussions", user) {
-    <div class="card">
-        <div class="card-header">
-            <h5>@game.getTitle()</h5>
-        </div>
-        <div class="card-body">
-            @if(game.getForum().getThreads().size() == 0) {
-                <h5>There aren't any threads yet.</h5>
-            } else {
-                @for(thread <- game.getForum.getThreads()) {
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>@thread.getTitle()</h5>
-                            <h5>@thread.getPoster()</h5>
-                            <h5>@thread.getReplies()</h5>
-                            <h5>@thread.getLastReply()</h5>
-                            <form action="@routes.HomeController.thread(thread.getId())">
-                                <button type="button" class="btn btn-default">View</button>
-                            </form>
+    @main("OneUp " + game.getTitle() + " Discussions", user) {
+        <div class="card">
+            <div class="card-header">
+                <h5>@game.getTitle()</h5>
+            </div>
+            <div class="card-body">
+                @if(game.getForum().getThreads().size() == 0) {
+                    <h5>There aren't any threads yet.</h5>
+                } else {
+                    @if(user != null) {
+                        <div>
+                            <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
                         </div>
-                    </div>
+                        <div id="threadModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Post a new thread</h4>
+                                    </div>
+                                    <form>
+                                        <div class="modal-body">
+                                            <input type="text" placeholder="Title" class="form-control" name="title">
+                                            <br>
+                                            <textarea name="content" rows="5", cols="50" value="" placeholder="Describe your post in more detail" class="form-control"></textarea>
+                                            <br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" href="">Post</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @for(thread <- game.getForum.getThreads()) {
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>@thread.getTitle()</h5>
+                                <h5>@thread.getPoster()</h5>
+                                <h5>@thread.getLastReply()</h5>
+                                <form action="@routes.HomeController.thread(thread.getId())" class="left col-sm-2">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <span>View</span>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    }
+
                 }
             }
-        </div>
-    </div>
-}
+</div>
+</div>
