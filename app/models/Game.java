@@ -21,19 +21,18 @@ public class Game extends Model {
     private double rating;
     private double discount;
 
-    @OneToOne
-    private Forum forum;
+    @OneToMany(mappedBy = "game")
+    private List<Thread> threads;
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(String id, String title, String description, List<String> gameTags, double price, double rating, Forum thread) {
+    public Game(String id, String title, String description, List<String> gameTags, double price, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.gameTags = gameTags;
         this.price = price;
         this.rating = rating;
-        this.forum = forum;
     }
 
     public String getId() {
@@ -92,20 +91,20 @@ public class Game extends Model {
         this.rating = rating;
     }
 
-    public Forum getForum() {
-        return forum;
-    }
-
-    public void setForum(Thread thread) {
-        this.forum = forum;
-    }
-
     public double getDiscount() {
         return discount;
     }
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public List<Thread> getThreads() {
+        return threads;
+    }
+
+    public void setThreads(List<Thread> threads) {
+        this.threads = threads;
     }
 
     public static Finder<String, Game> getFinder() {
@@ -120,25 +119,6 @@ public class Game extends Model {
         return finder.all();
     }
 
-//    public static List<Game> including(String query) {
-//        return Game.finder.query().where()
-//                .ilike("title", String.format("%%%s%%", query))
-//                .orderBy("title asc")
-//                .findList();
-//    }
-
-//    public static List<Game> overRating(double rating) {
-//        return Game.finder.query().where()
-//                .gt("rating", rating)
-//                .findList();
-//    }
-//
-//    public static List<Game> underPrice(double price) {
-//        return Game.finder.query().where()
-//                .lt("price", price)
-//                .findList();
-//    }
-
     public static List<Game> search(String query, String price, String rating) {
         return Game.finder.query().where()
                 .ilike("title", String.format("%%%s%%", query))
@@ -146,11 +126,4 @@ public class Game extends Model {
                 .lt("price", price)
                 .findList();
     }
-
-//    public static List<Game> compileResults(List<Game> including, List<Game> overRating, List<Game> underPrice) {
-//        List<Game> results = including;
-//        for(Game g : overRating) {
-//
-//        }
-//    }
 }

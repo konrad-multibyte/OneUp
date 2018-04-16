@@ -3,11 +3,6 @@
 
 # --- !Ups
 
-create table forum (
-  id                            varchar(255) not null,
-  constraint pk_forum primary key (id)
-);
-
 create table game (
   id                            varchar(255) not null,
   title                         varchar(255),
@@ -15,8 +10,6 @@ create table game (
   price                         double not null,
   rating                        double not null,
   discount                      double not null,
-  forum_id                      varchar(255),
-  constraint uq_game_forum_id unique (forum_id),
   constraint pk_game primary key (id)
 );
 
@@ -46,7 +39,7 @@ create table thread (
   id                            varchar(255) not null,
   title                         varchar(255),
   last_reply                    timestamp,
-  forum_id                      varchar(255),
+  game_id                       varchar(255),
   constraint pk_thread primary key (id)
 );
 
@@ -69,8 +62,6 @@ create table user_game (
   constraint pk_user_game primary key (user_id,game_id)
 );
 
-alter table game add constraint fk_game_forum_id foreign key (forum_id) references forum (id) on delete restrict on update restrict;
-
 alter table game_media add constraint fk_game_media_game foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_game_media_game on game_media (game_id);
 
@@ -80,8 +71,8 @@ create index ix_game_media_media on game_media (media_id);
 alter table post add constraint fk_post_thread_id foreign key (thread_id) references thread (id) on delete restrict on update restrict;
 create index ix_post_thread_id on post (thread_id);
 
-alter table thread add constraint fk_thread_forum_id foreign key (forum_id) references forum (id) on delete restrict on update restrict;
-create index ix_thread_forum_id on thread (forum_id);
+alter table thread add constraint fk_thread_game_id foreign key (game_id) references game (id) on delete restrict on update restrict;
+create index ix_thread_game_id on thread (game_id);
 
 alter table user_game add constraint fk_user_game_user foreign key (user_id) references user (id) on delete restrict on update restrict;
 create index ix_user_game_user on user_game (user_id);
@@ -92,8 +83,6 @@ create index ix_user_game_game on user_game (game_id);
 
 # --- !Downs
 
-alter table game drop constraint if exists fk_game_forum_id;
-
 alter table game_media drop constraint if exists fk_game_media_game;
 drop index if exists ix_game_media_game;
 
@@ -103,16 +92,14 @@ drop index if exists ix_game_media_media;
 alter table post drop constraint if exists fk_post_thread_id;
 drop index if exists ix_post_thread_id;
 
-alter table thread drop constraint if exists fk_thread_forum_id;
-drop index if exists ix_thread_forum_id;
+alter table thread drop constraint if exists fk_thread_game_id;
+drop index if exists ix_thread_game_id;
 
 alter table user_game drop constraint if exists fk_user_game_user;
 drop index if exists ix_user_game_user;
 
 alter table user_game drop constraint if exists fk_user_game_game;
 drop index if exists ix_user_game_game;
-
-drop table if exists forum;
 
 drop table if exists game;
 

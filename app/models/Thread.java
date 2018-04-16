@@ -18,9 +18,8 @@ public class Thread extends Model {
     private User poster;
     private Timestamp lastReply;
 
-    //@OneToMany(mappedBy = "thread")
     @ManyToOne(cascade = CascadeType.ALL)
-    private Forum forum;
+    private Game game;
 
     @OneToMany(mappedBy = "thread")
     private List<Post> posts;

@@ -6,7 +6,7 @@
                 <h5>@game.getTitle()</h5>
             </div>
             <div class="card-body">
-                @if(game.getForum().getThreads().size() == 0) {
+                @if(game.getThreads().size() == 0) {
                     <h5>There aren't any threads yet.</h5>
                 } else {
                     @if(user != null) {
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     }
-                    @for(thread <- game.getForum.getThreads()) {
+                    @for(thread <- game.getThreads()) {
                         <div class="card">
                             <div class="card-header">
                                 <h5>@thread.getTitle()</h5>
