@@ -1,6 +1,6 @@
 @(user: models.users.User, game: models.Game, e: play.api.Environment)
 
-@main("OneUp: " + game.getTitle, user) {
+@main(game.getTitle + " on OneUp", user) {
     <div class="card">
         <div class="card-header">
             <h1>@game.getTitle</h1>
