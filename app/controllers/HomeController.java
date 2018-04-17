@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import models.Thread;
 import models.users.*;
 import play.api.Environment;
 import play.data.DynamicForm;
@@ -49,19 +50,19 @@ public class HomeController extends Controller {
 
     }
 
-    public Result addToCart(String id) {
+    public Result addToCart(Long id) {
         if (session().get("email") == null) {
             return redirect(routes.LoginController.login());
         }
-        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id));
+        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id.toString()));
         return redirect(routes.HomeController.store());
     }
 
-    public Result removeFromCart(String id) {
+    public Result removeFromCart(Long id) {
         if (session().get("email") == null) {
             return redirect(routes.LoginController.login());
         }
-        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id));
+        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id.toString()));
         return redirect(routes.HomeController.store());
     }
 
@@ -79,13 +80,13 @@ public class HomeController extends Controller {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
     }
 
-    public Result forum(String id) {
-        Game game = Game.getFinder().byId(id);
+    public Result forum(Long id) {
+        Game game = Game.getFinder().byId(id.toString());
         return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
 
-    public Result thread(String id) {
-        models.Thread thread = models.Thread.getFinder().byId(id);
+    public Result thread(Long id) {
+        models.Thread thread = models.Thread.getFinder().byId(id.toString());
         return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
     }
 

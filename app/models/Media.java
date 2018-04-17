@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Media extends Model {
 
     @Id
-    private String id;
+    private Long id;
     private String mime;
     @Constraints.Required
     private String link;
@@ -24,18 +24,18 @@ public class Media extends Model {
 
     }
 
-    public Media(String id, String mime, String link, Media thumbnail) {
+    public Media(Long id, String mime, String link, Media thumbnail) {
         this.id = id;
         this.mime = mime;
         this.link = link;
         this.thumbnail = thumbnail;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

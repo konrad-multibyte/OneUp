@@ -1,7 +1,6 @@
 package models;
 
 import io.ebean.Finder;
-import models.users.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public class Cart {
 
     @Id
-    private String id;
+    private Long id;
 
     @ManyToMany
     private List<Game> games;
@@ -23,11 +22,11 @@ public class Cart {
         this.games = games;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

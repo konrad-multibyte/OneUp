@@ -3,12 +3,14 @@ GET     /game/:id                   controllers.HomeController.game(id : Long)
 
 GET     /store                      controllers.HomeController.store
 GET     /search/                    controllers.HomeController.search
-GET     /store/cart/add/:id         controllers.HomeController.addToCart(id: String)
-GET     /store/cart/rm/:id          controllers.HomeController.removeFromCart(id: String)
+GET     /store/cart/add/:id         controllers.HomeController.addToCart(id: Long)
+GET     /store/cart/rm/:id          controllers.HomeController.removeFromCart(id: Long)
 POST    /store/checkout             controllers.HomeController.checkout
 
-GET     /forum/:id                  controllers.HomeController.forum(id : String)
-GET     /thread/:id                 controllers.HomeController.thread(id : String)
+GET     /forum/:id                  controllers.HomeController.forum(id : Long)
+GET     /thread/:id                 controllers.HomeController.thread(id : Long)
+
+GET     /forum/create/:id           controllers.ForumController.create(id: Long)
 
 GET     /login                      controllers.LoginController.login
 POST    /loginSubmit                controllers.LoginController.form

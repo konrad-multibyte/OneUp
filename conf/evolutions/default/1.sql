@@ -4,19 +4,19 @@
 # --- !Ups
 
 create table cart (
-  id                            varchar(255) not null,
+  id                            bigint auto_increment not null,
   total                         double not null,
   constraint pk_cart primary key (id)
 );
 
 create table cart_game (
-  cart_id                       varchar(255) not null,
-  game_id                       varchar(255) not null,
+  cart_id                       bigint not null,
+  game_id                       bigint not null,
   constraint pk_cart_game primary key (cart_id,game_id)
 );
 
 create table game (
-  id                            varchar(255) not null,
+  id                            bigint auto_increment not null,
   title                         varchar(255),
   description                   longvarchar,
   price                         double not null,
@@ -26,13 +26,13 @@ create table game (
 );
 
 create table game_media (
-  game_id                       varchar(255) not null,
-  media_id                      varchar(255) not null,
+  game_id                       bigint not null,
+  media_id                      bigint not null,
   constraint pk_game_media primary key (game_id,media_id)
 );
 
 create table media (
-  id                            varchar(255) not null,
+  id                            bigint auto_increment not null,
   mime                          varchar(255),
   link                          varchar(255),
   absolute_link                 varchar(255),
@@ -40,18 +40,17 @@ create table media (
 );
 
 create table post (
-  id                            varchar(255) not null,
+  id                            bigint auto_increment not null,
   text                          longvarchar,
   time_posted                   timestamp,
-  thread_id                     varchar(255),
+  thread_id                     bigint,
   constraint pk_post primary key (id)
 );
 
 create table thread (
-  id                            varchar(255) not null,
+  id                            bigint auto_increment not null,
   title                         varchar(255),
-  last_reply                    timestamp,
-  game_id                       varchar(255),
+  game_id                       bigint,
   constraint pk_thread primary key (id)
 );
 
@@ -64,7 +63,7 @@ create table user (
   last_name                     varchar(255),
   username                      varchar(255) not null,
   joined                        timestamp,
-  cart_id                       varchar(255),
+  cart_id                       bigint,
   constraint uq_user_email unique (email),
   constraint uq_user_cart_id unique (cart_id),
   constraint pk_user primary key (id)
@@ -73,7 +72,7 @@ create sequence user_seq start with 12432;
 
 create table user_game (
   user_id                       integer not null,
-  game_id                       varchar(255) not null,
+  game_id                       bigint not null,
   constraint pk_user_game primary key (user_id,game_id)
 );
 

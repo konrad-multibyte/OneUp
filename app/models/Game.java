@@ -8,19 +8,16 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Column;
 import java.text.DecimalFormat;
 
 import java.util.List;
 
-import scala.math.BigDecimal;
-
 @Entity
 public class Game extends Model {
 
     @Id
-    private String id;
+    private Long id;
     private String title;
 
     @Column(columnDefinition = "LONGVARCHAR")
@@ -37,7 +34,7 @@ public class Game extends Model {
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(String id, String title, String description, List<String> gameTags, double price, double rating) {
+    public Game(Long id, String title, String description, List<String> gameTags, double price, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -46,11 +43,11 @@ public class Game extends Model {
         this.rating = rating;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

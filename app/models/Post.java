@@ -1,6 +1,7 @@
 package models;
 
-import io.ebean.Model;
+import io.ebean.*;
+
 import models.users.User;
 import java.sql.Timestamp;
 
@@ -10,27 +11,29 @@ import javax.persistence.*;
 public class Post extends Model {
 
     @Id
-    private String id;
+    private Long id;
     private User poster;
     @Column(columnDefinition = "LONGVARCHAR")
     private String text;
+
     private Timestamp timePosted;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Thread thread;
 
-    public Post(String id, User poster, String text, Timestamp timePosted) {
-        this.id = id;
+    public Post(User poster, String text, Thread thread) {
         this.poster = poster;
         this.text = text;
-        this.timePosted = timePosted;
+        this.thread = thread;
+        timePosted = new Timestamp(System.currentTimeMillis());
+        Ebean.save(this);
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

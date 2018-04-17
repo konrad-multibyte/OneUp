@@ -1,22 +1,26 @@
 package models;
 
-import io.ebean.Model;
-import io.ebean.Finder;
+import io.ebean.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import models.users.User;
+import play.Logger;
+
 import java.sql.Timestamp;
 
 @Entity
 public class Thread extends Model {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String title;
     private User poster;
-    private Timestamp lastReply;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Game game;
@@ -26,19 +30,27 @@ public class Thread extends Model {
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);
 
-    public Thread(String id, String title, User poster, Timestamp lastReply, List<Post> posts) {
-        this.id = id;
+    public Thread(String title, User poster, Game game, String content) {
         this.title = title;
         this.poster = poster;
-        this.lastReply = lastReply;
-        this.posts = posts;
+        this.game = game;
+        posts = new ArrayList<>();
+        posts.add(new Post(poster, content, this));
+        Ebean.save(this);
     }
 
-    public String getId() {
+    public Timestamp getLastReply() {
+        if(posts.size() != 0) {
+            return posts.get(posts.size() - 1).getTimePosted();
+        }
+        return null;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,14 +60,6 @@ public class Thread extends Model {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public Timestamp getLastReply() {
-        return lastReply;
-    }
-
-    public void setLastReply(Timestamp lastReply) {
-        this.lastReply = lastReply;
     }
 
     public String getTitle() {

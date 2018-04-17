@@ -33,11 +33,11 @@ MERGE INTO game_media VALUES (1, 1);
 MERGE INTO game_media VALUES (2, 3);
 MERGE INTO game_media VALUES (3, 4);
 
-MERGE INTO thread VALUES (1, 'my game is not working pls to help', '1998-10-06 12:54:21', 1);
-MERGE INTO thread VALUES (2, 'this game sucks and here''s why', '1998-10-07 15:05:55', 1);
-MERGE INTO thread VALUES (3, 'test post please ignore', '1998-10-04 05:12:23', 1);
-MERGE INTO thread VALUES (4, 'i don''t like thing', '1998-10-07 05:55:55', 2);
-MERGE INTO thread VALUES (5, 'Oh, there once was a post on a forum', '1998-10-04 21:40:25', 3);
+MERGE INTO thread (id, title, game_id) VALUES (1, 'my game is not working pls to help', 1);
+MERGE INTO thread (id, title, game_id) VALUES (2, 'this game sucks and here''s why', 1);
+MERGE INTO thread (id, title, game_id) VALUES (3, 'test post please ignore', 1);
+MERGE INTO thread (id, title, game_id) VALUES (4, 'i don''t like thing', 2);
+MERGE INTO thread (id, title, game_id) VALUES (5, 'Oh, there once was a post on a forum', 3);
 
 MERGE INTO post VALUES (1, 'it just broke my washing machine when i tried to install it', '1998-10-06 13:16:41', 1);
 MERGE INTO post VALUES (2, 'you are retarded', '1998-11-06 21:42:04', 1);
