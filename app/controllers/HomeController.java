@@ -10,6 +10,13 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.ebean.*;
+
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -71,4 +78,16 @@ public class HomeController extends Controller {
         String rating = form.get("rRange");
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
     }
+
+    public Result forum(String id) {
+        Game game = Game.getFinder().byId(id);
+        return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
+    }
+
+    public Result thread(String id) {
+        models.Thread thread = models.Thread.getFinder().byId(id);
+        Logger.debug(thread.getId());
+        return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
+    }
+
 }

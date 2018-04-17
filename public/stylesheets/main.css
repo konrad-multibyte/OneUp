@@ -70,6 +70,14 @@
     margin-bottom: 2em;
 }
 
+#threadModal {
+    width: 100%;
+}
+
+.modal-body input {
+    width: 100%;
+}
+
 .disabled {
     pointer-events: none;
     cursor: default;

@@ -1,0 +1,17 @@
+@(user: models.users.User, thread : models.Thread, e: play.api.Environment)
+
+@main("OneUp - " + thread.getTitle(), user) {
+    <div class="card">
+        <div class="card-header">
+            <h5>@thread.getTitle()</h5>
+        </div>
+        @for(post <- thread.getPosts) {
+            <div class="card-body">
+                <h5>@post.getPoster()</h5>
+                <h5>@post.getText()</h5>
+                <h5>Posted @post.getTimePosted()</h5>
+            </div>
+        }
+
+    </div>
+}

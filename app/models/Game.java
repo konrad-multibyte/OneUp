@@ -3,12 +3,15 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 
+import javax.persistence.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Column;
 import java.text.DecimalFormat;
+
 import java.util.List;
 
 import scala.math.BigDecimal;
@@ -29,19 +32,18 @@ public class Game extends Model {
     private double rating;
     private double discount;
 
-    @OneToOne
-    private ForumThread thread;
+    @OneToMany(mappedBy = "game")
+    private List<Thread> threads;
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(String id, String title, String description, List<String> gameTags, double price, double rating, ForumThread thread) {
+    public Game(String id, String title, String description, List<String> gameTags, double price, double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.gameTags = gameTags;
         this.price = price;
         this.rating = rating;
-        this.thread = thread;
     }
 
     public String getId() {
@@ -100,20 +102,20 @@ public class Game extends Model {
         this.rating = rating;
     }
 
-    public ForumThread getThread() {
-        return thread;
-    }
-
-    public void setThread(ForumThread thread) {
-        this.thread = thread;
-    }
-
     public double getDiscount() {
         return discount;
     }
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public List<Thread> getThreads() {
+        return threads;
+    }
+
+    public void setThreads(List<Thread> threads) {
+        this.threads = threads;
     }
 
     public static Finder<String, Game> getFinder() {
@@ -139,4 +141,5 @@ public class Game extends Model {
     public double getDiscountedPrice() {
         return Double.valueOf(new DecimalFormat("#.##").format(price - price * discount));
     }
+
 }

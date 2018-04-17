@@ -2,25 +2,28 @@ package models;
 
 import io.ebean.Model;
 import models.users.User;
-import org.joda.time.DateTime;
+import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Posts extends Model {
+public class Post extends Model {
 
     @Id
     private String id;
     private User poster;
+    @Column(columnDefinition = "LONGVARCHAR")
     private String text;
-    private DateTime dateTime;
+    private Timestamp timePosted;
 
-    public Posts(String id, User poster, String text, DateTime dateTime) {
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Thread thread;
+
+    public Post(String id, User poster, String text, Timestamp timePosted) {
         this.id = id;
         this.poster = poster;
         this.text = text;
-        this.dateTime = dateTime;
+        this.timePosted = timePosted;
     }
 
     public String getId() {
@@ -47,11 +50,11 @@ public class Posts extends Model {
         this.text = text;
     }
 
-    public DateTime getDateTime() {
-        return dateTime;
+    public Timestamp getTimePosted() {
+        return timePosted;
     }
 
-    public void setDateTime(DateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setTimePosted(Timestamp timePosted) {
+        this.timePosted = timePosted;
     }
 }
