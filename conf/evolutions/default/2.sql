@@ -10,7 +10,7 @@ MERGE INTO game VALUES(1, 'Metal Bear Solid', 'The year is 1998, and the world s
                                               ' Foxhound. Can he stop them before This text box' ||
                                               ' runs out of characters?', 59.99, 49.29, 0.2);
 
-MERGE INTO game VALUES(2, 'Final Fantasy 15 (not really final then, is it)',
+MERGE INTO game VALUES(2, 'Final Fantasy XV (not really final then, is it)',
                        'Some twink''s dad dies' ||
                        ' and he goes and becomes an angsty virgin with a deathwish. Venture with' ||
                        ' Prince Noctis as he crosses the land with his boyband and defeats' ||
@@ -51,5 +51,9 @@ MERGE INTO post VALUES (9, 'his motivations quite hazy--', '1998-10-04 21:41:20'
 MERGE INTO post VALUES (10, 'orum orum good luck rhyming something with this without being like a roman fucking centurion' ||
                             'jesus', '1998-10-04 21:41:20', 5);
 
-# ---!Downs
+MERGE INTO cart VALUES (1, 500);
+MERGE INTO cart VALUES (2, 199);
+MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2);
+MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'admin', '2018-04-17 14:42:30', 1);
 
+# ---!Downs

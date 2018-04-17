@@ -1,6 +1,5 @@
 # --- Created by Ebean DDL
 # To stop Ebean DDL generation, remove this comment and start using Evolutions
-=======
 
 # --- !Ups
 
@@ -83,8 +82,6 @@ create index ix_cart_game_cart on cart_game (cart_id);
 
 alter table cart_game add constraint fk_cart_game_game foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_cart_game_game on cart_game (game_id);
-
-alter table game add constraint fk_game_thread_id foreign key (thread_id) references forum_thread (id) on delete restrict on update restrict;
 
 alter table game_media add constraint fk_game_media_game foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_game_media_game on game_media (game_id);

@@ -86,7 +86,6 @@ public class HomeController extends Controller {
 
     public Result thread(String id) {
         models.Thread thread = models.Thread.getFinder().byId(id);
-        Logger.debug(thread.getId());
         return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
     }
 
