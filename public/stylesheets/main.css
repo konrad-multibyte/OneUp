@@ -69,3 +69,8 @@
 .game {
     margin-bottom: 2em;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

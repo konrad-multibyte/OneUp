@@ -6,7 +6,7 @@ public interface CRUD {
 
     Result create();
     Result read();
-    Result update(String id);
-    Result delete(String id);
+    Result update(int id);
+    Result delete(int id);
     Result form();
 }

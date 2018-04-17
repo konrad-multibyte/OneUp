@@ -1,7 +1,6 @@
 @(user: models.users.User, game: models.Game, e: play.api.Environment)
 
 @main("OneUp: " + game.getTitle, user) {
-
     <div class="card">
         <div class="card-header">
             <h1>@game.getTitle</h1>
@@ -10,7 +9,7 @@
             @for(media <- game.getMedia) {
                 @if(media.getMime.contains("image")) {
                     @if(e.resource("public/" + media.getLink).isDefined) {
-                        <img src="@routes.Assets.versioned(media.getLink())"/>
+                        <img src="@routes.Assets.versioned(media.getLink)"/>
                     }
                 }
                 @if(media.getMime.equals("video/youtube")) {
@@ -23,4 +22,11 @@
 
     <h6>@game.getPrice</h6>
     <h6>@game.getRating</h6>
+    @if(user != null) {
+        @if(!user.getCart.getGames.contains(game)) {
+            <a class="btn btn-success" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+        } else {
+            <a class="btn btn-success disabled" href="@routes.HomeController.addToCart(game.getId)">Add To Cart</a>
+        }
+    }
 }

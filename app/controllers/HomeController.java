@@ -5,11 +5,10 @@ import models.users.*;
 import play.api.Environment;
 import play.data.DynamicForm;
 import play.data.FormFactory;
-import play.mvc.*;
-import play.Logger;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -33,10 +32,6 @@ public class HomeController extends Controller {
         this.formFactory = formFactory;
     }
 
-    public Result index() {
-        return ok(views.html.index.render(User.getWithEmail(session().get("email"))));
-    }
-
     public Result game(Long id) {
         Game game = Game.getFinder().byId(id.toString());
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
@@ -44,6 +39,29 @@ public class HomeController extends Controller {
 
     public Result store() {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
+
+    }
+
+    public Result addToCart(String id) {
+        if (session().get("email") == null) {
+            return redirect(routes.LoginController.login());
+        }
+        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id));
+        return redirect(routes.HomeController.store());
+    }
+
+    public Result removeFromCart(String id) {
+        if (session().get("email") == null) {
+            return redirect(routes.LoginController.login());
+        }
+        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id));
+        return redirect(routes.HomeController.store());
+    }
+
+    public Result checkout() {
+        User.getWithEmail(session().get("email")).getCart().checkout();
+        // TODO: Credit card verification
+        return redirect("Credit card?");
     }
 
     public Result search() {

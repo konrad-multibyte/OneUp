@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Column;
+import java.text.DecimalFormat;
 import java.util.List;
+
+import scala.math.BigDecimal;
 
 @Entity
 public class Game extends Model {
@@ -15,6 +19,8 @@ public class Game extends Model {
     @Id
     private String id;
     private String title;
+
+    @Column(columnDefinition = "LONGVARCHAR")
     private String description;
     private List<String> gameTags;
     @ManyToMany
@@ -122,25 +128,6 @@ public class Game extends Model {
         return finder.all();
     }
 
-//    public static List<Game> including(String query) {
-//        return Game.finder.query().where()
-//                .ilike("title", String.format("%%%s%%", query))
-//                .orderBy("title asc")
-//                .findList();
-//    }
-
-//    public static List<Game> overRating(double rating) {
-//        return Game.finder.query().where()
-//                .gt("rating", rating)
-//                .findList();
-//    }
-//
-//    public static List<Game> underPrice(double price) {
-//        return Game.finder.query().where()
-//                .lt("price", price)
-//                .findList();
-//    }
-
     public static List<Game> search(String query, String price, String rating) {
         return Game.finder.query().where()
                 .ilike("title", String.format("%%%s%%", query))
@@ -149,10 +136,7 @@ public class Game extends Model {
                 .findList();
     }
 
-//    public static List<Game> compileResults(List<Game> including, List<Game> overRating, List<Game> underPrice) {
-//        List<Game> results = including;
-//        for(Game g : overRating) {
-//
-//        }
-//    }
+    public double getDiscountedPrice() {
+        return Double.valueOf(new DecimalFormat("#.##").format(price - price * discount));
+    }
 }
