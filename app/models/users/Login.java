@@ -3,6 +3,7 @@ package models.users;
 /**
  * Placeholder user. Only used for authentication.
  */
+@Deprecated
 public class Login {
 
     private String email, password;

@@ -77,3 +77,8 @@
 .modal-body input {
     width: 100%;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

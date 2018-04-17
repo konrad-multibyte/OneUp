@@ -4,7 +4,17 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Column;
+import java.text.DecimalFormat;
+
 import java.util.List;
+
+import scala.math.BigDecimal;
 
 @Entity
 public class Game extends Model {
@@ -12,6 +22,7 @@ public class Game extends Model {
     @Id
     private String id;
     private String title;
+
     @Column(columnDefinition = "LONGVARCHAR")
     private String description;
     private List<String> gameTags;
@@ -126,4 +137,9 @@ public class Game extends Model {
                 .lt("price", price)
                 .findList();
     }
+
+    public double getDiscountedPrice() {
+        return Double.valueOf(new DecimalFormat("#.##").format(price - price * discount));
+    }
+
 }

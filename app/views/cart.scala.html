@@ -1,0 +1,36 @@
+@(cart: models.Cart, user: models.users.User)
+
+@main("Cart", user) {
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(cart.getGames.isEmpty) {
+                <h1>You got nothin'</h1>
+            } else {
+                @for(game <- cart.getGames) {
+                    <tr>
+                        <td>@game.getTitle</td>
+                        <td>
+                            <del>@game.getPrice</del><br>
+                            €@game.getDiscountedPrice<br>
+                            <a href="@routes.HomeController.removeFromCart(game.getId)">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    Total:&nbsp;@cart.getTotal
+    @helper.form(action = routes.HomeController.checkout) {
+        @if(user.isInstanceOf[models.users.Admin]) {
+            <input type="submit" class="btn btn-success" value="Receive">
+        } else {
+            <input type="submit" class="btn btn-success" value="Purchase">
+        }
+    }
+}

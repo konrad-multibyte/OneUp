@@ -1,6 +1,5 @@
 package controllers;
 
-import models.users.Login;
 import models.users.User;
 import play.data.Form;
 import play.data.FormFactory;
@@ -20,7 +19,7 @@ public class LoginController extends Controller {
     }
 
     public Result login() {
-        return ok(login.render(formFactory.form(User.class)));
+        return ok(login.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
     public Result form() {
@@ -29,7 +28,7 @@ public class LoginController extends Controller {
         if (user != null) {
             if (User.auth(user.getEmail(), user.getPassword())) {
                 session().put("email", user.getEmail());
-                return redirect(routes.HomeController.index());
+                return redirect(routes.HomeController.store());
             }
             return redirect(routes.LoginController.login());
         }
@@ -38,6 +37,6 @@ public class LoginController extends Controller {
 
     public Result logout() {
         session().clear();
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.store());
     }
 }

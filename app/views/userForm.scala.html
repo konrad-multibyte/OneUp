@@ -1,15 +1,84 @@
 @(userForm: play.data.Form[models.users.User], user: models.users.User)
 
 @main("Add/Create User", user) {
-    @helper.form(action = routes.UserController.form) {
+    @helper.form(action = routes.UserController.customer, 'id -> "register", 'class -> "form") {
         @helper.CSRF.formField
-        @helper.inputText(userForm("email"), '_label -> null, 'placeholder -> "Email")
-        @helper.inputText(userForm("username"), '_label -> null, 'placeholder -> "Username")
-        @helper.inputText(userForm("firstName"), '_label -> null, 'placeholder -> "First Name")
-        @helper.inputText(userForm("lastName"), '_label -> null, 'placeholder -> "Last Name")
-        @helper.inputPassword(userForm("password"), '_label -> null, 'placeholder -> "Password")
-        <input type="password" name="c" placeholder="Confirm Password">
-        <input type="submit" value="Register">
-        @helper.inputText(userForm("id"), '_label -> null, 'hidden -> "hidden")
-    }
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+                    @if(user != null) {
+                        @if(user.isInstanceOf[models.users.Admin]) {
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <input class="from-control" id="normal" type="radio" name="type" value="normal" checked required>
+                                            <label for="normal">Normal</label>
+                                            <input id="admin" type="radio" name="type" value="admin" required>
+                                            <label for="admin">Admin</label>
+                                            <script>
+                                                $('#admin').click(function() {
+                                                    $('#register').attr('action', '/user/admin')
+                                                });
+                                                $('#normal').click(function() {
+                                                    $('#register').attr('action', '/user/submit')
+                                                });
+                                            </script>
+                                        </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            @helper.inputText(userForm("email"), '_label -> "Email", 'class -> "form-control", 'required -> "required")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="from-group">
+                            @helper.inputText(userForm("username"), '_label -> "Username", 'class -> "form-control", 'required -> "required")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            @helper.inputText(userForm("firstName"), '_label -> "First Name", 'class -> "form-control", 'required -> "required")
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            @helper.inputText(userForm("lastName"), '_label -> "Last Name", 'class -> "form-control", 'required -> "required")
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            @helper.inputPassword(userForm("password"), '_label -> "Password", 'class -> "form-control", 'required -> "required")
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <dl>
+                                <dt>
+                                    <label for="confirmPassword">Confirm Password</label>
+                                </dt>
+                                <dd>
+                                    <input class="form-control" id="confirmPassword" type="password" name="c" required>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+                            <input class="form-control btn btn-primary" type="submit" value="Register">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    }   
 }

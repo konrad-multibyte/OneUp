@@ -1,20 +1,26 @@
 package models.users;
 
+import models.Game;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
+import models.Cart;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "privileges")
+@SequenceGenerator(name = "id_gen", initialValue = 12432, sequenceName = "user_seq")
 public class User extends Model{
 
     @Id
-    private String id;
+    @GeneratedValue(generator = "id_gen", strategy = GenerationType.SEQUENCE)
+    private Integer id;
 
     @Column(unique = true)
     @NotNull
@@ -29,33 +35,29 @@ public class User extends Model{
     private String username;
     private Date joined;
 
-    private static Finder<String, User> finder = new Finder<>(User.class);
+    @ManyToMany
+    private List<Game> gamesList;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    @OneToOne
+    private Cart cart;
 
-    public User(String id, String email, String password) {
+    private static Finder<Integer, User> finder = new Finder<>(User.class);
+
+    public User(int id, String email, String password, String firstName, String lastName, String username,
+                Date joined, Cart cart, List<Game> gamesList) {
         this.id = id;
         this.email = email;
         this.password = password;
-    }
-
-    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
-        this(id, email, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.joined = joined;
+        this.cart = cart;
+        this.gamesList = gamesList;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -106,6 +108,26 @@ public class User extends Model{
         this.joined = joined;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setGamesList(List<Game> gamesList) {
+        this.gamesList = gamesList;
+    }
+
+    public List<Game> getGamesList() {
+        return gamesList;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public static Finder<Integer, User> getFinder() {
+        return finder;
+    }
+
     @Override
     public void save() {
         password = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -120,15 +142,18 @@ public class User extends Model{
         super.update();
     }
 
-    public static User get(String id) {
+    public static User get(int id) {
         return finder.ref(id);
     }
 
     public static User getWithEmail(String email) {
+        if (email == null) {
+            return null;
+        }
         return finder.query().where().eq("email", email).findOne();
     }
 
-    public static boolean exists(String email) {
+   public static boolean exists(String email) {
         return finder.query().where().eq("email", email).findUnique() != null;
     }
 

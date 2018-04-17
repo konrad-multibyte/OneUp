@@ -1,12 +1,36 @@
-@(loginForm: play.data.Form[models.users.User])
+@(loginForm: play.data.Form[models.users.User], user: models.users.User)
 
-@main("Login", null) {
-    @helper.form(action = routes.LoginController.form) {
-        @helper.CSRF.formField
-        @helper.inputText(loginForm("email"), '_label -> null, 'placeholder -> "Email")
-        @helper.inputPassword(loginForm("password"), '_label -> null, 'placeholder -> "Password")
-        <input type="submit" value="Login">
-    }
-
-
+@main("Login", user) {
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-4 offset-md-2 offset-lg-4">
+            <h1 class="text-center">Sign In</h1>
+            @helper.form(action = routes.LoginController.form, 'class -> "form") {
+                @helper.CSRF.formField
+                @if(flash.containsKey("success")) {
+                    <div class="alert alert-success">
+                        @flash.get("success")
+                    </div>
+                }
+                @if(flash.containsKey("error")) {
+                    <div class="alert alert-warning">
+                        @flash.get("error")
+                    </div>
+                }
+                @if(loginForm.hasGlobalErrors) {
+                    @loginForm.getGlobalError
+                }
+                <div class="form-group">
+                    @helper.inputText(loginForm("email"), '_label -> "Email", 'required -> "required", 'class -> "form-control")
+                </div>
+                <div class="form-group">
+                    @helper.inputPassword(loginForm("password"), '_label -> "Password", 'required -> "required", 'class -> "form-control")
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4 offset-md-4">
+                        <input class="btn btn-primary" type="submit" value="Sign In">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import models.users.Customer;
 import models.users.User;
+import models.users.Admin;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -12,8 +13,9 @@ import views.html.profile;
 
 import javax.inject.Inject;
 import java.util.UUID;
+import models.Cart;
 
-public class UserController extends Controller implements CRUD{
+public class UserController extends Controller{
 
     private FormFactory formFactory;
 
@@ -23,35 +25,29 @@ public class UserController extends Controller implements CRUD{
     }
 
 
-    public Result profile(String id) {
+    public Result profile(int id) {
         return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
     }
 
-    @Override
     public Result create() {
         return ok(userForm.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
-    @Override
     public Result read() {
         return null;
     }
 
-    @Override
-    public Result update(String id) {
+    public Result update(int id) {
         return ok(userForm.render(formFactory.form(User.class).fill(User.get(id)), User.getWithEmail(session().get("email"))));
     }
 
-    @Override
-    public Result delete(String id) {
+    public Result delete(int id) {
         User.get(id).delete();
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.store());
     }
 
-    @Override
-    public Result form() {
-        Form<Customer> form = formFactory.form(Customer.class).bindFromRequest();
-        Customer user = form.get();
+    private Result form(Form<? extends User> form) {
+        User user = form.get();
         if (user != null) {
             if (form.field("c").getValue().isPresent()) {
                 String confirmPassword = form.field("c").getValue().get();
@@ -59,14 +55,29 @@ public class UserController extends Controller implements CRUD{
                     return ok("Bad confirmed password");
                 }
             }
-            if (user.getId().equals("")) {
-                user.setId(UUID.randomUUID().toString());
+            if (user.getId() == null) {
+                if (User.exists(user.getEmail())) {
+                    user.setEmail("");
+                    user.setPassword("");
+                    flash("error", "Email already registred!");
+                    return ok(userForm.render(formFactory.form(User.class).fill(user), User.getWithEmail(session().get("email"))));
+                }
                 user.save();
-                return ok("User created");
+                flash("success", "User created!");
+                return redirect(routes.LoginController.login());
             } else {
                 user.update();
             }
         }
-        return ok("User updated");
+        flash("success", "Information Updated!");
+        return redirect(routes.UserController.profile(user.getId()));
+    }
+
+    public Result admin() {
+        return form(formFactory.form(Admin.class).bindFromRequest());
+    }
+
+    public Result customer() {
+        return form(formFactory.form(Customer.class).bindFromRequest());
     }
 }
