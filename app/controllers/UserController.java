@@ -12,8 +12,6 @@ import views.html.userForm;
 import views.html.profile;
 
 import javax.inject.Inject;
-import java.util.UUID;
-import models.Cart;
 
 public class UserController extends Controller{
 
@@ -31,10 +29,6 @@ public class UserController extends Controller{
 
     public Result create() {
         return ok(userForm.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
-    }
-
-    public Result read() {
-        return null;
     }
 
     public Result update(int id) {
@@ -59,7 +53,7 @@ public class UserController extends Controller{
                 if (User.exists(user.getEmail())) {
                     user.setEmail("");
                     user.setPassword("");
-                    flash("error", "Email already registred!");
+                    flash("error", "Email already registered!");
                     return ok(userForm.render(formFactory.form(User.class).fill(user), User.getWithEmail(session().get("email"))));
                 }
                 user.save();
@@ -68,9 +62,11 @@ public class UserController extends Controller{
             } else {
                 user.update();
             }
+            flash("success", "Information Updated!");
+            return redirect(routes.UserController.profile(user.getId()));
         }
-        flash("success", "Information Updated!");
-        return redirect(routes.UserController.profile(user.getId()));
+        flash("error", "Unknown error.");
+        return redirect(routes.HomeController.store());
     }
 
     public Result admin() {
