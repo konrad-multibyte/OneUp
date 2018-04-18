@@ -1,17 +1,43 @@
-@(user: models.users.User, thread : models.Thread, e: play.api.Environment)
+@(user: models.users.User, thread: models.Thread, e: play.api.Environment)
 
-@main("OneUp - " + thread.getTitle(), user) {
-    <div class="card">
-        <div class="card-header">
-            <h5>@thread.getTitle()</h5>
-        </div>
-        @for(post <- thread.getPosts) {
-            <div class="card-body">
-                <h5>@post.getPoster()</h5>
-                <h5>@post.getText()</h5>
-                <h5>Posted @post.getTimePosted()</h5>
+    @main("OneUp - " + thread.getTitle(), user) {
+        <div class="card">
+            <div class="card-header">
+                <h5>@thread.getTitle()</h5>
             </div>
-        }
 
-    </div>
-}
+            @if(user != null) {
+                <div>
+                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
+                </div>
+                <div id="threadModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Post</h4>
+                            </div>
+                            <form action="@routes.ForumController.createPost(thread.getId())">
+                                <div class="modal-body">
+                                    <textarea name="content" rows="5", cols="50" value="" placeholder="Describe your post in more detail" class="form-control"></textarea>
+                                    <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default">Post</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            @for(post <- thread.getPosts) {
+                <div class="card-body">
+                    <h5>@post.getPoster()</h5>
+                    <h5>@post.getText()</h5>
+                    <h5>Posted @post.getTimePosted()</h5>
+                </div>
+            }
+
+        </div>
+
+    }

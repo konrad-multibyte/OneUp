@@ -3,6 +3,32 @@
 @main("OneUp : Store", user) {
     <div class="container">
         <div class="row">
+            @if(user.equals("admin")) {
+                <div>
+                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
+                </div>
+                <div id="threadModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add a new game</h4>
+                            </div>
+                            <form action="@routes.StoreController.create()">
+                                <div class="modal-body">
+                                    <input type="text" name="title" placeholder="Title">
+                                    <textarea name="content" rows="5" cols="50" value="" placeholder="Description" class="form-control"></textarea>
+                                    <input type="number" name="price">
+                                    <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default">Create</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
             <div class="col-sm-3">
                 <div class="card filter">
                     <div class="card-header">
@@ -61,43 +87,44 @@
                                     <h5>Price</h5>
                                 </div>
                                 <div class="card-body card-small centered">
-                                    <h5 class=""><del>@game.getPrice</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span><br>
-                                    €@game.getDiscountedPrice</h5>
+                                    <h5 class=""><del>@game.getPrice</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span>
+                                        <br>
+                                        €@game.getDiscountedPrice</h5>
                                 </div>
-                                    } else {
+                                } else {
                                     <h5>Price</h5>
-                                    </div>
+                                </div>
                             <div class="card-body card-small centered">
                                 <h5>€@game.getPrice</h5>
                             </div>
-                                }
+                            }
 
+                        </div>
+                        <div class="rating card">
+                            <div class="card-header card-small centered">
+                                <h5>Rating</h5>
                             </div>
-                            <div class="rating card">
-                                <div class="card-header card-small centered">
-                                    <h5>Rating</h5>
-                                </div>
-                                <div class="card-body card-small centered">
-                                    <h5>@game.getRating</h5>
-                                </div>
+                            <div class="card-body card-small centered">
+                                <h5>@game.getRating</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="card-header">
-                        <form action="@routes.HomeController.forum(game.getId())" class="left col-sm-2">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <span>Forum</span>
-                            </button>
-                        </form>
-                        <form action="@routes.HomeController.game(new Long(game.getId))" class="right col-sm-2">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <span>View</span>
-                            </button>
-                        </form>
-                    </div>
                 </div>
-            }
+                <div class="card-header">
+                    <form action="@routes.HomeController.forum(game.getId())" class="left col-sm-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <span>Forum</span>
+                        </button>
+                    </form>
+                    <form action="@routes.HomeController.game(new Long(game.getId))" class="right col-sm-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <span>View</span>
+                        </button>
+                    </form>
+                </div>
             </div>
+        }
         </div>
+    </div>
     </div>
 }

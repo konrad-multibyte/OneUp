@@ -28,13 +28,22 @@ public class ForumController extends Controller{
         this.formFactory = formFactory;
     }
 
-    public Result create(Long id) {
+    public Result createThread(Long id) {
         DynamicForm form = formFactory.form().bindFromRequest();
         String title = form.get("title");
         String content = form.get("content");
         Game game = Game.getFinder().byId(id.toString());
         Ebean.save(new Thread(title, User.getWithEmail(session("email")), game, content));
         return ok(views.html.forum.render(User.getWithEmail(session("email")), game, environment));
+    }
+
+    public Result createPost(Long id) {
+
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String content = form.get("content");
+        Thread thread = Thread.getFinder().byId(id.toString());
+        Ebean.save(new models.Post(User.getWithEmail(session("email")), content, thread));
+        return ok(views.html.thread.render(User.getWithEmail(session("email")), thread, environment));
     }
 
     public Result read() {

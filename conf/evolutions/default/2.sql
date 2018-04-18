@@ -8,21 +8,21 @@ MERGE INTO game VALUES(1, 'Metal Bear Solid', 'The year is 1998, and the world s
                                               ' insurmountable odds, retired agent, Solid Snake,' ||
                                               ' must infiltrate the island and put a stop to' ||
                                               ' Foxhound. Can he stop them before This text box' ||
-                                              ' runs out of characters?', 59.99, 49.29, 0.2);
+                                              ' runs out of characters?', 59.99, 49.29, 0.2, true);
 
 MERGE INTO game VALUES(2, 'Final Fantasy XV (not really final then, is it)',
                        'Some twink''s dad dies' ||
                        ' and he goes and becomes an angsty virgin with a deathwish. Venture with' ||
                        ' Prince Noctis as he crosses the land with his boyband and defeats' ||
                        ' ancient creatures with the help of the gods (because he can''t do it himself',
-                       49.99, 97.20, 0);
+                       49.99, 97.20, 0, false);
 
 MERGE INTO game VALUES(3, 'Car Stealers Five', 'Three men, brought together by an unfortunate twist' ||
                                                ' of fate, find themselves embroiled in a plot to' ||
                                                ' see who can create the most faithful reenaction' ||
                                                ' of Quentin Tarantino''s Resevoir Dogs. They soon' ||
-                                               ' learn that the art of stealing jewellery and then feeling' ||
-                                               ' bad about it afterwards is not as easy as it seems.', 14.99, 85.50, 0.6);
+                                               ' learn that the art of stealing jewelry and then feeling' ||
+                                               ' bad about it afterwards is not as easy as it seems.', 14.99, 85.50, 0.6, true);
 
 MERGE INTO media VALUES (1, 'image/jpg/cover', 'images/Metal-Gear.jpg', null);
 MERGE INTO media VALUES (2, 'image/png', 'images/hashketchum.png', null);

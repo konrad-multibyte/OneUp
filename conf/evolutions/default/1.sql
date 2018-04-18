@@ -22,6 +22,7 @@ create table game (
   price                         double not null,
   rating                        double not null,
   discount                      double not null,
+  is_visible                    boolean default false not null,
   constraint pk_game primary key (id)
 );
 

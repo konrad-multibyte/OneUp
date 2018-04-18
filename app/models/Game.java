@@ -1,7 +1,6 @@
 package models;
 
-import io.ebean.Finder;
-import io.ebean.Model;
+import io.ebean.*;
 
 import javax.persistence.*;
 
@@ -28,19 +27,23 @@ public class Game extends Model {
     private double price;
     private double rating;
     private double discount;
+    private boolean isVisible;
 
     @OneToMany(mappedBy = "game")
     private List<Thread> threads;
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(Long id, String title, String description, List<String> gameTags, double price, double rating) {
+    public Game(Long id, String title, String description, List<String> gameTags, double price, double rating, double discount, boolean isVisible) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.gameTags = gameTags;
         this.price = price;
         this.rating = rating;
+        this.discount = discount;
+        this.isVisible = isVisible;
+        Ebean.save(this);
     }
 
     public Long getId() {
@@ -105,6 +108,14 @@ public class Game extends Model {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public boolean getIsVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 
     public List<Thread> getThreads() {

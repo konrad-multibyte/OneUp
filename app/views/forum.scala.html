@@ -20,7 +20,7 @@
                                     <div class="modal-header">
                                         <h4 class="modal-title">Post a new thread</h4>
                                     </div>
-                                    <form action="@routes.ForumController.create(game.getId())">
+                                    <form action="@routes.ForumController.createThread(game.getId())">
                                         <div class="modal-body">
                                             <input type="text" placeholder="Title" class="form-control" name="title">
                                             <br>
