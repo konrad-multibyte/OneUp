@@ -1,12 +1,56 @@
 @(user:models.users.User, game:models.Game,environment:play.api.Environment)
+@import play.api.Play.current
+@import models.shopping._
+@import models.Game
+@import models.users._
 
-@main("payment",user){
+@main("payment", user){
+
+<div class="row">
+    @if(flash.containsKey("success")){
+        <div class="alert alert-success">
+            @flash.get("success")
+        </div>
+    }
+
+        <table class="table table-bordered table-hover table-condensed">
+            <thread>
+                <tr>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Item Price</th>      
+                </tr>
+            </thread>
+            <tbody>
+                @if(user.getBasket() != null){
+                    @if(user.getBasket != null) {
+                    @for(i <- user.getBasket().getBasketItems()){
+                        <tr>
+                            <td>@i.getTitle</td>
+                            <td>@i.getRating</td>
+                            <td>&euro;@("%.2f".format(i.getPrice))<br>
+                                <small class="disabled"><a href="@routes.ShoppingCtrl.removeOne(i.getId)">Remove</a></small>
+                            </td>
+                        </tr>
+                    }
+                }
+                }
+
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <p class ="text-right"><strong>Basket Total: &euro; @("%.2f".format(user.getBasket.getBasketTotal))</strong></p>
+            </div>
+        </div>
+</div>
+
 <form action="@routes.HomeController.store" method="GET">
   @helper.CSRF.formField
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="pk_test_glrc8iwTlrSRG5tX3PAZ4KEh"
-      data-amount="999"
+      data-amount=@user.getBasket.getBasketTotal
       data-name="One Up"
       data-description="Basket Cost"
       data-image="https://stripe.com/img/documentation/checkout/marketplace.png"

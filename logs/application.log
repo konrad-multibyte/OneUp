@@ -1,0 +1,47 @@
+2018-04-18 19:58:22,107 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-2 - Creating Pool for datasource 'default'
+2018-04-18 19:58:22,325 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-2 - Database [default] connected at jdbc:h2:mem:games
+2018-04-18 19:58:22,968 [WARN] from io.ebeaninternal.server.deploy.parse.DeployCreateProperties in play-dev-mode-akka.actor.default-dispatcher-2 - Huh??? property models.users.Customer.basket being defined twice but replaced property was not transient? This is not expected?
+2018-04-18 19:58:23,823 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-2 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2018-04-18 19:58:24,033 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-2 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2018-04-18 19:58:24,043 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-2 - Application started (Dev)
+2018-04-18 20:00:04,808 [INFO] from application in application-akka.actor.default-dispatcher-12 - Shutting down connection pool.
+2018-04-18 20:00:04,987 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-9 - Creating Pool for datasource 'default'
+2018-04-18 20:00:04,999 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-9 - Database [default] connected at jdbc:h2:mem:games
+2018-04-18 20:00:05,179 [WARN] from io.ebeaninternal.server.deploy.parse.DeployCreateProperties in play-dev-mode-akka.actor.default-dispatcher-9 - Huh??? property models.users.Customer.basket being defined twice but replaced property was not transient? This is not expected?
+2018-04-18 20:00:05,591 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-9 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2018-04-18 20:00:05,687 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2018-04-18 20:00:05,688 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev)
+2018-04-18 20:01:13,495 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-04-18 20:01:13,751 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-18 - Creating Pool for datasource 'default'
+2018-04-18 20:01:13,762 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-18 - Database [default] connected at jdbc:h2:mem:games
+2018-04-18 20:01:13,951 [WARN] from io.ebeaninternal.server.deploy.parse.DeployCreateProperties in play-dev-mode-akka.actor.default-dispatcher-18 - Huh??? property models.users.Customer.basket being defined twice but replaced property was not transient? This is not expected?
+2018-04-18 20:01:14,311 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-18 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2018-04-18 20:01:14,401 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-18 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2018-04-18 20:01:14,404 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-18 - Application started (Dev)
+2018-04-18 20:02:15,085 [INFO] from application in application-akka.actor.default-dispatcher-13 - Shutting down connection pool.
+2018-04-18 20:02:15,282 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-14 - Creating Pool for datasource 'default'
+2018-04-18 20:02:15,289 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-14 - Database [default] connected at jdbc:h2:mem:games
+2018-04-18 20:02:15,528 [WARN] from io.ebeaninternal.server.deploy.parse.DeployCreateProperties in play-dev-mode-akka.actor.default-dispatcher-14 - Huh??? property models.users.Customer.basket being defined twice but replaced property was not transient? This is not expected?
+2018-04-18 20:02:16,037 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-14 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2018-04-18 20:02:16,126 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-14 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2018-04-18 20:02:16,129 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-14 - Application started (Dev)

@@ -1,0 +1,35 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+GET     /game/:id                   controllers.HomeController.game(id : Long)
+
+GET     /store                      controllers.HomeController.store
+GET     /search/                    controllers.HomeController.search
+
+GET     /basket                     controllers.HomeController.basket
+
+GET     /payment                    controllers.HomeController.payment
+
+GET     /showBasket                 controllers.ShoppingCtrl.showBasket()
+GET     /addToBasket/:id            controllers.ShoppingCtrl.addToBasket(id: Long)
+GET     /removeOne/:itemId         controllers.ShoppingCtrl.removeOne(itemId: String)
+GET     /emptyBasket                controllers.ShoppingCtrl.emptyBasket()
+GET     /viewOrder/:id              controllers.ShoppingCtrl.viewOrder(id: Long)
+
+
+
+GET     /login                      controllers.LoginController.login
+POST    /loginSubmit                controllers.LoginController.form
+GET     /logout                     controllers.LoginController.logout
+
+GET     /register                   controllers.UserController.create
+GET     /user/:id                   controllers.UserController.profile(id: String)
+GET     /user/update/:id            controllers.UserController.update(id: String)
+GET     /user/delete/:id            controllers.UserController.delete(id: String)
+POST    /user/submit                controllers.UserController.form
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file)
