@@ -29,7 +29,13 @@ public class StoreController extends Controller {
     }
 
     public Result create() {
-
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String title = form.get("title");
+        String description = form.get("content");
+        double price = Double.valueOf(form.get("price"));
+        double discount = Double.valueOf(form.get("discount"));
+        boolean isVisible = Boolean.valueOf(form.get("isVisible"));
+        Ebean.save(new Game(title, description, null, price, 50.0, discount, isVisible));
         return ok(views.html.store.render(User.getWithEmail(session("email")), Game.all(), environment));
     }
 }

@@ -34,8 +34,7 @@ public class Game extends Model {
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(Long id, String title, String description, List<String> gameTags, double price, double rating, double discount, boolean isVisible) {
-        this.id = id;
+    public Game(String title, String description, List<String> gameTags, double price, double rating, double discount, boolean isVisible) {
         this.title = title;
         this.description = description;
         this.gameTags = gameTags;

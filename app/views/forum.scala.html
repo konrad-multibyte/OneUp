@@ -6,36 +6,35 @@
                 <h5>@game.getTitle()</h5>
             </div>
             <div class="card-body">
+                <div>
+                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
+                </div>
+                @if(user != null) {
+                <div id="threadModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Post a new thread</h4>
+                            </div>
+                            <form action="@routes.ForumController.createThread(game.getId())">
+                                <div class="modal-body">
+                                    <input type="text" placeholder="Title" class="form-control" name="title">
+                                    <br>
+                                    <textarea name="content" rows="5" cols="50" value="" placeholder="Describe your post in more detail" class="form-control"></textarea>
+                                    <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default">Post</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                }
                 @if(game.getThreads().size() == 0) {
                     <h5>There aren't any threads yet.</h5>
                 } else {
-                    @if(user != null) {
-                        <div>
-                            <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
-                        </div>
-
-                        <div id="threadModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Post a new thread</h4>
-                                    </div>
-                                    <form action="@routes.ForumController.createThread(game.getId())">
-                                        <div class="modal-body">
-                                            <input type="text" placeholder="Title" class="form-control" name="title">
-                                            <br>
-                                            <textarea name="content" rows="5", cols="50" value="" placeholder="Describe your post in more detail" class="form-control"></textarea>
-                                            <br>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-default">Post</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    }
                     @for(thread <- game.getThreads()) {
                         <div class="card">
                             <div class="card-header">
