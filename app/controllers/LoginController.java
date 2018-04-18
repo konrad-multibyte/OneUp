@@ -37,6 +37,7 @@ public class LoginController extends Controller {
 
     public Result logout() {
         session().clear();
+        flash("success", "You have been signed out.");
         return redirect(routes.HomeController.store());
     }
 }

@@ -15,9 +15,9 @@ GET     /thread/create/:id          controllers.ForumController.createPost(id: L
 
 GET     /store/create               controllers.StoreController.create
 
-GET     /login                      controllers.LoginController.login
-POST    /loginSubmit                controllers.LoginController.form
-GET     /logout                     controllers.LoginController.logout
+GET     /signin                      controllers.LoginController.login
+POST    /signin/submit               controllers.LoginController.form
+GET     /signout                     controllers.LoginController.logout
 
 GET     /register                   controllers.UserController.create
 GET     /user/:id                   controllers.UserController.profile(id: Integer)
