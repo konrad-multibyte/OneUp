@@ -1,5 +1,6 @@
 package controllers;
 
+import models.shopping.Basket;
 import models.users.Customer;
 import models.users.User;
 import play.data.Form;
@@ -61,6 +62,7 @@ public class UserController extends Controller implements CRUD{
             }
             if (user.getId().equals("")) {
                 user.setId(UUID.randomUUID().toString());
+                user.setBasket(new Basket());
                 user.save();
                 return ok("User created");
             } else {

@@ -45,6 +45,9 @@ public class HomeController extends Controller {
     public Result store() {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
     }
+    public Result basket(){
+        return ok(views.html.basket.render(User.getWithEmail(session().get("email"))));
+    }
 
     public Result payment(){
         Game game = Game.getFinder().byId("1");

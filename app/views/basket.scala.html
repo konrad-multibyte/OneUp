@@ -1,0 +1,74 @@
+@(user:models.users.User)
+
+@import play.api.Play.current
+@import models.shopping._
+@import models.Game
+@import models.users._
+
+@main("basket", user){
+
+<div class="row">
+    @if(flash.containsKey("success")){
+        <div class="alert alert-success">
+            @flash.get("success")
+        </div>
+    }
+
+        <table class="table table-bordered table-hover table-condensed">
+            <thread>
+                <tr>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Item Price</th>      
+                </tr>
+            </thread>
+            <tbody>
+                @if(user.getBasket() != null){
+                    @if(user.getBasket != null) {
+                    @for(i <- user.getBasket().getBasketItems()){
+                        <tr>
+                            <td>@i.getTitle</td>
+                            <td>@i.getRating</td>
+                            <td>&euro;@("%.2f".format(i.getPrice))<br>
+                                <small class="disabled"><a href="@routes.ShoppingCtrl.removeOne(i.getId)">Remove</a></small>
+                            </td>
+                        </tr>
+                    }
+                }
+                }
+
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <p class ="text-right"><strong>Basket Total: &euro; @("%.2f".format(user.getBasket.getBasketTotal))</strong></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-right">
+                    <a href="@routes.ShoppingCtrl.emptyBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
+                    <span class="glyphicon glyphicon-trash"></span> Empty Basket</a>
+                </p>
+            </div>
+        </div>
+        <div class = "row">
+            <div class= "col-md-6">
+                <p class="text-right">
+                    <a href="@routes.HomeController.payment" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-euro"></span>Check Out</a>
+                </p>
+            </div>
+        </div>
+</div>
+
+<scrpit>
+
+    function confirmDel(){
+        return confirm('Are you sure?');
+    }
+</scrpit>
+
+
+
+}

@@ -1,13 +1,14 @@
 @(user:models.users.User, game:models.Game,environment:play.api.Environment)
 
 @main("payment",user){
-<form action="your-server-side-code" method="POST">
+<form action="@routes.HomeController.store" method="GET">
+  @helper.CSRF.formField
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="pk_test_glrc8iwTlrSRG5tX3PAZ4KEh"
       data-amount="999"
-      data-name="Demo Site"
-      data-description="Example charge"
+      data-name="One Up"
+      data-description="Basket Cost"
       data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
       data-locale="auto"
       data-currency="eur">

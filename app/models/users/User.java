@@ -1,5 +1,7 @@
 package models.users;
 
+import models.shopping.*;
+
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
@@ -28,6 +30,9 @@ public class User extends Model{
     @NotNull
     private String username;
     private Date joined;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Basket basket;
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
@@ -104,6 +109,14 @@ public class User extends Model{
 
     public void setJoined(Date joined) {
         this.joined = joined;
+    }
+
+    public Basket getBasket(){
+        return basket;
+    }
+
+    public void setBasket(Basket basket){
+        this.basket = basket;
     }
 
     @Override

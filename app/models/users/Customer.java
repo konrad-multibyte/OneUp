@@ -5,8 +5,12 @@ import models.Game;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import models.shopping.*;
 
 @Entity
 @DiscriminatorValue("customer")
@@ -31,6 +35,9 @@ public class Customer extends User {
      * @param joined The date when the account has been registered.
      * @param gamesList List of games that the customer owns.
      */
+    @OneToOne(mappedBy="user", cascade = CascadeType.ALL)
+    private Basket basket;
+
     public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList) {
         super(id, email, password, firstName, lastName, username, joined);
         this.gamesList = gamesList;
@@ -42,5 +49,12 @@ public class Customer extends User {
      */
     public List<Game> getGamesList() {
         return gamesList;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 }

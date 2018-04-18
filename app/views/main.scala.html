@@ -20,58 +20,9 @@
     
 <body>
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="@routes.HomeController.store">One Up</a>
-            </div>
-
-            <ul class="nav navbar-nav">
-
-                <li @if(title=="Store" ){class="active"}>
-                    <a href="#">Store</a>
-                </li>
-
-                <li>
-                    <a href="#">Register</a>
-                </li>
-
-                <li>
-                    <a href="#">Login</a>
-                
-                         @if(user != null) {
-                    <a href="@routes.UserController.profile(user.getId)">User Profile</a>
-                    <a href="@routes.LoginController.logout()">Logout</a>
-                }
-                @content
-
-            </li>
-            </ul>
-
-        </div>
-
-    </nav>
-
-    <container>
-        <row>
-            <div class="col-md-12">
-                @content
-            </div>
-        </row>
-    </container>
-<br>
-    <container>
-        <footer>
-        <row>
-            <div class="col-md-12">
-                Copyright
-                <strong>One Up</strong>
-            </div>
-        </row>
-    </footer>
-    </container>
+    <div class="container">
+        @content
+    </div>
     <script src="@routes.Assets.versioned("javascripts/main.js")"></script>
 </body>
-
 </html>
-       
