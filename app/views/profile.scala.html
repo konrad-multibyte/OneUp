@@ -28,8 +28,7 @@
         } else {
         <table class="table">
             <tbody>
-                @for(game
-                <- userProfile.getGamesList) { <tr>
+                @for(game <- userProfile.getGamesList) { <tr>
                     <td>@game.getTitle</td>
                     </tr>
                     }
