@@ -13,7 +13,7 @@ GET     /thread/:id                 controllers.HomeController.thread(id : Long)
 GET     /forum/create/:id           controllers.ForumController.createThread(id: Long)
 GET     /thread/create/:id          controllers.ForumController.createPost(id: Long)
 
-POST     /store/create               controllers.StoreController.create
+POST    /store/create               controllers.StoreController.create
 
 GET     /signin                      controllers.LoginController.login
 POST    /signin/submit               controllers.LoginController.form
