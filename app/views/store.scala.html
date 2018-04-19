@@ -1,6 +1,6 @@
 @(user: models.users.User, games: java.util.List[models.Game], e: play.api.Environment)
 
-@main("OneUp : Store", user) {
+@main("Welcome to OneUP", user) {
     <div class="container">
         <div class="row">
         @if(user.isInstanceOf[models.users.Admin]) {
