@@ -30,6 +30,7 @@ public class User extends Model{
     private String password;
     private String firstName;
     private String lastName;
+    private String bio;
 
     @NotNull
     private String username;
@@ -91,6 +92,15 @@ public class User extends Model{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
 
     public String getUsername() {
         return username;

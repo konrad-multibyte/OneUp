@@ -46,7 +46,6 @@ public class HomeController extends Controller {
 
     public Result store() {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
-
     }
 
     public Result addToCart(String id) {

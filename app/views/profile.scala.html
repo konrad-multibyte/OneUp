@@ -1,27 +1,52 @@
 @(userProfile: models.users.User, user: models.users.User)
 
-@main("User Profile", user) {
-    <table>
-        <thead>
-            <tr>
-                <td scope="col">User Type</td>
-                <td scope="col">First Name</td>
-                <td scope="col">Last Name</td>
-                <td scope="col">Email</td>
-                <td scope="col">Username</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@user.getClass.getName</td>
-                <td>@user.getFirstName</td>
-                <td>@user.getLastName</td>
-                <td>@user.getEmail</td>
-                <td>@user.getUsername</td>
-            </tr>
-        </tbody>
-        @if(userProfile.getId.equals(user.getId)) {
-            <a href="@routes.UserController.update(userProfile.getId)">Change Details</a>
-        }
-    </table>
+@main("OneUP :: " + userProfile.getUsername, user) {
+    @if(userProfile.getId.equals(user.getId)) {
+        <a href="@routes.UserController.update(userProfile.getId)">Change Details</a>
+    }
+        <a id="showGames" href="#">Games</a>
+        <a id="showPosts" href="#">Posts</a>
+        <script>
+            $('#showGames').click(function() {
+                $('#posts').hide()
+                $('#games').show()
+            });
+            $('#showPosts').click(function() {
+                $('#games').hide()
+                $('#posts').show()
+            });
+        </script>
+    <div class="jumbotron">
+        <h1>@userProfile.getUsername</h1>
+        <h3>@userProfile.getFirstName @userProfile.getLastName</h3>
+        <p>@userProfile.getBio</p>
+    </div>
+    <div class="row" id="games">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+                <h3>Games</h3>
+                @if(userProfile.getGamesList.isEmpty) {
+                    <p>No games yet.</p>
+                } else {
+                    <table class="table">
+                        <tbody>
+                            @for(game <- userProfile.getGamesList) {
+                                <tr>
+                                    <td>@game.getTitle</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+        </div>
+    </div>
+    <div class="row" id="posts">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <h3>Posts</h3>
+                
+            <h3>No posts.</h3>
+        </div>
+    </div>
+    <script>
+        $('#posts').hide()
+    </script>
 }

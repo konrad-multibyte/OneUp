@@ -53,7 +53,7 @@ MERGE INTO post VALUES (10, 'orum orum good luck rhyming something with this wit
 
 MERGE INTO cart VALUES (1, 500);
 MERGE INTO cart VALUES (2, 199);
-MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2);
-MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'admin', '2018-04-17 14:42:30', 1);
+MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'Casual gamer.', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2);
+MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'Hardcore weeb gamer.', 'admin', '2018-04-17 14:42:30', 1);
 
 # ---!Downs

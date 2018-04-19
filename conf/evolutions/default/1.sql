@@ -62,6 +62,7 @@ create table user (
   password                      varchar(255) not null,
   first_name                    varchar(255),
   last_name                     varchar(255),
+  bio                           varchar(255),
   username                      varchar(255) not null,
   joined                        timestamp,
   cart_id                       varchar(255),
