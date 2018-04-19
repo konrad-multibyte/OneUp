@@ -32,9 +32,9 @@
             }
             @for(post <- thread.getPosts) {
                 <div class="card-body">
-                    <h5>@post.getPoster()</h5>
-                    <h5>@post.getText()</h5>
-                    <h5>Posted @post.getTimePosted()</h5>
+                    <h5>@post.getPoster().getUsername()</h5>
+                    <h5>@post.getText</h5>
+                    <h5>Posted @post.getTimePosted</h5>
                 </div>
             }
 

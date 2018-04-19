@@ -12,6 +12,7 @@ import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import play.mvc.Security;
 import views.html.userForm;
 import views.html.profile;
 
@@ -33,17 +34,17 @@ public class ForumController extends Controller{
         String title = form.get("title");
         String content = form.get("content");
         Game game = Game.getFinder().byId(id.toString());
-        Ebean.save(new Thread(title, User.getWithEmail(session("email")), game, content));
-        return ok(views.html.forum.render(User.getWithEmail(session("email")), game, environment));
+        Ebean.save(new Thread(title, game, content));
+        return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
 
+    @Security.Authenticated(Secure.class)
     public Result createPost(Long id) {
-
         DynamicForm form = formFactory.form().bindFromRequest();
         String content = form.get("content");
         Thread thread = Thread.getFinder().byId(id.toString());
-        Ebean.save(new models.Post(User.getWithEmail(session("email")), content, thread));
-        return ok(views.html.thread.render(User.getWithEmail(session("email")), thread, environment));
+        Ebean.save(new models.Post(content, thread));
+        return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
     }
 
     public Result read() {

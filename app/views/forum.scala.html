@@ -39,7 +39,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5>@thread.getTitle()</h5>
-                                <h5>Poster: @thread.getPoster()</h5>
+                                <h5>Poster: @thread.getPoster().getUsername()<h5>
                                 <h5>Last reply: @thread.getLastReply()</h5>
                                 <form action="@routes.HomeController.thread(thread.getId())" class="left col-sm-2">
                                     <button type="submit" class="btn btn-success btn-lg">

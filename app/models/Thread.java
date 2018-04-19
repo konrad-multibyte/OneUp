@@ -13,6 +13,8 @@ import play.Logger;
 
 import java.sql.Timestamp;
 
+import static play.mvc.Controller.session;
+
 @Entity
 public class Thread extends Model {
 
@@ -20,6 +22,8 @@ public class Thread extends Model {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private User poster;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -30,12 +34,12 @@ public class Thread extends Model {
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);
 
-    public Thread(String title, User poster, Game game, String content) {
+    public Thread(String title, Game game, String content) {
         this.title = title;
-        this.poster = poster;
+        this.poster = User.getWithEmail(session().get("email"));
         this.game = game;
         posts = new ArrayList<>();
-        posts.add(new Post(poster, content, this));
+        posts.add(new Post(content, this));
         Ebean.save(this);
     }
 

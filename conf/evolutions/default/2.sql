@@ -1,5 +1,11 @@
 # ---!Ups
 
+MERGE INTO cart VALUES (1, 500);
+MERGE INTO cart VALUES (2, 199);
+
+MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2);
+MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'admin', '2018-04-17 14:42:30', 1);
+
 MERGE INTO game VALUES(1, 'Metal Bear Solid', 'The year is 1998, and the world stands on the precipice' ||
                                               ' of nuclear war. A group of terrorists, formerly' ||
                                               ' an elite special forces squad known as Foxhound,' ||
@@ -33,27 +39,22 @@ MERGE INTO game_media VALUES (1, 1);
 MERGE INTO game_media VALUES (2, 3);
 MERGE INTO game_media VALUES (3, 4);
 
-MERGE INTO thread (id, title, game_id) VALUES (1, 'my game is not working pls to help', 1);
-MERGE INTO thread (id, title, game_id) VALUES (2, 'this game sucks and here''s why', 1);
-MERGE INTO thread (id, title, game_id) VALUES (3, 'test post please ignore', 1);
-MERGE INTO thread (id, title, game_id) VALUES (4, 'i don''t like thing', 2);
-MERGE INTO thread (id, title, game_id) VALUES (5, 'Oh, there once was a post on a forum', 3);
+MERGE INTO thread (id, poster_id, title, game_id) VALUES (1, 12452, 'my game is not working pls to help', 1);
+MERGE INTO thread (id, poster_id, title, game_id) VALUES (2, 12452, 'this game sucks and here''s why', 1);
+MERGE INTO thread (id, poster_id, title, game_id) VALUES (3, 12420, 'test post please ignore', 1);
+MERGE INTO thread (id, poster_id, title, game_id) VALUES (4, 12452, 'i don''t like thing', 2);
+MERGE INTO thread (id, poster_id, title, game_id) VALUES (5, 12420, 'Oh, there once was a post on a forum', 3);
 
-MERGE INTO post VALUES (1, 'it just broke my washing machine when i tried to install it', '1998-10-06 13:16:41', 1);
-MERGE INTO post VALUES (2, 'you are retarded', '1998-11-06 21:42:04', 1);
-MERGE INTO post VALUES (3, 'it is a symbol of the male fantasy as you can clearly see', '1998-10-07 17:54:21', 2);
-MERGE INTO post VALUES (4, 'you just have shit taste tbqh smdh lol', '1998-10-08 02:51:32', 2);
-MERGE INTO post VALUES (5, 'test i guess', '1998-10-04 16:00:20', 3);
-MERGE INTO post VALUES (6, 'nice blogpost kid nobody cares. back to reddit', '1998-10-07 06:15:52', 4);
-MERGE INTO post VALUES (7, 'that lacked somewhat in decorum--', '1998-10-04 21:41:20', 5);
-MERGE INTO post VALUES (8, 'It''s creator was lazy', '1998-10-04 21:41:20', 5);
-MERGE INTO post VALUES (9, 'his motivations quite hazy--', '1998-10-04 21:41:20', 5);
-MERGE INTO post VALUES (10, 'orum orum good luck rhyming something with this without being like a roman fucking centurion' ||
+MERGE INTO post VALUES (1, 12452, 'it just broke my washing machine when i tried to install it', '1998-10-06 13:16:41', 1);
+MERGE INTO post VALUES (2, 12420, 'you are retarded', '1998-11-06 21:42:04', 1);
+MERGE INTO post VALUES (3, 12452, 'it is a symbol of the male fantasy as you can clearly see', '1998-10-07 17:54:21', 2);
+MERGE INTO post VALUES (4, 12452, 'you just have shit taste tbqh smdh lol', '1998-10-08 02:51:32', 2);
+MERGE INTO post VALUES (5, 12420, 'test i guess', '1998-10-04 16:00:20', 3);
+MERGE INTO post VALUES (6, 12452, 'nice blogpost kid nobody cares. back to reddit', '1998-10-07 06:15:52', 4);
+MERGE INTO post VALUES (7, 12420, 'that lacked somewhat in decorum--', '1998-10-04 21:41:20', 5);
+MERGE INTO post VALUES (8, 12420, 'It''s creator was lazy', '1998-10-04 21:41:20', 5);
+MERGE INTO post VALUES (9, 12452, 'his motivations quite hazy--', '1998-10-04 21:41:20', 5);
+MERGE INTO post VALUES (10, 12452, 'orum orum good luck rhyming something with this without being like a roman fucking centurion' ||
                             'jesus', '1998-10-04 21:41:20', 5);
-
-MERGE INTO cart VALUES (1, 500);
-MERGE INTO cart VALUES (2, 199);
-MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2);
-MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'admin', '2018-04-17 14:42:30', 1);
 
 # ---!Downs

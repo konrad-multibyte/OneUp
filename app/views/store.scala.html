@@ -3,35 +3,38 @@
 @main("OneUp : Store", user) {
     <div class="container">
         <div class="row">
-            @if(user != null) {
-                <div>
-                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
-                </div>
-                <div id="threadModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add a new game</h4>
-                            </div>
-                            <form action="@routes.StoreController.create()">
-                                <div class="modal-body">
-                                    <input type="text" name="title" placeholder="Title" class="form-control">
-                                    <textarea name="content" rows="5" cols="50" placeholder="Description" class="form-control"></textarea>
-                                    <input type="number" name="price" placeholder="Price" class="form-control">
-                                    <input type="number" name="discount" placeholder="Discount (optional)" class="form-control">
-                                    <h5>Make Visible to Public?</h5>
-                                    <input type="checkbox" name="isVisible" value="true" class="form-control">
-                                    <br>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default">Create</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
+        @if(user.isInstanceOf[models.users.Admin]) {
+            <div>
+                <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
+            </div>
+            <div id="threadModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add a new game</h4>
                         </div>
+                        <form action="@routes.StoreController.create()" method="post">
+                            @helper.CSRF.formField
+                            <div class="modal-body">
+                                <input type="text" name="title" placeholder="Title" class="form-control">
+                                <textarea name="content" rows="5" cols="50" placeholder="Description" class="form-control"></textarea>
+                                <input type="number" name="price" placeholder="Price" class="form-control" step="0.01" min="0">
+                                <input type="number" name="discount" placeholder="Discount (optional)" class="form-control" step="0.1" min="0" max="100">
+                                <h5>Make Visible to Public?</h5>
+                                <input type="checkbox" name="isVisible" value="true" class="form-control">
+                                <br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default">Create</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            }
+            </div>
+        }
+        </div>
+        <div class="row">
             <div class="col-sm-3">
                 <div class="card filter">
                     <div class="card-header">
@@ -66,7 +69,7 @@
             </div>
             <div class="col-sm-9">
             @for(game <- games) {
-                @if(game.getIsVisible()) {
+                @if(game.getIsVisible() || user.isInstanceOf[models.users.Admin]) {
                     <div class="card game">
                         <div class="card-header">
                             <h3>@game.getTitle</h3>

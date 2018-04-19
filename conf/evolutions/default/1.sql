@@ -42,6 +42,7 @@ create table media (
 
 create table post (
   id                            bigint auto_increment not null,
+  poster_id                     integer,
   text                          longvarchar,
   time_posted                   timestamp,
   thread_id                     bigint,
@@ -51,6 +52,7 @@ create table post (
 create table thread (
   id                            bigint auto_increment not null,
   title                         varchar(255),
+  poster_id                     integer,
   game_id                       bigint,
   constraint pk_thread primary key (id)
 );
@@ -89,8 +91,14 @@ create index ix_game_media_game on game_media (game_id);
 alter table game_media add constraint fk_game_media_media foreign key (media_id) references media (id) on delete restrict on update restrict;
 create index ix_game_media_media on game_media (media_id);
 
+alter table post add constraint fk_post_poster_id foreign key (poster_id) references user (id) on delete restrict on update restrict;
+create index ix_post_poster_id on post (poster_id);
+
 alter table post add constraint fk_post_thread_id foreign key (thread_id) references thread (id) on delete restrict on update restrict;
 create index ix_post_thread_id on post (thread_id);
+
+alter table thread add constraint fk_thread_poster_id foreign key (poster_id) references user (id) on delete restrict on update restrict;
+create index ix_thread_poster_id on thread (poster_id);
 
 alter table thread add constraint fk_thread_game_id foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_thread_game_id on thread (game_id);
@@ -118,8 +126,14 @@ drop index if exists ix_game_media_game;
 alter table game_media drop constraint if exists fk_game_media_media;
 drop index if exists ix_game_media_media;
 
+alter table post drop constraint if exists fk_post_poster_id;
+drop index if exists ix_post_poster_id;
+
 alter table post drop constraint if exists fk_post_thread_id;
 drop index if exists ix_post_thread_id;
+
+alter table thread drop constraint if exists fk_thread_poster_id;
+drop index if exists ix_thread_poster_id;
 
 alter table thread drop constraint if exists fk_thread_game_id;
 drop index if exists ix_thread_game_id;
