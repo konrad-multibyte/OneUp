@@ -82,6 +82,10 @@ public class Thread extends Model {
         this.poster = poster;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public static Finder<String, Thread> getFinder() {
         return finder;
     }

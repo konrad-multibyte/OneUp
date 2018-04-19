@@ -76,7 +76,11 @@ public class Post extends Model {
         Post.finder = finder;
     }
 
-    public List<Post> getPostsByUser(Integer id) {
-        Post.finder.query().where().eq("poster_id", id);
+    public Thread getThread() {
+        return thread;
+    }
+
+    public static List<Post> getPostsByUser(Integer id) {
+        return Post.finder.query().where().eq("poster_id", id).findList();
     }
 }

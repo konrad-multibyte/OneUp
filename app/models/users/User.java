@@ -1,5 +1,6 @@
 package models.users;
 
+import models.Post;
 import models.Game;
 import io.ebean.Finder;
 import io.ebean.Model;
@@ -169,5 +170,9 @@ public class User extends Model{
 
     public static boolean auth(String email, String password) {
         return exists(email) && BCrypt.checkpw(password, getWithEmail(email).password);
+    }
+
+    public List<Post> getPosts() {
+        return Post.getPostsByUser(this.id);
     }
 }
