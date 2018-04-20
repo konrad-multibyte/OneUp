@@ -1,0 +1,88 @@
+body {
+    margin-top: 5em;
+}
+
+.left {
+    float: left;
+    margin-right: 1em;
+    width: 100%;
+}
+
+.right {
+    float: right;
+    width: 100%;
+}
+
+.right button {
+    float: right;
+}
+
+.filter-content {
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.slider {
+    width: 100%;
+}
+
+.description {
+    overflow: hidden;
+    position: relative;
+    line-height: 1.2em;
+    max-height: 4.6em;
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em;
+    float: left;
+}
+
+.description:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.price {
+    float: right;
+}
+
+.rating {
+    float: left;
+}
+
+.card-small {
+    padding: 10%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.description:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
+}
+
+.game {
+    margin-bottom: 2em;
+}
+
+#threadModal {
+    width: 100%;
+}
+
+.modal-body input {
+    width: 100%;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
