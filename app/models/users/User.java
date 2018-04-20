@@ -31,28 +31,31 @@ public class User extends Model{
     private String username;
     private Date joined;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy ="user",cascade = CascadeType.ALL)
     private Basket basket;
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
-    public User(String email, String password) {
+    public User(String email, String password,Basket basket) {
         this.email = email;
         this.password = password;
+        this.basket = basket;
     }
 
-    public User(String id, String email, String password) {
+    public User(String id, String email, String password, Basket basket) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.basket = basket;
     }
 
-    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined) {
-        this(id, email, password);
+    public User(String id, String email, String password, String firstName, String lastName, String username, Date joined, Basket basket) {
+        this(id, email, password,basket);
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.joined = joined;
+        this.basket = basket;
     }
 
     public String getId() {

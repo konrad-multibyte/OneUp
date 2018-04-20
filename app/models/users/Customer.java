@@ -35,11 +35,10 @@ public class Customer extends User {
      * @param joined The date when the account has been registered.
      * @param gamesList List of games that the customer owns.
      */
-    @OneToOne(mappedBy="user", cascade = CascadeType.ALL)
-    private Basket basket;
+    
 
-    public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList) {
-        super(id, email, password, firstName, lastName, username, joined);
+    public Customer(String id, String email, String password, String firstName, String lastName, String username, Date joined, List<Game> gamesList, Basket basket) {
+        super(id, email, password, firstName, lastName, username, joined, basket);
         this.gamesList = gamesList;
     }
 
@@ -51,10 +50,5 @@ public class Customer extends User {
         return gamesList;
     }
 
-    public Basket getBasket() {
-        return basket;
-    }
-    public void setBasket(Basket basket) {
-        this.basket = basket;
-    }
+
 }

@@ -20,7 +20,7 @@ public class Basket extends Model{
     private List<Game> basketItems = new ArrayList<>();
 
     @OneToOne
-    private User customer;
+    private User user;
 
     public Basket(){
 
@@ -81,11 +81,11 @@ public class Basket extends Model{
         return Basket.find.all();
     }
 
-    public User getCustomer(){
-        return customer;
+    public User getUser(){
+        return usetr;
     }
 
-    public void setCustomer(User customer){
-        this.customer = customer;
+    public void setUser(User user){
+        this.user = user;
     }
 }
