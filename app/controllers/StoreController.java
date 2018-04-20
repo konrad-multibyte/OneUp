@@ -35,7 +35,7 @@ public class StoreController extends Controller {
         double price = Double.valueOf(form.get("price"));
         double discount = Double.valueOf(form.get("discount"));
         boolean isVisible = Boolean.valueOf(form.get("isVisible"));
-        Ebean.save(new Game(title, description, null, price, 50.0, discount, isVisible));
+        Ebean.save(new Game(title, description, null, price, 50.0, discount, isVisible, null));
         return ok(views.html.store.render(User.getWithEmail(session("email")), Game.all(), environment));
     }
 }

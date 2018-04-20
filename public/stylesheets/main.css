@@ -1,5 +1,9 @@
 body {
-    margin-top: 5em;
+    margin-top: 5em
+}
+
+#profileHeader {
+    border-radius: 0
 }
 
 .left {

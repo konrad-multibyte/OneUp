@@ -35,6 +35,11 @@ MERGE INTO media VALUES (2, 'image/png', 'images/hashketchum.png', null);
 MERGE INTO media VALUES (3, 'image/jpg/cover', 'images/ffxv.jpg', null);
 MERGE INTO media VALUES (4, 'image/png/cover', 'images/gtav.png', null);
 
+MERGE INTO user_game VALUES (12452, 1);
+MERGE INTO user_game VALUES (12452, 2);
+MERGE INTO user_game VALUES (12420, 1);
+MERGE INTO user_game VALUES (12420, 3);
+
 MERGE INTO game_media VALUES (1, 1);
 MERGE INTO game_media VALUES (2, 3);
 MERGE INTO game_media VALUES (3, 4);
