@@ -77,6 +77,6 @@ public class Post extends Model {
     }
 
     public List<Post> getPostsByUser(Integer id) {
-        Post.finder.query().where().eq("poster_id", id);
+        return Post.finder.query().where().eq("poster_id", id).findList();
     }
 }
