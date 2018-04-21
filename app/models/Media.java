@@ -24,6 +24,12 @@ public class Media extends Model {
 
     }
 
+    public Media(String mime, String link, Media thumbnail) {
+        this.mime = mime;
+        this.link = link;
+        this.thumbnail = thumbnail;
+    }
+
     public Media(Long id, String mime, String link, Media thumbnail) {
         this.id = id;
         this.mime = mime;

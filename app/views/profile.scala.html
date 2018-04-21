@@ -1,52 +1,84 @@
 @(userProfile: models.users.User, user: models.users.User)
 
 @main("OneUP :: " + userProfile.getUsername, user) {
-    @if(userProfile.getId.equals(user.getId)) {
-        <a href="@routes.UserController.update(userProfile.getId)">Change Details</a>
-    }
-        <a id="showGames" href="#">Games</a>
-        <a id="showPosts" href="#">Posts</a>
-        <script>
-            $('#showGames').click(function() {
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" id="showGames" href="#">Games</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="showPosts" href="#">Posts</a>
+                </li>
+                @if(userProfile.getId.equals(user.getId)) {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@routes.UserController.update(userProfile.getId)">Change Details</a>
+                    </li>
+                }
+              </ul>
+            </div>
+          </nav>
+    <script>
+            $('#showGames').click(function () {
+                // $('#showGames').hide()
+                // $('#showPosts').show()
                 $('#posts').hide()
                 $('#games').show()
             });
-            $('#showPosts').click(function() {
+            $('#showPosts').click(function () {
+                // $('#showPosts').hide()
+                // $('#showGames').show()
                 $('#games').hide()
                 $('#posts').show()
             });
         </script>
-    <div class="jumbotron">
-        <h1>@userProfile.getUsername</h1>
-        <h3>@userProfile.getFirstName @userProfile.getLastName</h3>
+    <div class="jumbotron" id="profileHeader">
+        <h3>@userProfile.getUsername</h3>
         <p>@userProfile.getBio</p>
     </div>
     <div class="row" id="games">
         <div class="col-sm-12 col-md-12 col-lg-12">
-                <h3>Games</h3>
-                @if(userProfile.getGamesList.isEmpty) {
-                    <p>No games yet.</p>
-                } else {
-                    <table class="table">
-                        <tbody>
-                            @for(game <- userProfile.getGamesList) {
-                                <tr>
-                                    <td>@game.getTitle</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+            @if(userProfile.getGamesList.isEmpty) {
+            <h3 class="text-center">No games yet.</h3>
+        } else {
+        <table class="table">
+            <tbody>
+                @for(game <- userProfile.getGamesList) {
+                    <tr>
+                        <td>
+                            <a href="@routes.HomeController.game(game.getId)">@game.getTitle</a>
+                        </td>
+                    </tr>
                 }
-        </div>
+            </tbody>
+        </table>
+        }
     </div>
-    <div class="row" id="posts">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <h3>Posts</h3>
-                
+</div>
+<div class="row" id="posts">
+        @if(userProfile.getPosts().isEmpty) {
             <h3>No posts.</h3>
-        </div>
+        } else {
+                @for(post <- userProfile.getPosts) {
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="card w-100 mb-4">
+                            <div class="card-header">
+                                <a href="@routes.HomeController.thread(post.getThread.getId)">
+                                    @post.getThread.getGame.getTitle / @post.getThread.getTitle / # @post.getThread.getPosts.indexOf(post)
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <p>@post.getText</p>
+                                <small>@post.getTimePosted.toString</small>
+                            </div>
+                        </div>
+                    </div>
+                    }
+            </div>
+        }
     </div>
-    <script>
-        $('#posts').hide()
-    </script>
+</div>
+<script>
+    $('#posts').hide()
+</script>
 }

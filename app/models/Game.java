@@ -21,9 +21,10 @@ public class Game extends Model {
 
     @Column(columnDefinition = "LONGVARCHAR")
     private String description;
-    private List<String> gameTags;
+
     @ManyToMany
     private List<Media> media;
+
     private double price;
     private double rating;
     private double discount;
@@ -34,10 +35,9 @@ public class Game extends Model {
 
     private static Finder<String, Game> finder = new Finder<>(Game.class);
 
-    public Game(String title, String description, List<String> gameTags, double price, double rating, double discount, boolean isVisible) {
+    public Game(String title, String description, List<GameTag> gameTags, double price, double rating, double discount, boolean isVisible) {
         this.title = title;
         this.description = description;
-        this.gameTags = gameTags;
         this.price = price;
         this.rating = rating;
         this.discount = discount;
@@ -67,14 +67,6 @@ public class Game extends Model {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<String> getGameTags() {
-        return gameTags;
-    }
-
-    public void setGameTags(List<String> gameTags) {
-        this.gameTags = gameTags;
     }
 
     public List<Media> getMedia() {

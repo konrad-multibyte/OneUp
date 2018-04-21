@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <title>@title</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -23,21 +22,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@routes.HomeController.store">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown link
+                            Store
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <!-- TODO: Add Game Genres -->
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="#">Featured</a>
+                            <a class="dropdown-item" href="#">Brand New</a>
+                            <a class="dropdown-item" href="#">Pre Order</a>
                         </div>
                     </li>
                 </ul>
@@ -61,7 +53,10 @@
                             </div>
                         </li>
                     } else {
-                        <li class="nav-item ml-2">
+                        <li class="nav-item ml-2 mr-1">
+                            <a class="btn btn-outline-success" href="@routes.UserController.create()">Register</a>
+                        </li>
+                        <li class="nav-item ml-1">
                             <a class="btn btn-outline-success" href="@routes.LoginController.login()">Sign in</a>
                         </li>
                     }

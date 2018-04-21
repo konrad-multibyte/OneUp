@@ -5,8 +5,7 @@ import models.users.User;
 import models.users.Admin;
 import play.data.Form;
 import play.data.FormFactory;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.mvc.*;
 
 import views.html.userForm;
 import views.html.profile;
@@ -49,6 +48,7 @@ public class UserController extends Controller{
                     return ok("Bad confirmed password");
                 }
             }
+            System.out.println(user.getId());
             if (user.getId() == null) {
                 if (User.exists(user.getEmail())) {
                     user.setEmail("");
