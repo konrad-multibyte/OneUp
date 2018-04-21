@@ -75,16 +75,12 @@ public class Post extends Model {
     public static void setFinder(Finder<Long, Post> finder) {
         Post.finder = finder;
     }
-
-<<<<<<< HEAD
+    
     public Thread getThread() {
         return thread;
     }
 
-    public static List<Post> getPostsByUser(Integer id) {
-=======
     public List<Post> getPostsByUser(Integer id) {
->>>>>>> master
         return Post.finder.query().where().eq("poster_id", id).findList();
     }
 }
