@@ -1,6 +1,5 @@
 bin/
 /db
-.eclipse
 /lib/
 /logs/
 /modules
@@ -13,4 +12,4 @@ server.pid
 *.eml
 /dist/
 .cache
-.idea/
+.*

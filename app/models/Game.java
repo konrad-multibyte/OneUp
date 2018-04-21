@@ -22,26 +22,26 @@ public class Game extends Model {
     @Column(columnDefinition = "LONGVARCHAR")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Media> media;
 
     private double price;
     private double rating;
     private double discount;
-    private boolean isVisible;
+    private boolean visible;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<Thread> threads;
 
-    private static Finder<String, Game> finder = new Finder<>(Game.class);
+    private static Finder<Long, Game> finder = new Finder<>(Game.class);
 
-    public Game(String title, String description, List<GameTag> gameTags, double price, double rating, double discount, boolean isVisible) {
+    public Game(String title, String description, List<GameTag> gameTags, double price, double rating, double discount, boolean visible) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.rating = rating;
         this.discount = discount;
-        this.isVisible = isVisible;
+        this.visible = visible;
         Ebean.save(this);
     }
 
@@ -101,12 +101,12 @@ public class Game extends Model {
         this.discount = discount;
     }
 
-    public boolean getIsVisible() {
-        return isVisible;
+    public boolean getVisible() {
+        return visible;
     }
 
-    public void setIsVisible(boolean isVisible) {
-        this.isVisible = isVisible;
+    public void setVisible(boolean isVisible) {
+        this.visible = isVisible;
     }
 
     public List<Thread> getThreads() {
@@ -117,11 +117,11 @@ public class Game extends Model {
         this.threads = threads;
     }
 
-    public static Finder<String, Game> getFinder() {
+    public static Finder<Long, Game> getFinder() {
         return finder;
     }
 
-    public static Game get(String id) {
+    public static Game get(Long id) {
         return finder.ref(id);
     }
 
@@ -129,11 +129,9 @@ public class Game extends Model {
         return finder.all();
     }
 
-    public static List<Game> search(String query, String price, String rating) {
+    public static List<Game> search(String query) {
         return Game.finder.query().where()
                 .ilike("title", String.format("%%%s%%", query))
-                .gt("rating", rating)
-                .lt("price", price)
                 .findList();
     }
 

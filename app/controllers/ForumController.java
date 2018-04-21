@@ -29,6 +29,7 @@ public class ForumController extends Controller{
         this.formFactory = formFactory;
     }
 
+    @Security.Authenticated(Secure.class)
     public Result createThread(Long id) {
         DynamicForm form = formFactory.form().bindFromRequest();
         String title = form.get("title");

@@ -1,35 +1,34 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+GET     /                           controllers.HomeController.store
 GET     /game/:id                   controllers.HomeController.game(id : Long)
+
+
+POST    /forum/:id/create           controllers.ForumController.createThread(id: Long)
+POST    /forum/thread/:id/create    controllers.ForumController.createPost(id: Long)
+
+GET     /store/:id/rm               controllers.StoreController.removeGame(id: Long)
+GET     /store:id/hide              controllers.StoreController.hideGame(id: Long)
 
 GET     /store                      controllers.HomeController.store
 GET     /search/                    controllers.HomeController.search
+GET     /store/cart/add/:id         controllers.HomeController.addToCart(id: Long)
+GET     /store/cart/rm/:id          controllers.HomeController.removeFromCart(id: Long)
+POST    /store/checkout             controllers.HomeController.checkout
+POST    /store/create               controllers.StoreController.create
 
-GET     /basket                     controllers.HomeController.basket
-
-GET     /payment                    controllers.HomeController.payment
-
-GET     /showBasket                 controllers.ShoppingCtrl.showBasket()
-GET     /addToBasket/:id            controllers.ShoppingCtrl.addToBasket(id: Long)
-GET     /removeOne/:itemId         controllers.ShoppingCtrl.removeOne(itemId: String)
-GET     /emptyBasket                controllers.ShoppingCtrl.emptyBasket()
-GET     /viewOrder/:id              controllers.ShoppingCtrl.viewOrder(id: Long)
-
-
+GET     /forum/:id                  controllers.HomeController.forum(id : Long)
+GET     /thread/:id                 controllers.HomeController.thread(id : Long)
 
 GET     /login                      controllers.LoginController.login
 POST    /loginSubmit                controllers.LoginController.form
 GET     /logout                     controllers.LoginController.logout
 
 GET     /register                   controllers.UserController.create
-GET     /user/:id                   controllers.UserController.profile(id: String)
-GET     /user/update/:id            controllers.UserController.update(id: String)
-GET     /user/delete/:id            controllers.UserController.delete(id: String)
-POST    /user/submit                controllers.UserController.form
+GET     /user/:id                   controllers.UserController.profile(id: Integer)
+POST    /user/suspend               controllers.UserController.suspend
+GET     /user/:id/unlock            controllers.UserController.unlock(id: Integer)
+GET     /user/update/:id            controllers.UserController.update(id: Integer)
+GET     /user/delete/:id            controllers.UserController.delete(id: Integer)
+POST    /user/submit                controllers.UserController.customer
+POST    /user/admin                 controllers.UserController.admin           
 
-# Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)

@@ -6,16 +6,6 @@
             <h1 class="text-center">Sign In</h1>
             @helper.form(action = routes.LoginController.form, 'class -> "form") {
                 @helper.CSRF.formField
-                @if(flash.containsKey("success")) {
-                    <div class="alert alert-success">
-                        @flash.get("success")
-                    </div>
-                }
-                @if(flash.containsKey("error")) {
-                    <div class="alert alert-warning">
-                        @flash.get("error")
-                    </div>
-                }
                 @if(loginForm.hasGlobalErrors) {
                     @loginForm.getGlobalError
                 }

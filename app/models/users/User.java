@@ -9,8 +9,8 @@ import models.Cart;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 import java.util.List;
 
 @Entity
@@ -42,6 +42,10 @@ public class User extends Model{
 
     @OneToOne
     private Cart cart;
+
+    private boolean suspended;
+
+    private Date suspendedUntil;
 
     private static Finder<Integer, User> finder = new Finder<>(User.class);
 
@@ -133,6 +137,29 @@ public class User extends Model{
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public Date getSuspendedUntil() {
+        return suspendedUntil;
+    }
+
+    public String suspendedUntilDate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(suspendedUntil);
+    }
+
+    public boolean getSuspended() {
+        return suspended;
+    }
+
+    public void suspend(Date date) {
+        suspended = true;
+        this.suspendedUntil = date;
+    }
+
+    public void unlock() {
+        suspended = false;
+        suspendedUntil = null;
     }
 
     public static Finder<Integer, User> getFinder() {

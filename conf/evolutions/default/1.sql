@@ -22,7 +22,7 @@ create table game (
   price                         double not null,
   rating                        double not null,
   discount                      double not null,
-  is_visible                    boolean default false not null,
+  visible                       boolean default false not null,
   constraint pk_game primary key (id)
 );
 
@@ -68,6 +68,8 @@ create table user (
   username                      varchar(255) not null,
   joined                        timestamp,
   cart_id                       bigint,
+  suspended                     boolean default false not null,
+  suspended_until               timestamp,
   constraint uq_user_email unique (email),
   constraint uq_user_cart_id unique (cart_id),
   constraint pk_user primary key (id)

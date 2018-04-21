@@ -1,8 +1,36 @@
 @(userProfile: models.users.User, user: models.users.User)
 
 @main("OneUP :: " + userProfile.getUsername, user) {
+
+    @if(user.isInstanceOf[models.users.Admin]) {
+        <div id="modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center">Suspend @userProfile.getUsername</h4>
+                    </div>
+                    <form action="@routes.UserController.suspend" method="post" class="form">
+                        @helper.CSRF.formField
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-field" type="date" name="date" placeholder="Date until suspend ends">
+                            </div>
+                            <input type="text" name="id" value="@userProfile.getId" style="display: none">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-danger">Suspend</button>
+                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#profileNav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="profileNav">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" id="showGames" href="#">Games</a>
@@ -10,11 +38,26 @@
                 <li class="nav-item">
                     <a class="nav-link" id="showPosts" href="#">Posts</a>
                 </li>
-                @if(userProfile.getId.equals(user.getId)) {
-                    <li class="nav-item">
-                        <a class="nav-link" href="@routes.UserController.update(userProfile.getId)">Change Details</a>
-                    </li>
-                }
+
+                  @if(userProfile.getId.equals(user.getId)) {
+                      <li class="nav-item">
+                          <a class="nav-link" href="@routes.UserController.update(userProfile.getId)">Change Details</a>
+                      </li>
+                  }
+                  @if(user.isInstanceOf[models.users.Admin]) {
+                      @if(!userProfile.getSuspended) {
+                          <li class="nav-item">
+                              <a class="nav-link" href="#" data-toggle="modal" data-target="#modal">Suspend Account</a>
+                          </li>
+                      } else {
+                          <li class="nav-item">
+                              <a class="nav-link" href="@routes.UserController.unlock(userProfile.getId)">Unlock</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="">Suspended until @userProfile.getSuspendedUntil</a>
+                          </li>
+                      }
+                  }
               </ul>
             </div>
           </nav>
@@ -35,6 +78,10 @@
     <div class="jumbotron" id="profileHeader">
         <h3>@userProfile.getUsername</h3>
         <p>@userProfile.getBio</p>
+        @if(userProfile.getSuspended) {
+            <small>Account suspended until @userProfile.suspendedUntilDate</small>
+        }
+
     </div>
     <div class="row" id="games">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -56,7 +103,7 @@
     </div>
 </div>
 <div class="row" id="posts">
-        @if(userProfile.getPosts().isEmpty) {
+        @if(userProfile.getPosts.isEmpty) {
             <h3>No posts.</h3>
         } else {
                 @for(post <- userProfile.getPosts) {

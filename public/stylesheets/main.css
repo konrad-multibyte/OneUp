@@ -90,3 +90,7 @@ body {
     pointer-events: none;
     cursor: default;
 }
+
+.hidden {
+    opacity: 0.5;
+}

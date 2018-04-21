@@ -29,7 +29,7 @@ public class Thread extends Model {
     @ManyToOne(cascade = CascadeType.ALL)
     private Game game;
 
-    @OneToMany(mappedBy = "thread")
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     private static Finder<String, Thread> finder = new Finder<>(Thread.class);

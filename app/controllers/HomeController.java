@@ -41,7 +41,7 @@ public class HomeController extends Controller {
     }
 
     public Result game(Long id) {
-        Game game = Game.getFinder().byId(id.toString());
+        Game game = Game.getFinder().byId(id);
         return ok((views.html.game.render(User.getWithEmail(session().get("email")), game, environment)));
     }
 
@@ -53,7 +53,7 @@ public class HomeController extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.LoginController.login());
         }
-        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id.toString()));
+        User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id));
         return redirect(routes.HomeController.store());
     }
 
@@ -61,7 +61,7 @@ public class HomeController extends Controller {
         if (session().get("email") == null) {
             return redirect(routes.LoginController.login());
         }
-        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id.toString()));
+        User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id));
         return redirect(routes.HomeController.store());
     }
 
@@ -74,13 +74,11 @@ public class HomeController extends Controller {
     public Result search() {
         DynamicForm form = formFactory.form().bindFromRequest();
         String query = form.get("query");
-        String price = form.get("pRange");
-        String rating = form.get("rRange");
-        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query, price, rating), environment));
+        return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query), environment));
     }
 
     public Result forum(Long id) {
-        Game game = Game.getFinder().byId(id.toString());
+        Game game = Game.getFinder().byId(id);
         return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
 

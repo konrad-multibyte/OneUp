@@ -1,12 +1,8 @@
 @(user: models.users.User, games: java.util.List[models.Game], e: play.api.Environment)
 
 @main("Welcome to OneUP", user) {
-    <div class="container">
         <div class="row">
         @if(user.isInstanceOf[models.users.Admin]) {
-            <div>
-                <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
-            </div>
             <div id="threadModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -29,7 +25,7 @@
                                     <input type="number" name="discount" placeholder="Discount (optional)" class="form-control" step="0.1" min="0" max="100">
                                 </div>
                                 <div class="form-group">
-                                    <input type="file" name="images" placeholder="Game images" multiple required>
+                                    <input type="file" name="images" placeholder="Game images (optional)" multiple>
                                 </div>
                                 <div class="form-group">
                                     <input id="visible" type="checkbox" name="isVisible" class="form-check-input" checked>
@@ -47,47 +43,76 @@
             </div>
         }
         </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card filter">
-                    <div class="card-header">
-                        <h4>Filter</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="@routes.HomeController.search" method="get">
-                            <button type="submit" class="btn btn-success btn-sm filter-content">Search</button>
-                            <input type="text" name="query" placeholder="Search..." class="filter-content">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Price Under</h5>
-                                </div>
-                                <div class="card-body">
-                                    <input class="slider" type="range" name="pRange" min="1" max="120" value="120" onchange="priceRange.value = value">
-                                    <br>€<output id="priceRange">120</output>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Rating Over</h5>
-                                </div>
-                                <div class="card-body">
-                                    <input class="slider" type="range" name="rRange" min="0" max="100" value="0" onchange="ratingRange.value = value">
-                                    <br><output id="ratingRange">0</output>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-9">
-            @for(game <- games) {
-                @if(game.getIsVisible() || user.isInstanceOf[models.users.Admin]) {
-                    <div class="card game">
-                        <div class="card-header">
-                            <h3>@game.getTitle</h3>
+        @if(user.isInstanceOf[models.users.Admin]) {
+            <div id="admin-tools" class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <a id="admin-lock" class="navbar-brand" href="#">Admin Game Tools</a>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="modal" data-target="#threadModal" href="#">Add</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="hideGame" href="#">Hide/Reveal</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="editGame" href="#">Edit</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="removeGame" href="#">Delete</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="card-body">
-                            <div class="left col-sm-2">
+                    </nav>
+                </div>
+                <script>
+                    $('#removeGame').click(function () {
+                        var del = $('.admin-tool-delete')
+                        if(del.is(":visible")) {
+                            del.hide()
+                            $(this).css('color', 'rgba(255,255,255,.5)')
+                        } else {
+                            $(this).css('color', 'green')
+                            del.show();
+                        }
+                    });
+                    $('#hideGame').click(function () {
+                        var hide = $('.admin-tool-hide')
+                        if(hide.is(":visible")) {
+                            hide.hide()
+                            $(this).css('color', 'rgba(255,255,255,.5)')
+                        } else {
+                            $(this).css('color', 'green')
+                            hide.show();
+                        }
+                    });
+                    $('#editGame').click(function () {
+                        var edit = $('.admin-tool-edit')
+                        if(edit.is(":visible")) {
+                            edit.hide()
+                            $(this).css('color', 'rgba(255,255,255,.5)')
+                        } else {
+                            $(this).css('color', 'green')
+                            edit.show();
+                        }
+                    })
+                </script>
+            </div>
+        }
+
+            <div class="col-sm-12">
+                <table class="table">
+                    <tbody>
+            @for(game <- games) {
+                @if(!game.getVisible || user.isInstanceOf[models.users.Admin]) {
+                    <a href="@routes.HomeController.game(game.getId)">
+                    @if(game.getVisible) {
+                        <tr class="hidden">
+                    } else {
+                        <tr>
+                    }
+                            <td>
                             @for(media <- game.getMedia) {
                                 @if(media.getMime.contains("cover")) {
                                     @if(e.resource("public/" + media.getLink).isDefined) {
@@ -95,58 +120,54 @@
                                     }
                                 }
                             }
-                            </div>
-                            <div class="right col-sm-9">
-                                <div class="description">
-                                    <h5>@game.getDescription</h5>
-                                </div>
-                                <div class="price card">
-                                    <div class="card-header card-small centered">
-                                    @if(game.getDiscount > 0.0) {
-                                        <h5>Price</h5>
-                                    </div>
-                                    <div class="card-body card-small centered">
-                                        <h5 class=""><del>@game.getPrice</del> - <span class="badge badge-success">@{game.getDiscount * 100}%</span>
-                                            <br>
-                                            €@game.getDiscountedPrice</h5>
-                                    </div>
-                                    } else {
-                                        <h5>Price</h5>
-                                    </div>
-                                <div class="card-body card-small centered">
-                                    <h5>€@game.getPrice</h5>
-                                </div>
+                            </td>
+                            <td>
+                                @game.getTitle
+                            </td>
+                            <td>
+                                @game.getRating %<br>
+                            </td>
+                            <td>
+                                @if(game.getDiscount > 0.0) {
+                                    <span class="badge badge-success">-@{game.getDiscount * 100}%</span>
                                 }
+                            </td>
+                            <td>
+                                @if(game.getDiscount > 0.0) {
+                                    <del>@game.getPrice</del><br>
+                                    €@game.getDiscountedPrice
+                                }
+                            </td>
+                            <td>
+                                <a href="@routes.HomeController.forum(game.getId())">Forum</a>
+                            </td>
+                            @if(user.isInstanceOf[models.users.Admin]) {
+                                <td class="admin-tool-delete">
+                                    <a class="btn btn-outline-danger" href="@routes.StoreController.removeGame(game.getId)">Delete</a>
+                                </td>
+                                <td class="admin-tool-hide">
+                                    @if(!game.getVisible) {
+                                        <a class="btn btn-outline-danger" href="@routes.StoreController.hideGame(game.getId)">Hide</a>
+                                    } else {
+                                        <a class="btn btn-outline-success" href="@routes.StoreController.hideGame(game.getId)">Reveal</a>
+                                    }
 
-                            </div>
-                            <div class="rating card">
-                                <div class="card-header card-small centered">
-                                    <h5>Rating</h5>
-                                </div>
-                                <div class="card-body card-small centered">
-                                    <h5>@game.getRating</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                <div class="card-header">
-                    <form action="@routes.HomeController.forum(game.getId())" class="left col-sm-2">
-                        <button type="submit" class="btn btn-success btn-lg">
-                            <span>Forum</span>
-                        </button>
-                    </form>
-                    <form action="@routes.HomeController.game(new Long(game.getId))" class="right col-sm-2">
-                        <button type="submit" class="btn btn-success btn-lg">
-                            <span>View</span>
-                        </button>
-                    </form>
-                </div>
-                </div>
+                                </td>
+                                <td class="admin-tool-edit">
+                                    <a class="btn btn-outline-primary" href="#">Edit</a>
+                                </td>
+                                <script>
+                                        $('.admin-tool-delete').hide()
+                                        $('.admin-tool-edit').hide()
+                                        $('.admin-tool-hide').hide()
+                                </script>
+                            }
+                    </tr>
+                    </a>
                 }
 
         }
+                    </tbody>
+                </table>
         </div>
-    </div>
-    </div>
 }

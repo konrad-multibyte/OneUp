@@ -6,9 +6,8 @@ import org.im4java.core.IMOperation;
 import play.api.Environment;
 import play.data.DynamicForm;
 import play.data.FormFactory;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Result;
+import play.db.ebean.Transactional;
+import play.mvc.*;
 
 import javax.inject.Inject;
 
@@ -36,7 +35,7 @@ public class StoreController extends Controller {
         String d = form.get("discount");
         double discount = 0;
         if (!d.equals("")) {
-            discount = Double.valueOf(d);
+            discount = Double.valueOf(d) / 100;
         }
         boolean isVisible = Boolean.valueOf(form.get("isVisible"));
         Game game = new Game(title, description, null, price, 50.0, discount, isVisible);
@@ -45,6 +44,33 @@ public class StoreController extends Controller {
         parseImages(game, mfd.getFiles());
 
         Ebean.save(game);
+        return redirect(routes.HomeController.store());
+    }
+
+    @Transactional
+    @Security.Authenticated(Secure.class)
+    @With(Auth.Administrator.class)
+    public Result removeGame(Long id) {
+        Game game = Game.get(id);
+        flash("success", String.format("(# %d) %s has been deleted", game.getId(), game.getTitle()));
+        game.delete();
+        return redirect(routes.HomeController.store());
+    }
+
+    @Transactional
+    @Security.Authenticated(Secure.class)
+    @With(Auth.Administrator.class)
+    public Result hideGame(Long id) {
+        Game game = Game.get(id);
+
+        if(game.getVisible()) {
+            game.setVisible(false);
+            flash("success", String.format("(# %d) %s has been revealed.", game.getId(), game.getTitle()));
+        } else {
+            game.setVisible(true);
+            flash("success", String.format("(# %d) %s has been hidden.", game.getId(), game.getTitle()));
+        }
+        game.update();
         return redirect(routes.HomeController.store());
     }
 
