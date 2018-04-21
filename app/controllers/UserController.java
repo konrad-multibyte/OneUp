@@ -28,6 +28,7 @@ public class UserController extends Controller{
     }
 
 
+<<<<<<< HEAD
     public Result profile(int id) {
         User user = User.get(id);
         if(user.getSuspendedUntil() != null) {
@@ -36,17 +37,21 @@ public class UserController extends Controller{
             }
         }
         return ok(profile.render(user, User.getWithEmail(session().get("email"))));
+=======
+    public Result profile(Integer id) {
+        return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
+>>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
     }
 
     public Result create() {
         return ok(userForm.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
-    public Result update(int id) {
+    public Result update(Integer id) {
         return ok(userForm.render(formFactory.form(User.class).fill(User.get(id)), User.getWithEmail(session().get("email"))));
     }
 
-    public Result delete(int id) {
+    public Result delete(Integer id) {
         User.get(id).delete();
         return redirect(routes.HomeController.store());
     }
@@ -72,6 +77,11 @@ public class UserController extends Controller{
                 flash("success", "Information Updated!");
                 return redirect(routes.UserController.profile(user.getId()));
             }
+<<<<<<< HEAD
+=======
+            flash("success", "Information Updated!");
+            return redirect(routes.UserController.profile(new Integer(user.getId())));
+>>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
         }
         flash("error", "Unknown error.");
         return redirect(routes.HomeController.store());

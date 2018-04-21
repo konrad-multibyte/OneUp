@@ -75,7 +75,11 @@ public class Post extends Model {
     public static void setFinder(Finder<Long, Post> finder) {
         Post.finder = finder;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
     public Thread getThread() {
         return thread;
     }

@@ -91,6 +91,14 @@ body {
     cursor: default;
 }
 
+<<<<<<< HEAD
 .hidden {
     opacity: 0.5;
+=======
+#gameImg {
+    max-width: 300px;
+    margin-right: 2%;
+    max-height: 300px;
+    float: left;
+>>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
 }
