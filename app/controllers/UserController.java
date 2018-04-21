@@ -22,7 +22,7 @@ public class UserController extends Controller{
     }
 
 
-    public Result profile(int id) {
+    public Result profile(Integer id) {
         return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
     }
 
@@ -30,11 +30,11 @@ public class UserController extends Controller{
         return ok(userForm.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
-    public Result update(int id) {
+    public Result update(Integer id) {
         return ok(userForm.render(formFactory.form(User.class).fill(User.get(id)), User.getWithEmail(session().get("email"))));
     }
 
-    public Result delete(int id) {
+    public Result delete(Integer id) {
         User.get(id).delete();
         return redirect(routes.HomeController.store());
     }
@@ -63,7 +63,7 @@ public class UserController extends Controller{
                 user.update();
             }
             flash("success", "Information Updated!");
-            return redirect(routes.UserController.profile(user.getId()));
+            return redirect(routes.UserController.profile(new Integer(user.getId())));
         }
         flash("error", "Unknown error.");
         return redirect(routes.HomeController.store());

@@ -90,3 +90,10 @@ body {
     pointer-events: none;
     cursor: default;
 }
+
+#gameImg {
+    max-width: 300px;
+    margin-right: 2%;
+    max-height: 300px;
+    float: left;
+}

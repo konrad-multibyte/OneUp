@@ -80,7 +80,7 @@ public class Post extends Model {
         return thread;
     }
 
-    public List<Post> getPostsByUser(Integer id) {
+    public static List<Post> getPostsByUser(Integer id) {
         return Post.finder.query().where().eq("poster_id", id).findList();
     }
 }

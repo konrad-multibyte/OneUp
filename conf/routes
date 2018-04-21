@@ -3,33 +3,30 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
 GET     /game/:id                   controllers.HomeController.game(id : Long)
 
+GET     /                           controllers.HomeController.store
 GET     /store                      controllers.HomeController.store
 GET     /search/                    controllers.HomeController.search
 
-GET     /basket                     controllers.HomeController.basket
+GET     /forum/:id                  controllers.HomeController.forum(id : Long)
+GET     /thread/:id                 controllers.HomeController.thread(id : Long)
 
-GET     /payment                    controllers.HomeController.payment
+GET     /forum/create/:id           controllers.ForumController.createThread(id: Long)
+GET     /thread/create/:id          controllers.ForumController.createPost(id: Long)
 
-GET     /showBasket                 controllers.ShoppingCtrl.showBasket()
-GET     /addToBasket/:id            controllers.ShoppingCtrl.addToBasket(id: Long)
-GET     /removeOne/:itemId         controllers.ShoppingCtrl.removeOne(itemId: String)
-GET     /emptyBasket                controllers.ShoppingCtrl.emptyBasket()
-GET     /viewOrder/:id              controllers.ShoppingCtrl.viewOrder(id: Long)
-
-
+POST     /store/create              controllers.StoreController.create
 
 GET     /login                      controllers.LoginController.login
 POST    /loginSubmit                controllers.LoginController.form
 GET     /logout                     controllers.LoginController.logout
 
 GET     /register                   controllers.UserController.create
-GET     /user/:id                   controllers.UserController.profile(id: String)
-GET     /user/update/:id            controllers.UserController.update(id: String)
-GET     /user/delete/:id            controllers.UserController.delete(id: String)
-POST    /user/submit                controllers.UserController.form
+GET     /user/:id                   controllers.UserController.profile(id: Integer)
+GET     /user/update/:id            controllers.UserController.update(id: Integer)
+GET     /user/delete/:id            controllers.UserController.delete(id: Integer)
+POST    /user/submit                controllers.UserController.customer
+POST    /user/admin                 controllers.UserController.admin
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)

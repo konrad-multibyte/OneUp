@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.List;
 
+import static models.Post.*;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "privileges")
@@ -45,7 +47,7 @@ public class User extends Model{
 
     private static Finder<Integer, User> finder = new Finder<>(User.class);
 
-    public User(int id, String email, String password, String firstName, String lastName, String username,
+    public User(Integer id, String email, String password, String firstName, String lastName, String username,
                 Date joined, Cart cart, List<Game> gamesList) {
         this.id = id;
         this.email = email;
