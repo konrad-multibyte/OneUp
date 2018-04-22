@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Column;
+import java.io.File;
 import java.text.DecimalFormat;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class Game extends Model {
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     private List<Thread> threads;
+
+    private String download;
 
     private static Finder<Long, Game> finder = new Finder<>(Game.class);
 
@@ -114,6 +117,14 @@ public class Game extends Model {
 
     public void setThreads(List<Thread> threads) {
         this.threads = threads;
+    }
+
+    public void setDownload(String download) {
+        this.download = download;
+    }
+
+    public String getDownload() {
+        return download;
     }
 
     public static Finder<Long, Game> getFinder() {

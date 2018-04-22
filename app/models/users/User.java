@@ -45,6 +45,12 @@ public class User extends Model{
     @OneToOne
     private Cart cart;
 
+    @ManyToMany
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private List<User> friends;
+
     private boolean suspended;
 
     private Date suspendedUntil;
@@ -172,6 +178,10 @@ public class User extends Model{
     public void save() {
         password = BCrypt.hashpw(password, BCrypt.gensalt());
         super.save();
+    }
+
+    public List<User> getFriends() {
+        return friends;
     }
 
     @Override

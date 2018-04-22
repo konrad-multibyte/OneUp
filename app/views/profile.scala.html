@@ -38,23 +38,22 @@
                 <li class="nav-item">
                     <a class="nav-link" id="showPosts" href="#">Posts</a>
                 </li>
-
+                  <li class="nav-item">
+                      <a class="nav-link" id="showFriends" href="#">Friends</a>
+                  </li>
                   @if(userProfile.getId.equals(user.getId)) {
                       <li class="nav-item">
                           <a class="nav-link" href="@routes.UserController.update(userProfile.getId)">Change Details</a>
                       </li>
                   }
-                  @if(user.isInstanceOf[models.users.Admin]) {
-                      @if(!userProfile.getSuspended) {
+                  @if(!userProfile.getId.equals(user.getId)) {
+                      @if(user.getFriends.contains(userProfile)) {
                           <li class="nav-item">
-                              <a class="nav-link" href="#" data-toggle="modal" data-target="#modal">Suspend Account</a>
+                              <a class="nav-link" href="@routes.UserController.removeFriend(userProfile.getId)">Remove Friend</a>
                           </li>
                       } else {
                           <li class="nav-item">
-                              <a class="nav-link" href="@routes.UserController.unlock(userProfile.getId)">Unlock</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="">Suspended until @userProfile.getSuspendedUntil</a>
+                              <a class="nav-link" href="@routes.UserController.addFriend(userProfile.getId)">Add Friend</a>
                           </li>
                       }
                   }
@@ -63,25 +62,24 @@
           </nav>
     <script>
             $('#showGames').click(function () {
-                // $('#showGames').hide()
-                // $('#showPosts').show()
+                $('#fiends').hide()
                 $('#posts').hide()
                 $('#games').show()
             });
             $('#showPosts').click(function () {
-                // $('#showPosts').hide()
-                // $('#showGames').show()
+                $('#fiends').hide()
                 $('#games').hide()
                 $('#posts').show()
             });
+            $('#showFriends').click(function () {
+                $('#fiends').show()
+                $('#games').hide()
+                $('#posts').hide()
+            })
         </script>
     <div class="jumbotron" id="profileHeader">
         <h3>@userProfile.getUsername</h3>
         <p>@userProfile.getBio</p>
-        @if(userProfile.getSuspended) {
-            <small>Account suspended until @userProfile.suspendedUntilDate</small>
-        }
-
     </div>
     <div class="row" id="games">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -104,7 +102,7 @@
 </div>
 <div class="row" id="posts">
         @if(userProfile.getPosts.isEmpty) {
-            <h3>No posts.</h3>
+            <h3 class="text-center">No posts.</h3>
         } else {
                 @for(post <- userProfile.getPosts) {
                     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -123,9 +121,23 @@
                     }
             </div>
         }
-    </div>
+<div class="row" id="fiends">
+    @if(userProfile.getFriends.isEmpty) {
+        <h3 class="text-center">No Friends</h3>
+    } else {
+        @for(friend <- userProfile.getFriends) {
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="card w-100 mb-4">
+                    <div class="card-header">
+                        <a href="@routes.UserController.profile(friend.getId)">@friend.getUsername</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
 <script>
     $('#posts').hide()
+    $('#fiends').hide()
 </script>
 }

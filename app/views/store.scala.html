@@ -9,7 +9,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title text-center">Add a new game</h4>
                         </div>
-                        <form action="@routes.StoreController.create" method="post" class="form" enctype="multipart/form-data">
+                        <form action="@routes.StoreController.create" method="post" class="form" accept-charset="UTF-8" enctype="multipart/form-data">
                             @helper.CSRF.formField
                             <div class="modal-body">
                                 <input id="game-id" type="number" name="id" value="" style="display: none">
@@ -29,6 +29,10 @@
                                     <label id="game-images-label" for="game-images">Game images (optional)</label>
                                     <input id="game-images" class="form-control" type="file" name="images" multiple>
 
+                                </div>
+                                <div class="form-group">
+                                    <label for="game-file">Game file</label>
+                                    <input id="game-file" class="form-control" type="file" name="gameFiles">
                                 </div>
                                 <div class="form-group">
                                     <input id="game-visible" type="checkbox" name="isVisible" class="form-check-input" checked>

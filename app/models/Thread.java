@@ -43,9 +43,9 @@ public class Thread extends Model {
         Ebean.save(this);
     }
 
-    public Timestamp getLastReply() {
+    public String getLastReply() {
         if(posts.size() != 0) {
-            return posts.get(posts.size() - 1).getTimePosted();
+            return posts.get(posts.size() - 1).getTimePostedString();
         }
         return null;
     }

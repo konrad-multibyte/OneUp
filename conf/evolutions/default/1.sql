@@ -23,6 +23,7 @@ create table game (
   rating                        double not null,
   discount                      double not null,
   visible                       boolean default false not null,
+  download                      varchar(255),
   constraint pk_game primary key (id)
 );
 
@@ -82,6 +83,12 @@ create table user_game (
   constraint pk_user_game primary key (user_id,game_id)
 );
 
+create table user_friends (
+  user_id                       integer not null,
+  friend_id                     integer not null,
+  constraint pk_user_friends primary key (user_id,friend_id)
+);
+
 alter table cart_game add constraint fk_cart_game_cart foreign key (cart_id) references cart (id) on delete restrict on update restrict;
 create index ix_cart_game_cart on cart_game (cart_id);
 
@@ -113,6 +120,12 @@ create index ix_user_game_user on user_game (user_id);
 
 alter table user_game add constraint fk_user_game_game foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_user_game_game on user_game (game_id);
+
+alter table user_friends add constraint fk_user_friends_user_1 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_user_friends_user_1 on user_friends (user_id);
+
+alter table user_friends add constraint fk_user_friends_user_2 foreign key (friend_id) references user (id) on delete restrict on update restrict;
+create index ix_user_friends_user_2 on user_friends (friend_id);
 
 
 # --- !Downs
@@ -149,6 +162,12 @@ drop index if exists ix_user_game_user;
 alter table user_game drop constraint if exists fk_user_game_game;
 drop index if exists ix_user_game_game;
 
+alter table user_friends drop constraint if exists fk_user_friends_user_1;
+drop index if exists ix_user_friends_user_1;
+
+alter table user_friends drop constraint if exists fk_user_friends_user_2;
+drop index if exists ix_user_friends_user_2;
+
 drop table if exists cart;
 
 drop table if exists cart_game;
@@ -167,4 +186,6 @@ drop table if exists user;
 drop sequence if exists user_seq;
 
 drop table if exists user_game;
+
+drop table if exists user_friends;
 

@@ -4,6 +4,7 @@ import io.ebean.*;
 
 import models.users.User;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,6 +63,10 @@ public class Post extends Model {
 
     public Timestamp getTimePosted() {
         return timePosted;
+    }
+
+    public String getTimePostedString() {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(timePosted);
     }
 
     public void setTimePosted(Timestamp timePosted) {

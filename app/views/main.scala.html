@@ -4,6 +4,7 @@
 <html lang="en">
     <head>
         <title>@title</title>
+        <meta charset="UTF-8">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
@@ -39,7 +40,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="@routes.UserController.profile(user.getId)">Profile</a>
                                     <a class="dropdown-item" href="">Games <span class="text-left">@user.getGamesList.size</span></a>
-                                    <a class="dropdown-item" href="@routes.LoginController.logout">Sign out</a>
+                                    <a class="dropdown-item" href="@routes.LoginController.logout(request.uri)">Sign out</a>
                                 </div>
                             </li>
                         } else {
@@ -47,7 +48,7 @@
                                 <a class="my-2 mx-sm-2 btn btn-outline-success" href="@routes.UserController.create">Register</a>
                             </li>
                             <li class="nav-item">
-                                <a class="my-2 ml-sm-2 btn btn-outline-success" href="@routes.LoginController.login">Sign in</a>
+                                <a class="my-2 ml-sm-2 btn btn-outline-success" href="@routes.LoginController.loginRef(request.uri)">Sign in</a>
                             </li>
                         }
                     </ul>

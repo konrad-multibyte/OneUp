@@ -11,11 +11,13 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.ebean.*;
+import play.mvc.Security;
 
 
 /**
@@ -49,22 +51,19 @@ public class HomeController extends Controller {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.all(), environment));
     }
 
+    @Security.Authenticated(Secure.class)
     public Result addToCart(Long id) {
-        if (session().get("email") == null) {
-            return redirect(routes.LoginController.login());
-        }
         User.getWithEmail(session().get("email")).getCart().getGames().add(Game.get(id));
         return redirect(routes.HomeController.store());
     }
 
+    @Security.Authenticated(Secure.class)
     public Result removeFromCart(Long id) {
-        if (session().get("email") == null) {
-            return redirect(routes.LoginController.login());
-        }
         User.getWithEmail(session().get("email")).getCart().getGames().remove(Game.get(id));
         return redirect(routes.HomeController.store());
     }
 
+    @Security.Authenticated(Secure.class)
     public Result checkout() {
         User.getWithEmail(session().get("email")).getCart().checkout();
         // TODO: Credit card verification
@@ -77,13 +76,24 @@ public class HomeController extends Controller {
         return ok(views.html.store.render(User.getWithEmail(session().get("email")), Game.search(query), environment));
     }
 
+    public Result download(Long id) {
+        Game game = Game.get(id);
+        return ok(new File(game.getDownload()));
+    }
+
     public Result forum(Long id) {
         Game game = Game.getFinder().byId(id);
+        if(game.getVisible()) {
+            return redirect(routes.HomeController.store());
+        }
         return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
 
     public Result thread(Long id) {
         models.Thread thread = models.Thread.getFinder().byId(id.toString());
+        if(thread.getGame().getVisible()) {
+            return redirect(routes.HomeController.store());
+        }
         return ok(views.html.thread.render(User.getWithEmail(session().get("email")), thread, environment));
     }
 

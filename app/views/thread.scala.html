@@ -1,29 +1,23 @@
 @(user: models.users.User, thread: models.Thread, e: play.api.Environment)
 
-    @main("OneUp - " + thread.getTitle(), user) {
-        <div class="card">
-            <div class="card-header">
-                <h5>@thread.getTitle()</h5>
-            </div>
-
+    @main("OneUp - " + thread.getTitle, user) {
+            <h1 class="text-center">@thread.getGame.getTitle - @thread.getTitle</h1>
             @if(user != null) {
-                <div>
-                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
-                </div>
                 <div id="threadModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Post</h4>
+                            <div class="modal-header text-center">
+                                <h4>Post</h4>
                             </div>
-                            <form action="@routes.ForumController.createPost(thread.getId())">
+                            <form action="@routes.ForumController.createPost(thread.getId)" method="post">
+                                @helper.CSRF.formField
                                 <div class="modal-body">
-                                    <textarea name="content" rows="5", cols="50" value="" placeholder="Describe your post in more detail" class="form-control"></textarea>
+                                    <textarea name="content" rows="5" cols="50" placeholder="Describe your post in more detail" class="form-control"></textarea>
                                     <br>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default">Post</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Post</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                 </div>
                             </form>
                         </div>
@@ -31,13 +25,28 @@
                 </div>
             }
             @for(post <- thread.getPosts) {
-                <div class="card-body">
-                    <h5>@post.getPoster().getUsername()</h5>
-                    <h5>@post.getText</h5>
-                    <h5>Posted @post.getTimePosted</h5>
+                <div class="card my-4">
+                    <div class="card-header">
+                        <h5>@post.getPoster.getUsername</h5>
+                        <small class="mt-4">Posted @post.getTimePostedString</small>
+                    </div>
+                    <div class="card-body">
+
+                        <h5>@post.getText</h5>
+
+                    </div>
                 </div>
             }
+            @if(user == null) {
+                <button id="post" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#threadModal">New Post</button>
+                <script>
+                        $('#post').click(function () {
+                            window.location.href='@routes.LoginController.loginRef(request.uri)';
+                        });
 
-        </div>
+                </script>
+            } else {
+                <button class="btn btn-outline-success float-right" data-toggle="modal" data-target="#threadModal">New Post</button>
+            }
 
     }

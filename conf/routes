@@ -1,6 +1,6 @@
 GET     /                           controllers.HomeController.store
 GET     /game/:id                   controllers.HomeController.game(id : Long)
-
+GET     /game/:id/download          controllers.HomeController.download(id: Long)
 
 POST    /forum/:id/create           controllers.ForumController.createThread(id: Long)
 POST    /forum/thread/:id/create    controllers.ForumController.createPost(id: Long)
@@ -18,9 +18,10 @@ POST    /store/create               controllers.StoreController.create
 GET     /forum/:id                  controllers.HomeController.forum(id : Long)
 GET     /thread/:id                 controllers.HomeController.thread(id : Long)
 
+GET     /login:ref                  controllers.LoginController.loginRef(ref: String)
 GET     /login                      controllers.LoginController.login
 POST    /loginSubmit                controllers.LoginController.form
-GET     /logout                     controllers.LoginController.logout
+GET     /logout:ref                 controllers.LoginController.logout(ref: String)
 
 GET     /register                   controllers.UserController.create
 GET     /user/:id                   controllers.UserController.profile(id: Integer)
@@ -29,6 +30,8 @@ GET     /user/:id/unlock            controllers.UserController.unlock(id: Intege
 GET     /user/update/:id            controllers.UserController.update(id: Integer)
 GET     /user/delete/:id            controllers.UserController.delete(id: Integer)
 POST    /user/submit                controllers.UserController.customer
-POST    /user/admin                 controllers.UserController.admin           
+POST    /user/admin                 controllers.UserController.admin
+GET     /user/:id/addFriend         controllers.UserController.addFriend(id: Integer)
+GET     /user/:id/rmFriend          controllers.UserController.removeFriend(id: Integer)
 
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import org.apache.commons.io.FileUtils;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 import play.api.Environment;
@@ -13,6 +14,7 @@ import play.mvc.*;
 import javax.inject.Inject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import io.ebean.*;
@@ -45,6 +47,8 @@ public class StoreController extends Controller {
         }
         Http.MultipartFormData mfd = request().body().asMultipartFormData();
         parseImages(game, mfd.getFiles());
+
+        gameFile(game, request().body().asMultipartFormData().getFile("gameFiles"));
 
         try {
             game.save();
@@ -143,6 +147,21 @@ public class StoreController extends Controller {
                     e.printStackTrace();
                 }
 
+            }
+        }
+    }
+
+
+    private void gameFile(Game game, Http.MultipartFormData.FilePart gameFile) {
+        if (gameFile != null) {
+            String fileName = gameFile.getFilename();
+            File file = (File) gameFile.getFile();
+            File dest = new File("public/gameFiles", fileName);
+            try {
+                FileUtils.moveFile(file, dest);
+                game.setDownload(dest.getAbsolutePath());
+            } catch (IOException ioe) {
+                System.out.println("Problem operating on filesystem");
             }
         }
     }

@@ -17,16 +17,33 @@
                 }
             }
             <h4>@game.getDescription</h4>
+            @if(user != null) {
+                @if(user.getGamesList.contains(game)) {
+                    <a class="btn btn-outline-success" href="@routes.HomeController.download(game.getId)">Download Game</a>
+                } else {
+                    @if(game.getDiscount > 0.0) {
+                        <span class="badge badge-success">-@{game.getDiscount * 100}%</span>
+                        <del><h4>€@game.getPrice</h4></del>
+                        <h4>€@game.getDiscountedPrice</h4>
+                    } else {
+                        <h4>€@game.getPrice</h4>
+                    }
+                    <a class="btn btn-success" href="#">Add To Cart</a>
+
+                }
+            } else {
+                @if(game.getDiscount > 0.0) {
+                    <span class="badge badge-success">-@{game.getDiscount * 100}%</span>
+                    <del><h4>€@game.getPrice</h4></del>
+                    <h4>€@game.getDiscountedPrice</h4>
+                } else {
+                    <h4>€@game.getPrice</h4>
+                }
+                <a class="btn btn-outline-success" href="@routes.LoginController.loginRef(request.uri)">Login to buy</a>
+            }
         </div>
     </div>
 
-    <h6>@game.getPrice</h6>
-    <h6>@game.getRating</h6>
-    @if(user != null) {
-        @if(!user.getCart.getGames.contains(game)) {
-            <a class="btn btn-success" href="">Add To Cart</a>
-        } else {
-            <a class="btn btn-success disabled" href="">Add To Cart</a>
-        }
-    }
+
+
 }

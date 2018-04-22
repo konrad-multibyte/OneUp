@@ -10,20 +10,20 @@ MERGE INTO game VALUES(1, 'Metal Gear Solid', 'The year is 1998, and a terrorist
                                               ' former special forces squad calls retired agent, Snake' ||
                                               ' Plissken, back into action. Infiltrate the radioactive waste' ||
                                               ' disposal facility of Shadow Moses island and put an end to the' ||
-                                              ' threat before it boils over.', 59.99, 49.29, 0.2, true);
+                                              ' threat before it boils over.', 59.99, 49.29, 0.2, true, '/home/konrad/code/OneUp/public/gameFiles/1.zip');
 
 MERGE INTO game VALUES(2, 'Final Fantasy XV',
                        'On the verge of war, a king sends his son on a voyage to marry the soon-to-be leader' ||
                        ' of a foreign country in order to bring peace. War is declared before the marriage can' ||
                        ' be completed, leaving only the prince and his three bodyguards to save the day.',
-                       49.99, 97.20, 0, false);
+                       49.99, 97.20, 0, false, '/home/konrad/code/OneUp/public/gameFiles/2.zip');
 
 MERGE INTO game VALUES(3, 'Car Stealers Five', 'Three men, brought together by an unfortunate twist' ||
                                                ' of fate, find themselves embroiled in a plot to' ||
                                                ' see who can create the most faithful reenaction' ||
                                                ' of Quentin Tarantino''s Resevoir Dogs. They soon' ||
                                                ' learn that the art of stealing jewelry and then feeling' ||
-                                               ' bad about it afterwards is not as easy as it seems.', 14.99, 85.50, 0.6, true);
+                                               ' bad about it afterwards is not as easy as it seems.', 14.99, 85.50, 0.6, true, '/home/konrad/code/OneUp/public/gameFiles/3.zip');
 
 MERGE INTO media VALUES (1, 'image/jpg/cover', 'images/Metal-Gear.jpg', null);
 MERGE INTO media VALUES (3, 'image/jpg/cover', 'images/ffxv.jpg', null);

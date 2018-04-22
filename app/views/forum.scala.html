@@ -1,14 +1,15 @@
 @(user: models.users.User, game: models.Game, e: play.api.Environment)
 
-    @main("OneUp ::" + game.getTitle + ":: Discussions", user) {
-        <div class="card">
-            <div class="card-header">
-                <h5>@game.getTitle</h5>
-            </div>
-            <div class="card-body">
-                <div>
-                    <img type="button" data-toggle="modal" data-target="#threadModal" height="50" width="50" src="@routes.Assets.versioned("images/plus.png")">
+    @main("OneUp :: " + game.getTitle + ":: Discussions", user) {
+                <div class="mb-2">
+                @if(user == null) {
+                    <a class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#threadModal" href="@routes.LoginController.loginRef(request.uri)">New Thread</a>
+                } else {
+                    <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#threadModal">
+                        New Thread</button>
+                }
                 </div>
+
                 @if(user != null) {
                 <div id="threadModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -21,7 +22,7 @@
                                 <div class="modal-body">
                                     <input type="text" placeholder="Title" class="form-control" name="title">
                                     <br>
-                                    <textarea name="content" rows="5" cols="50" placeholder="Describe your post in more detail" class="form-control"></textarea>
+                                    <textarea name="content" rows="5" cols="50" placeholder="Describe your thread in more detail" class="form-control"></textarea>
                                     <br>
                                 </div>
                                 <div class="modal-footer">
@@ -39,20 +40,13 @@
                     @for(thread <- game.getThreads) {
                         <div class="card">
                             <div class="card-header">
+                                <small>@thread.getPoster.getUsername</small>
                                 <h5>@thread.getTitle</h5>
-                                <h5>Poster: @thread.getPoster.getUsername()<h5>
-                                <h5>Last reply: @thread.getLastReply</h5>
-                                <form action="@routes.HomeController.thread(thread.getId)" class="left col-sm-2">
-                                    <button type="submit" class="btn btn-success btn-lg">
-                                        <span>View</span>
-                                    </button>
-                                </form>
-
+                                <small>Last reply: @thread.getLastReply</small>
+                                <a class="btn btn-outline-primary float-right" href="@routes.HomeController.thread(thread.getId)">View</a>
                             </div>
                         </div>
                     }
 
                 }
             }
-</div>
-</div>

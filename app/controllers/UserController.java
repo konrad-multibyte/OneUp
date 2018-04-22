@@ -29,11 +29,6 @@ public class UserController extends Controller{
 
     public Result profile(int id) {
         User user = User.get(id);
-        if(user.getSuspendedUntil() != null) {
-            if(user.getSuspendedUntil().after(new Date())) {
-                user.unlock();
-            }
-        }
         return ok(profile.render(user, User.getWithEmail(session().get("email"))));
     }
 
@@ -41,13 +36,36 @@ public class UserController extends Controller{
         return ok(userForm.render(formFactory.form(User.class), User.getWithEmail(session().get("email"))));
     }
 
+    @Security.Authenticated(Secure.class)
     public Result update(Integer id) {
         return ok(userForm.render(formFactory.form(User.class).fill(User.get(id)), User.getWithEmail(session().get("email"))));
     }
 
+    @Security.Authenticated(Secure.class)
+    @With(Auth.Administrator.class)
     public Result delete(Integer id) {
         User.get(id).delete();
         return redirect(routes.HomeController.store());
+    }
+
+    @Security.Authenticated(Secure.class)
+    public Result addFriend(Integer id) {
+        User user = User.getWithEmail(session().get("email"));
+        User friend = User.get(id);
+        user.getFriends().add(friend);
+        user.update();
+        flash("success", String.format("%s was added to your friends list", friend.getUsername()));
+        return redirect(routes.UserController.profile(id));
+    }
+
+    @Security.Authenticated(Secure.class)
+    public Result removeFriend(Integer id) {
+        User user = User.getWithEmail(session().get("email"));
+        User friend = User.get(id);
+        user.getFriends().remove(friend);
+        user.update();
+        flash("success", String.format("%s was added to your friends list", friend.getUsername()));
+        return redirect(routes.UserController.profile(id));
     }
 
     @Security.Authenticated(Secure.class)
