@@ -1,7 +1,6 @@
 package controllers;
 
 import io.ebean.DuplicateKeyException;
-import io.ebean.Ebean;
 import models.users.Customer;
 import models.users.User;
 import models.users.Admin;
@@ -28,7 +27,6 @@ public class UserController extends Controller{
     }
 
 
-<<<<<<< HEAD
     public Result profile(int id) {
         User user = User.get(id);
         if(user.getSuspendedUntil() != null) {
@@ -37,10 +35,6 @@ public class UserController extends Controller{
             }
         }
         return ok(profile.render(user, User.getWithEmail(session().get("email"))));
-=======
-    public Result profile(Integer id) {
-        return ok(profile.render(User.get(id), User.getWithEmail(session().get("email"))));
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
     }
 
     public Result create() {
@@ -77,11 +71,6 @@ public class UserController extends Controller{
                 flash("success", "Information Updated!");
                 return redirect(routes.UserController.profile(user.getId()));
             }
-<<<<<<< HEAD
-=======
-            flash("success", "Information Updated!");
-            return redirect(routes.UserController.profile(new Integer(user.getId())));
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
         }
         flash("error", "Unknown error.");
         return redirect(routes.HomeController.store());

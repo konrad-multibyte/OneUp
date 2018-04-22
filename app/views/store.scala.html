@@ -12,30 +12,32 @@
                         <form action="@routes.StoreController.create" method="post" class="form" enctype="multipart/form-data">
                             @helper.CSRF.formField
                             <div class="modal-body">
+                                <input id="game-id" type="number" name="id" value="" style="display: none">
                                 <div class="form-group">
-                                    <input type="text" name="title" placeholder="Title" class="form-control" required>
+                                    <input id="game-title" type="text" name="title" placeholder="Title" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="content" rows="5" cols="50" placeholder="Description" class="form-control" required></textarea>
+                                    <textarea id="game-desc" name="content" rows="5" cols="50" placeholder="Description" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="price" placeholder="Price" class="form-control" step="0.01" min="0" required>
+                                    <input id="game-price" type="number" name="price" placeholder="Price" class="form-control" step="0.01" min="0" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="discount" placeholder="Discount (optional)" class="form-control" step="0.1" min="0" max="100">
+                                    <input id="game-discount" type="number" name="discount" placeholder="Discount (optional)" class="form-control" step="1" min="0" max="100">
                                 </div>
                                 <div class="form-group">
-                                    <input type="file" name="images" placeholder="Game images (optional)" multiple>
+                                    <label id="game-images-label" for="game-images">Game images (optional)</label>
+                                    <input id="game-images" class="form-control" type="file" name="images" multiple>
+
                                 </div>
                                 <div class="form-group">
-                                    <input id="visible" type="checkbox" name="isVisible" class="form-check-input" checked>
-                                    <label for="visible">Visible to public?</label>
+                                    <input id="game-visible" type="checkbox" name="isVisible" class="form-check-input" checked>
+                                    <label for="game-visible">Visible to public?</label>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-outline-success">Create</button>
-
+                                <button id="game-button" type="submit" class="btn btn-outline-success">Create</button>
                             </div>
                         </form>
                     </div>
@@ -51,7 +53,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#threadModal" href="#">Add</a>
+                                    <a id="add-game" class="nav-link" data-toggle="modal" data-target="#threadModal" href="#">Add</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="hideGame" href="#">Hide/Reveal</a>
@@ -67,13 +69,23 @@
                     </nav>
                 </div>
                 <script>
+                    $('#add-game').click(function () {
+                        $('#game-id').attr('value', '');
+                        $('#game-title').attr('value', '');
+                        $('#game-desc').val('');
+                        $('#game-price').attr('value', '');
+                        $('#game-discount').attr('value', '');
+                        $('#game-images-label').html('Game images (optional)')
+                        $('#game-button').html('Create')
+                    });
+
                     $('#removeGame').click(function () {
                         var del = $('.admin-tool-delete')
                         if(del.is(":visible")) {
                             del.hide()
                             $(this).css('color', 'rgba(255,255,255,.5)')
                         } else {
-                            $(this).css('color', 'green')
+                            $(this).css('color', 'green');
                             del.show();
                         }
                     });
@@ -106,7 +118,7 @@
                     <tbody>
             @for(game <- games) {
                 @if(!game.getVisible || user.isInstanceOf[models.users.Admin]) {
-                    <a href="@routes.HomeController.game(game.getId)">
+
                     @if(game.getVisible) {
                         <tr class="hidden">
                     } else {
@@ -122,7 +134,9 @@
                             }
                             </td>
                             <td>
-                                @game.getTitle
+                                <a href="@routes.HomeController.game(game.getId)">
+                                    @game.getTitle
+                                </a>
                             </td>
                             <td>
                                 @game.getRating %<br>
@@ -134,7 +148,7 @@
                             </td>
                             <td>
                                 @if(game.getDiscount > 0.0) {
-                                    <del>@game.getPrice</del><br>
+                                    <del>€@game.getPrice</del><br>
                                     €@game.getDiscountedPrice
                                 }
                             </td>
@@ -154,7 +168,18 @@
 
                                 </td>
                                 <td class="admin-tool-edit">
-                                    <a class="btn btn-outline-primary" href="#">Edit</a>
+                                    <a id="edit-@game.getId()" class="btn btn-outline-primary" data-toggle="modal" data-target="#threadModal" href="#">Edit</a>
+                                    <script>
+                                        $('#edit-@game.getId()').click(function () {
+                                            $('#game-id').attr('value', '@game.getId');
+                                            $('#game-title').attr('value', '@game.getTitle');
+                                            $('#game-desc').val('@game.getDescription');
+                                            $('#game-price').attr('value', '@game.getPrice');
+                                            $('#game-discount').attr('value', '@{game.getDiscount * 100}')
+                                            $('#game-images-label').html('Uploading images will cause existing images to be discarded.')
+                                            $('#game-button').html('Update')
+                                        })
+                                    </script>
                                 </td>
                                 <script>
                                         $('.admin-tool-delete').hide()
@@ -163,7 +188,6 @@
                                 </script>
                             }
                     </tr>
-                    </a>
                 }
 
         }

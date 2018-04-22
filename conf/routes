@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 GET     /                           controllers.HomeController.store
 GET     /game/:id                   controllers.HomeController.game(id : Long)
 
@@ -18,26 +17,6 @@ POST    /store/create               controllers.StoreController.create
 
 GET     /forum/:id                  controllers.HomeController.forum(id : Long)
 GET     /thread/:id                 controllers.HomeController.thread(id : Long)
-=======
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
-# An example controller showing a sample home page
-GET     /game/:id                   controllers.HomeController.game(id : Long)
-
-GET     /                           controllers.HomeController.store
-GET     /store                      controllers.HomeController.store
-GET     /search/                    controllers.HomeController.search
-
-GET     /forum/:id                  controllers.HomeController.forum(id : Long)
-GET     /thread/:id                 controllers.HomeController.thread(id : Long)
-
-GET     /forum/create/:id           controllers.ForumController.createThread(id: Long)
-GET     /thread/create/:id          controllers.ForumController.createPost(id: Long)
-
-POST     /store/create              controllers.StoreController.create
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
 
 GET     /login                      controllers.LoginController.login
 POST    /loginSubmit                controllers.LoginController.form
@@ -45,7 +24,6 @@ GET     /logout                     controllers.LoginController.logout
 
 GET     /register                   controllers.UserController.create
 GET     /user/:id                   controllers.UserController.profile(id: Integer)
-<<<<<<< HEAD
 POST    /user/suspend               controllers.UserController.suspend
 GET     /user/:id/unlock            controllers.UserController.unlock(id: Integer)
 GET     /user/update/:id            controllers.UserController.update(id: Integer)
@@ -54,12 +32,3 @@ POST    /user/submit                controllers.UserController.customer
 POST    /user/admin                 controllers.UserController.admin           
 
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file)
-=======
-GET     /user/update/:id            controllers.UserController.update(id: Integer)
-GET     /user/delete/:id            controllers.UserController.delete(id: Integer)
-POST    /user/submit                controllers.UserController.customer
-POST    /user/admin                 controllers.UserController.admin
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file)
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c

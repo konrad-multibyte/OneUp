@@ -3,13 +3,8 @@
 MERGE INTO cart VALUES (1, 500);
 MERGE INTO cart VALUES (2, 199);
 
-<<<<<<< HEAD
 MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'Casual user.', 'xX_sNIP3rW0LF_Xx', '2018-04-17 14:46:25', 2, false, null);
 MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'Hardcore weeb.', 'admin', '2018-04-17 14:42:30', 1, false, null);
-=======
-MERGE INTO user VALUES ('customer', 12420, 'normie@oneup.com', '$2a$10$GF9gQHb7408xiHQhP8Wuuez4ZPNP4C.05Hl1VBwXpIwAB5l6Z5YZG', 'Norman', 'User', 'Casual user.', 'UserGuy', '2018-04-17 14:46:25', 2);
-MERGE INTO user VALUES ('admin', 12452, 'admin@oneup.com', '$2a$10$3e4CeGNijd3Z79B1cRufOObaYB/2gScT2fOUkEC3P5p679NvfLMTm', 'ad', 'min', 'Hardcore weeb.', 'admin', '2018-04-17 14:42:30', 1);
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
 
 MERGE INTO game VALUES(1, 'Metal Gear Solid', 'The year is 1998, and a terrorist threat made by a' ||
                                               ' former special forces squad calls retired agent, Snake' ||

@@ -6,6 +6,7 @@ import models.users.User;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 
 import static play.mvc.Controller.session;
@@ -16,14 +17,14 @@ public class Post extends Model {
     @Id
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User poster;
     @Column(columnDefinition = "LONGVARCHAR")
     private String text;
 
     private Timestamp timePosted;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Thread thread;
 
     private static Finder<Long, Post> finder = new Finder<>(Post.class);
@@ -33,7 +34,6 @@ public class Post extends Model {
         this.text = text;
         this.thread = thread;
         timePosted = new Timestamp(System.currentTimeMillis());
-        Ebean.save(this);
     }
 
     public Long getId() {
@@ -75,11 +75,6 @@ public class Post extends Model {
     public static void setFinder(Finder<Long, Post> finder) {
         Post.finder = finder;
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> b398c95ef6ff7ce4157710ba0eec20f305b0d14c
     public Thread getThread() {
         return thread;
     }

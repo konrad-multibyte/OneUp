@@ -35,14 +35,13 @@ public class Game extends Model {
 
     private static Finder<Long, Game> finder = new Finder<>(Game.class);
 
-    public Game(String title, String description, List<GameTag> gameTags, double price, double rating, double discount, boolean visible) {
+    public Game(String title, String description, double price, double rating, double discount, boolean visible) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.rating = rating;
         this.discount = discount;
         this.visible = visible;
-        Ebean.save(this);
     }
 
     public Long getId() {

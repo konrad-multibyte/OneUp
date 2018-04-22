@@ -4,6 +4,7 @@ import models.*;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 import play.api.Environment;
+import play.api.mvc.MultipartFormData;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.ebean.Transactional;
@@ -18,17 +19,17 @@ import io.ebean.*;
 
 public class StoreController extends Controller {
 
-    private Environment environment;
     private FormFactory formFactory;
 
     @Inject
-    public StoreController(Environment environment, FormFactory formFactory) {
-        this.environment = environment;
+    public StoreController(FormFactory formFactory) {
         this.formFactory = formFactory;
     }
 
     public Result create() {
         DynamicForm form = formFactory.form().bindFromRequest();
+
+
         String title = form.get("title");
         String description = form.get("content");
         double price = Double.valueOf(form.get("price"));
@@ -38,12 +39,22 @@ public class StoreController extends Controller {
             discount = Double.valueOf(d) / 100;
         }
         boolean isVisible = Boolean.valueOf(form.get("isVisible"));
-        Game game = new Game(title, description, null, price, 50.0, discount, isVisible);
+        Game game = new Game(title, description, price, 50.0, discount, isVisible);
+        if(!form.get("id").equals("")) {
+            game.setId(Long.valueOf(form.get("id")));
+        }
         Http.MultipartFormData mfd = request().body().asMultipartFormData();
-
         parseImages(game, mfd.getFiles());
 
-        Ebean.save(game);
+        try {
+            game.save();
+            flash("success", String.format("Game %s has been created.", game.getTitle()));
+        } catch (DuplicateKeyException e) {
+            game.update();
+            flash("success", String.format("Game %s has been updated", game.getTitle()));
+        }
+
+
         return redirect(routes.HomeController.store());
     }
 
@@ -74,10 +85,12 @@ public class StoreController extends Controller {
         return redirect(routes.HomeController.store());
     }
 
-    private void parseImages(Game game, List<Http.MultipartFormData.FilePart> list) {
+    private void parseImages(Game game, List list) {
+        game.getMedia().clear();
         String relative = "/images/game/";
         boolean cover = false;
-        for (Http.MultipartFormData.FilePart filePart : list) {
+        for (Object object : list) {
+            Http.MultipartFormData.FilePart filePart = (Http.MultipartFormData.FilePart) object;
             String mime = filePart.getContentType();
             if (mime.startsWith("image/")) {
                 File file = ((File) filePart.getFile());

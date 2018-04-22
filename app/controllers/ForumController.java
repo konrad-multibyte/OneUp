@@ -34,7 +34,7 @@ public class ForumController extends Controller{
         DynamicForm form = formFactory.form().bindFromRequest();
         String title = form.get("title");
         String content = form.get("content");
-        Game game = Game.getFinder().byId(id.toString());
+        Game game = Game.getFinder().byId(id);
         Ebean.save(new Thread(title, game, content));
         return ok(views.html.forum.render(User.getWithEmail(session().get("email")), game, environment));
     }
